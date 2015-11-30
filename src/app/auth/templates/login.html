@@ -14,7 +14,7 @@
                                class="form-control input-sm"
                                name="username"
                                required
-                               ng-model="vm.loginCredentials.username">
+                               ng-model="vm.credentials.username">
                         <span class="help-block" ng-show="loginForm.$submitted && loginForm.username.$error.required">
                             Your name is required.
                         </span>
@@ -28,15 +28,14 @@
                                class="form-control input-sm"
                                name="password"
                                required
-                               ng-model="vm.loginCredentials.password">
+                               ng-model="vm.credentials.password">
                         <span class="help-block" ng-show="loginForm.$submitted && loginForm.password.$error.required">
                             Your name is required.
                         </span>
                     </div>
 
                     <button type="submit"
-                            class="btn btn-sm btn-default"
-                            ng-disabled="">
+                            class="btn btn-sm btn-default">
                         Login
                     </button>
                 </form>

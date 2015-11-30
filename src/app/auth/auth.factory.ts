@@ -1,5 +1,3 @@
-import { LoginCredentials, RegisterCredentials } from './auth.controller';
-
 interface IAuthFactory {
     login(credentials: any): ng.IPromise<ng.IDeferred<void>>;
     register(credentials: any): ng.IPromise<ng.IDeferred<void>>;
@@ -12,7 +10,7 @@ class AuthFactory implements IAuthFactory {
         private CONSTANTS: any
     ) {}
 
-    login(credentials: LoginCredentials): ng.IHttpPromise<ng.IDeferred<void>> {
+    login(credentials: any): ng.IHttpPromise<ng.IDeferred<void>> {
         return this.$http({
             method: 'POST',
             url: this.CONSTANTS.API_URL + 'token',
@@ -23,7 +21,7 @@ class AuthFactory implements IAuthFactory {
         });
     }
 
-    register(credentials: RegisterCredentials): ng.IPromise<ng.IDeferred<void>> {
+    register(credentials: any): ng.IPromise<ng.IDeferred<void>> {
         return this.$http.post(this.CONSTANTS.API_URL + 'api/Account/Register/', credentials);
     }
 }

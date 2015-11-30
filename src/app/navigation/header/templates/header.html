@@ -13,8 +13,12 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li><a ui-sref="home.login">Login</a></li>
-                <li><a ui-sref="home.register">Register</a></li>
+                <li ui-sref-active="active">
+                    <a ui-sref="home.login">Login</a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="home.register">Register</a>
+                </li>
             </ul>
         </div>
     </div>

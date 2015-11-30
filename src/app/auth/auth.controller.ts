@@ -1,63 +1,71 @@
 import { AuthService } from './auth.service';
-
-class AuthCredentials {
-    public password: string;
-}
-
-class LoginCredentials extends AuthCredentials {
-    public username: string;
-}
-
-class RegisterCredentials extends AuthCredentials {
-    public email: string;
-    public confirmPassword: string;
-}
+import { AuthFactory } from './auth.factory';
+import { UserFactory } from '../user/user.factory';
 
 class AuthController {
-    public loginCredentials: LoginCredentials;
-    public registerCredentials: RegisterCredentials;
+    public credentials: any;
 
     /** @ngInject */
     constructor(
         private $log: angular.ILogService,
+        private $state: angular.ui.IStateService,
         private AuthService: AuthService,
-        private $state: angular.ui.IStateService
+        private AuthFactory: AuthFactory,
+        private UserFactory: UserFactory
     ) {}
+
+    getAuthUser(username: string) {
+        this.UserFactory.getUser(username).then(
+            (response: any) => {
+                this.AuthService.setIdentity(response);
+
+                this.$state.transitionTo('home');
+            },
+            () => {
+                this.$log.error('При получении данных о аутентифицирован пользователе возникла некая ошибка.');
+            }
+        );
+    }
 
     login(loginFormValid: boolean) {
         if (loginFormValid) {
-            this.AuthService.login(this.loginCredentials).then(
-                () => {
-                    debugger;
-                    this.$state.transitionTo('home');
+            this.AuthFactory.login(this.credentials).then(
+                (response: any) => {
+                    if (response.data.access_token && response.data.username) {
+                        this.AuthService.setToken(response.data.access_token);
+
+                        this.getAuthUser(response.data.username);
+                    }
                 },
                 () => {
-                    this.$log.error('ERROR LOGIN');
+                    this.$log.error('При аутентификация пользователя произошла некая ошибка.');
                 }
             );
         } else {
-            alert('Login form is not valid');
+            alert('Форма входа содержит ошибки.');
         }
     }
 
     register(registerFormValid: boolean): void {
         if (registerFormValid) {
-            this.AuthService.register(this.registerCredentials).then(
+            this.AuthFactory.register(this.credentials).then(
                 (response: any) => {
-                    this.$log.info('SUCCESS REGISTER', response);
+                    if (response.status === 200) {
+                        this.login(true);
+                    } else {
+                        this.$log.error('Регистрация пользователя произошла с ошибкой.');
+                    }
                 },
                 () => {
-                    this.$log.error('ERROR REGISTER');
+                    this.$log.error('При регистрации пользователя произошла некая ошибкая.');
                 }
             );
         } else {
-            alert('Register form is not valid');
+            alert('Регистрационная форма содержит ошибки.');
         }
     }
 }
 
 export {
-    AuthController,
-    LoginCredentials,
-    RegisterCredentials
+    AuthController
 }

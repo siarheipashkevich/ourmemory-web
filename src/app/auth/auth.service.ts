@@ -1,5 +1,4 @@
 import { IAuthFactory } from './auth.factory';
-import { LoginCredentials, RegisterCredentials } from './auth.controller';
 
 class AuthService {
     private localStorage: any;
@@ -8,47 +7,11 @@ class AuthService {
     constructor(
         private AuthFactory: IAuthFactory,
         private $q: ng.IQService,
-        private AUTH_ROLES: any,
         private $state: angular.ui.IStateService,
+        private AUTH_ROLES: any,
         private $rootScope: any
     ) {
         this.localStorage = localStorage;
-    }
-
-    login(credentials: LoginCredentials): ng.IPromise<ng.IDeferred<void>> {
-        var deffer = this.$q.defer();
-
-        this.AuthFactory.login(credentials).then(
-            (response: any) => {
-                if (response.data.access_token) {
-                    this.setToken(response.data.access_token);
-
-                    deffer.resolve(response);
-                } else {
-                    deffer.reject('access_token not valid');
-                }
-            },
-            (response: any) => {
-                deffer.reject(response);
-            }
-        );
-
-        return deffer.promise;
-    }
-
-    register(credentials: RegisterCredentials): ng.IPromise<ng.IDeferred<void>> {
-        var deffer = this.$q.defer();
-
-        this.AuthFactory.register(credentials).then(
-            (response: any) => {
-                deffer.resolve(response);
-            },
-            (response: any) => {
-                deffer.reject(response);
-            }
-        );
-
-        return deffer.promise;
     }
 
     isAuthenticated() {
@@ -65,9 +28,17 @@ class AuthService {
         this.localStorage.setItem('access_token', accessToken);
     }
 
-    setIdentity(userData) {
+    setIdentity(userData: any) {
         this.$rootScope.isLoggedIn = true;
+
         this.$rootScope.authUser = userData;
+    }
+
+    clearIdentity() {
+        this.$rootScope.isLoggedIn = false;
+        this.$rootScope.authUser = null;
+
+        this.localStorage.removeItem('access_token');
     }
 
     checkAccessToState(event: any, toState: any, toParams: any, fromState: any) {
