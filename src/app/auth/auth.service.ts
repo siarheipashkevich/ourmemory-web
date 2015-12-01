@@ -1,17 +1,30 @@
-import { IAuthFactory } from './auth.factory';
+import { AuthFactory } from './auth.factory';
 
 class AuthService {
     private localStorage: any;
 
     /** @ngInject */
     constructor(
-        private AuthFactory: IAuthFactory,
         private $q: ng.IQService,
         private $state: angular.ui.IStateService,
-        private AUTH_ROLES: any,
-        private $rootScope: any
+        private $rootScope: any,
+        private AuthFactory: AuthFactory,
+        private AUTH_ROLES: any
     ) {
         this.localStorage = localStorage;
+    }
+
+    getAuthUser() {
+        return this.AuthFactory.getAuthUser().then(
+            (response: any) => {
+                this.setIdentity(response.data);
+
+                this.$state.transitionTo('home');
+            },
+            (error: any) => {
+                return this.$q.reject(error);
+            }
+        );
     }
 
     isAuthenticated() {
@@ -43,12 +56,13 @@ class AuthService {
 
     checkAccessToState(event: any, toState: any, toParams: any, fromState: any) {
         // deny access to the signIn page to authorized users
-        if (toState.name === 'home.login' && this.isAuthenticated()) {
+        if ((toState.name === 'home.login' || toState.name === 'home.register') && this.isAuthenticated()) {
             event.preventDefault();
+            return;
         }
 
         if (toState.data && toState.data.allow) {
-            var authorizedRoles = toState.data.allow;
+            var authorizedRoles: Array<string> = toState.data.allow;
 
             if (authorizedRoles.indexOf(this.AUTH_ROLES.all) === -1) {
                 if (!this.isAuthorized(authorizedRoles)) {

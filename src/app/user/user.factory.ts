@@ -5,10 +5,8 @@ class UserFactory {
         private CONSTANTS: any
     ) {}
 
-    getUser(username: string): ng.IPromise<ng.IDeferred<void>> {
-        return this.$http.post(this.CONSTANTS.API_URL + 'api/getUser', {
-            username: username
-        });
+    getUser(): ng.IPromise<any> {
+        return this.$http.get(this.CONSTANTS.API_URL + 'account/userInfo');
     }
 }
 

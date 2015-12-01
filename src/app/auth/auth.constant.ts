@@ -1,5 +1,5 @@
 const AUTH_ROLES = {
-    all: 'all',
+    all: 'All',
     guest: 'Guest',
     user: 'User',
     admin: 'Admin',

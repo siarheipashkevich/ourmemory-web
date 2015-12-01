@@ -1,7 +1,13 @@
+import { AuthService } from '../../auth/auth.service';
+
 class HeaderController {
     /** @ngInject */
-    constructor() {
-        console.log('Init HeaderController');
+    constructor(
+        private AuthService: AuthService
+    ) {}
+
+    logout(): void {
+        this.AuthService.clearIdentity();
     }
 }
 

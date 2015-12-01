@@ -1,6 +1,7 @@
 class HomeController {
+    /** @ngInject */
     constructor() {
-        console.log('Home Controller');
+        console.log('Home controller');
     }
 }
 
