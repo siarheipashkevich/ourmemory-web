@@ -5,6 +5,8 @@ function appRun(
     $rootScope: angular.IRootScopeService,
     AuthService: AuthService
 ) {
+    AuthService.fillAuthData();
+
     $rootScope.$on('$stateChangeStart', stateChangeStart);
 
     function stateChangeStart(

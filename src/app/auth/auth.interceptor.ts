@@ -9,7 +9,7 @@ function authInterceptor($injector: any, $log: angular.ILogService) {
         config.headers = config.headers || {};
 
         if (localStorage.getItem('access_token')) {
-            config.headers.Authorization = 'Bearer ' + localStorage.getItem('access_token');
+            config.headers.Authorization = 'Bearer ' + localStorage.getItem('accessToken');
         }
 
         return config;

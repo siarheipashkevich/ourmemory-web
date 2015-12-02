@@ -11,10 +11,9 @@ class AuthFactory implements IAuthFactory {
     ) {}
 
     login(credentials: any): ng.IHttpPromise<any> {
-        return this.$http({
-            method: 'POST',
-            url: this.CONSTANTS.API_URL + 'token',
-            data: 'grant_type=password&username=' + credentials.email + '&password=' + credentials.password,
+        var data = 'grant_type=password&username=' + credentials.email + '&password=' + credentials.password;
+
+        return this.$http.post(this.CONSTANTS.API_URL + 'token', data, {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
             }

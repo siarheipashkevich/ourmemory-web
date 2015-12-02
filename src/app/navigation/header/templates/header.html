@@ -13,16 +13,22 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li ui-sref-active="active" ng-if="!isLoggedIn">
+                <li ui-sref-active="active">
+                    <a ui-sref="home.veterans">Veterans</a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="home.articles">Articles</a>
+                </li>
+                <li ui-sref-active="active" ng-if="authenticated">
+                    <a ui-sref="home.profile">{{authUser.email}}</a>
+                </li>
+                <li ui-sref-active="active" ng-if="!authenticated">
                     <a ui-sref="home.login">Login</a>
                 </li>
-                <li ui-sref-active="active" ng-if="!isLoggedIn">
+                <li ui-sref-active="active" ng-if="!authenticated">
                     <a ui-sref="home.register">Register</a>
                 </li>
-                <li ng-if="isLoggedIn">
-                    <a ng-href="#">{{authUser.email}}</a>
-                </li>
-                <li ng-if="isLoggedIn">
+                <li ng-if="authenticated">
                     <a ng-href="#" ng-click="vm.logout()">Logout</a>
                 </li>
             </ul>

@@ -12,19 +12,8 @@ function homeRoute(
             controller: 'HomeController',
             controllerAs: 'vm',
             data: {
-                allow: [AUTH_ROLES.user]
+                allow: [AUTH_ROLES.all]
             }
-            // resolve: {
-            //    /** @ngInject */
-            //    auth: (AuthService: AuthService, $q: ng.IQService) => {
-            //        debugger;
-            //        return $q.when(
-            //            localStorage.getItem('access_token') && !AuthService.isAuthenticated()
-            //                ? AuthService.getAuthUser()
-            //                : null
-            //        );
-            //    }
-            // }
         });
 }
 

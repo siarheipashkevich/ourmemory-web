@@ -1,7 +1,7 @@
 import { AuthFactory } from './auth.factory';
 
 class AuthService {
-    private localStorage: any;
+    private localStorage: any = localStorage;
 
     /** @ngInject */
     constructor(
@@ -10,21 +10,34 @@ class AuthService {
         private $rootScope: any,
         private AuthFactory: AuthFactory,
         private AUTH_ROLES: any
-    ) {
-        this.localStorage = localStorage;
-    }
+    ) {}
 
     getAuthUser() {
         return this.AuthFactory.getAuthUser().then(
             (response: any) => {
                 this.setIdentity(response.data);
+                this.setAuthUser(response.data);
 
-                this.$state.transitionTo('home');
+                this.$state.go('home');
             },
             (error: any) => {
                 return this.$q.reject(error);
             }
         );
+    }
+
+    setAuthUser(userData: any) {
+        this.localStorage.setItem('authUser', JSON.stringify(userData));
+    }
+
+    fillAuthData() {
+        var accessToken = this.localStorage.getItem('accessToken'),
+            authUser = JSON.parse(this.localStorage.getItem('authUser'));
+
+        if (accessToken && authUser) {
+            this.setIdentity(authUser);
+            this.setAuthUser(authUser);
+        }
     }
 
     isAuthenticated() {
@@ -38,20 +51,21 @@ class AuthService {
     }
 
     setToken(accessToken: string) {
-        this.localStorage.setItem('access_token', accessToken);
+        this.localStorage.setItem('accessToken', accessToken);
     }
 
     setIdentity(userData: any) {
-        this.$rootScope.isLoggedIn = true;
+        this.$rootScope.authenticated = true;
 
         this.$rootScope.authUser = userData;
     }
 
     clearIdentity() {
-        this.$rootScope.isLoggedIn = false;
+        this.$rootScope.authenticated = false;
         this.$rootScope.authUser = null;
 
-        this.localStorage.removeItem('access_token');
+        this.localStorage.removeItem('accessToken');
+        this.localStorage.removeItem('authUser');
     }
 
     checkAccessToState(event: any, toState: any, toParams: any, fromState: any) {
@@ -69,11 +83,11 @@ class AuthService {
                     event.preventDefault();
 
                     if (!this.isAuthenticated()) {
-                        this.$state.transitionTo('home.login');
+                        this.$state.go('home.login');
                     } else {
                         var state = fromState.name ? fromState.name : 'home';
 
-                        this.$state.transitionTo(state);
+                        this.$state.go(state);
                     }
                 }
             }

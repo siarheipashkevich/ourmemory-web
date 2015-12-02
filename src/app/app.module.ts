@@ -8,6 +8,9 @@ import AuthModule from './auth/auth.module';
 import UserModule from './user/user.module';
 import HomeModule from './home/home.module';
 import NavigationModule from './navigation/navigation.module';
+import VeteranModule from './veteran/veteran.module';
+import ProfileModule from './profile/profile.module';
+import ArticleModule from './article/article.module';
 
 angular
     .module('ourmemory', [
@@ -15,7 +18,10 @@ angular
         AuthModule.name,
         UserModule.name,
         HomeModule.name,
-        NavigationModule.name
+        NavigationModule.name,
+        VeteranModule.name,
+        ProfileModule.name,
+        ArticleModule.name
     ])
     .constant('CONSTANTS', CONSTANTS)
     .run(appRun);

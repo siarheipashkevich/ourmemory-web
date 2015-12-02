@@ -2,7 +2,8 @@ import { AuthService } from './auth.service';
 import { AuthFactory } from './auth.factory';
 
 class AuthController {
-    public credentials: any;
+    private credentials: any;
+    private errors: Object;
 
     /** @ngInject */
     constructor(
@@ -34,6 +35,20 @@ class AuthController {
                 return this.$q.reject();
             }).then(() => {
                 this.login(true);
+            });
+        }
+    }
+
+    validateErrorResponse(error: any) {
+        if (error.ModelState) {
+            error.ModelState.forEach((value: string, key: string) => {
+                let errorKey = (key.replace('model.', '')).toLowerCase();
+
+                if (!this.errors[errorKey]) {
+                    this.errors[errorKey] = [];
+                } else {
+                    this.errors[errorKey].push(value);
+                }
             });
         }
     }
