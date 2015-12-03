@@ -1,0 +1,59 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="vm.closeModal()"><span>×</span></button>
+    <h4 class="modal-title">Create veteran</h4>
+</div>
+<div class="modal-body">
+    <form role="form">
+        <div class="form-group">
+            <label for="firstName">First name</label>
+            <input type="text"
+                   class="form-control input-sm"
+                   id="firstName"
+                   placeholder="First name"
+                   ng-model="vm.veteran.firstName">
+        </div>
+        <div class="form-group">
+            <label for="lastName">Last name</label>
+            <input type="text"
+                   class="form-control input-sm"
+                   id="lastName"
+                   placeholder="Last name"
+                   ng-model="vm.veteran.lastName">
+        </div>
+        <div class="form-group">
+            <label for="middleName">Middle name</label>
+            <input type="text"
+                   class="form-control input-sm"
+                   id="middleName"
+                   placeholder="Middle name"
+                   ng-model="vm.veteran.middleName">
+        </div>
+        <div class="form-group">
+            <label for="countryLive">Country live</label>
+            <input type="text"
+                   class="form-control input-sm"
+                   id="countryLive"
+                   placeholder="Country live"
+                   ng-model="vm.veteran.countryLive">
+        </div>
+        <div class="form-group">
+            <label for="dataBirth">Data birth</label>
+            <input type="text"
+                   class="form-control input-sm"
+                   id="dataBirth"
+                   placeholder="Data birth"
+                   ng-model="vm.veteran.dataBirth">
+        </div>
+        <div class="form-group">
+            <label for="countryLive">Сalled</label>
+            <input type="text"
+                   class="form-control input-sm"
+                   id="countryLive"
+                   placeholder="Country live"
+                   ng-model="vm.veteran.countryLive">
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="vm.createVeteran()">Create</button>
+</div>

@@ -32,6 +32,8 @@ class AuthController {
             this.AuthFactory.register(this.credentials).catch((error: any) => {
                 this.$log.error(error);
 
+                this.validateErrorResponse(error.data);
+
                 return this.$q.reject();
             }).then(() => {
                 this.login(true);
@@ -40,16 +42,15 @@ class AuthController {
     }
 
     validateErrorResponse(error: any) {
-        if (error.ModelState) {
-            error.ModelState.forEach((value: string, key: string) => {
-                let errorKey = (key.replace('model.', '')).toLowerCase();
+        this.errors = {};
 
-                if (!this.errors[errorKey]) {
-                    this.errors[errorKey] = [];
-                } else {
-                    this.errors[errorKey].push(value);
-                }
-            });
+        if (error.modelState) {
+            angular.forEach(error.modelState, (value: string, key: string) => {
+                key = key.replace('model.', '');
+                key = key.charAt(0).toLowerCase() + key.slice(1);
+
+                this.errors[key] = value;
+            }, this);
         }
     }
 }
