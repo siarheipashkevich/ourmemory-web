@@ -1,59 +1,185 @@
 <div class="modal-header">
-    <button type="button" class="close" ng-click="vm.closeModal()"><span>×</span></button>
-    <h4 class="modal-title">Create veteran</h4>
+    <button type="button"
+            class="close"
+            ng-click="vm.closeModal()">
+        <span>×</span>
+    </button>
+    <h4 class="modal-title">Добавление ветерана</h4>
 </div>
 <div class="modal-body">
     <form role="form">
-        <div class="form-group">
-            <label for="firstName">First name</label>
-            <input type="text"
-                   class="form-control input-sm"
-                   id="firstName"
-                   placeholder="First name"
-                   ng-model="vm.veteran.firstName">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="lastName">Фамилия</label>
+                    <input type="text"
+                           class="form-control input-sm"
+                           id="lastName"
+                           placeholder="Фамилия"
+                           ng-model="vm.veteran.lastName">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="firstName">Имя</label>
+                    <input type="text"
+                           class="form-control input-sm"
+                           id="firstName"
+                           placeholder="Имя"
+                           ng-model="vm.veteran.firstName">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="middleName">Отчество</label>
+                    <input type="text"
+                           class="form-control input-sm"
+                           id="middleName"
+                           placeholder="Отчество"
+                           ng-model="vm.veteran.middleName">
+                </div>
+            </div>
         </div>
         <div class="form-group">
-            <label for="lastName">Last name</label>
-            <input type="text"
-                   class="form-control input-sm"
-                   id="lastName"
-                   placeholder="Last name"
-                   ng-model="vm.veteran.lastName">
+            <label>Место рождения</label>
+            <label class="label label-default">{{vm.veteran.latitude}}</label>
+            <label class="label label-default">{{vm.veteran.longitude}}</label>
+            <google-place-autocomplete location="vm.veteran.birthPlace"
+                                       latitude="vm.veteran.latitude"
+                                       longitude="vm.veteran.longitude"
+                                       title="Введите место рождения"></google-place-autocomplete>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="dateBirth">Дата рождения</label>
+                    <div class="input-group">
+                        <input type="text"
+                               class="form-control input-sm"
+                               id="dateBirth"
+                               disabled
+                               uib-datepicker-popup
+                               show-weeks="false"
+                               show-button-bar="false"
+                               on-open-focus="false"
+                               ng-model="vm.veteran.dateBirth"
+                               is-open="vm.datePicker.status.opened.dateBirth">
+                        <span class="input-group-btn">
+                            <a href="javascript:void(0)"
+                               class="btn btn-sm btn-default"
+                               ng-click="vm.openDatePicker('dateBirth')">
+                                <i class="fa fa-calendar"></i>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="dateDeath">Дата смерти</label>
+                    <div class="input-group">
+                        <input type="text"
+                               class="form-control input-sm"
+                               id="dateDeath"
+                               disabled
+                               uib-datepicker-popup
+                               show-weeks="false"
+                               show-button-bar="false"
+                               on-open-focus="false"
+                               ng-model="vm.veteran.dateDeath"
+                               is-open="vm.datePicker.status.opened.dateDeath">
+                        <span class="input-group-btn">
+                            <a href="javascript:void(0)"
+                               class="btn btn-sm btn-default"
+                               ng-click="vm.openDatePicker('dateDeath')">
+                                <i class="fa fa-calendar"></i>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="called">Призван</label>
+                    <div class="input-group">
+                        <input type="text"
+                               class="form-control input-sm"
+                               id="called"
+                               disabled
+                               uib-datepicker-popup
+                               show-weeks="false"
+                               show-button-bar="false"
+                               on-open-focus="false"
+                               ng-model="vm.veteran.called"
+                               is-open="vm.datePicker.status.opened.called">
+                        <span class="input-group-btn">
+                            <a href="javascript:void(0)"
+                               class="btn btn-sm btn-default"
+                               ng-click="vm.openDatePicker('called')">
+                                <i class="fa fa-calendar"></i>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="troops">Род войск</label>
+                    <input type="text"
+                           class="form-control input-sm"
+                           id="troops"
+                           placeholder="Род войск"
+                           ng-model="vm.veteran.troops">
+                </div>
+            </div>
         </div>
         <div class="form-group">
-            <label for="middleName">Middle name</label>
+            <label for="awards">Награды</label>
             <input type="text"
                    class="form-control input-sm"
-                   id="middleName"
-                   placeholder="Middle name"
-                   ng-model="vm.veteran.middleName">
+                   id="awards"
+                   placeholder="Награды"
+                   ng-model="vm.veteran.awards">
         </div>
         <div class="form-group">
-            <label for="countryLive">Country live</label>
-            <input type="text"
-                   class="form-control input-sm"
-                   id="countryLive"
-                   placeholder="Country live"
-                   ng-model="vm.veteran.countryLive">
+            <label for="description">Биография</label>
+            <textarea class="form-control input-sm"
+                      id="description"
+                      placeholder="Биография"
+                      rows="3"
+                      ng-model="vm.veteran.description"></textarea>
         </div>
         <div class="form-group">
-            <label for="dataBirth">Data birth</label>
-            <input type="text"
-                   class="form-control input-sm"
-                   id="dataBirth"
-                   placeholder="Data birth"
-                   ng-model="vm.veteran.dataBirth">
+            <div class="btn btn-sm btn-green"
+                 accept="image/*"
+                 ngf-select
+                 ng-model="vm.veteran.images"
+                 ngf-multiple="true"
+                 ngf-pattern="'image/*'">
+                <span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;Добавить фотографии
+            </div>
         </div>
-        <div class="form-group">
-            <label for="countryLive">Сalled</label>
-            <input type="text"
-                   class="form-control input-sm"
-                   id="countryLive"
-                   placeholder="Country live"
-                   ng-model="vm.veteran.countryLive">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="imageList">
+                    <div class="uploadedImages" ng-repeat="image in vm.veteran.images track by $index">
+                        <img class="img-responsive" ngf-thumbnail="image">
+
+                        <div class="deleteImage" ng-click="vm.removeImage($index)">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </form>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-click="vm.createVeteran()">Create</button>
+    <button class="btn btn-sm btn-blue"
+            type="button"
+            ng-click="vm.createVeteran()" ng-disabled="vm.uploadVeteranData">
+        <i class="fa fa-spinner fa-spin" ng-show="vm.uploadVeteranData"></i> Добавить
+    </button>
 </div>

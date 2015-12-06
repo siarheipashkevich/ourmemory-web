@@ -5,6 +5,7 @@ import { CONSTANTS } from './app.constant';
 
 import CoreModule from './core/core.module';
 import AuthModule from './auth/auth.module';
+import CommonModule from './common/common.module';
 import UserModule from './user/user.module';
 import HomeModule from './home/home.module';
 import NavigationModule from './navigation/navigation.module';
@@ -16,6 +17,7 @@ angular
     .module('ourmemory', [
         CoreModule.name,
         AuthModule.name,
+        CommonModule.name,
         UserModule.name,
         HomeModule.name,
         NavigationModule.name,

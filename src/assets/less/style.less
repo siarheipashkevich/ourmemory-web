@@ -9,36 +9,86 @@
  *  If you want to override some bootstrap variables, you have to change values here.
  *  The list of variables are listed here bower_components/bootstrap/less/variables.less
  */
+@fa-font-path: '../../bower_components/font-awesome/fonts/';
+@simple-line-font-path: '../../bower_components/simple-line-icons/fonts/';
+@my-font-path: '../assets/fonts/';
 
-@import (inline) '../css/AdminLTE.css';
-@import (inline) '../css/skin-green.css';
-@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic);
+@import 'fonts';
 
-@navbar-inverse-link-color: #f5faff;
-@icon-font-path: '../../bower_components/bootstrap/fonts/';
+@import (inline) '../css/bootstrap.css';
+@import (inline) '../css/app.css';
+@import 'rzslider';
 
-button {
-  outline: none!important;
+.input-group-btn:last-child > .btn-sm {
+  padding-bottom: 7px;
 }
 
-body {
-  background-color: #ecf0f5;
+#wrapper {
+  left: 0;
+  margin-left: 0;
 }
 
-.main-header {
-  & > .navbar {
-    margin-left: 0;
+@media (min-width: 768px) {
+  .modal-dialog {
+    margin: 10px auto;
+  }
+
+  .navbar-nav > li > a {
+    padding-top: 20px;
+    padding-bottom: 20px;
   }
 }
 
-.main-sidebar {
-  width: 0;
+a.navHandler {
+  padding-left: 15px;
+  padding-right: 15px;
+  width: auto;
+  font-weight: bold;
 }
 
-.content-wrapper {
-  margin-left: 0;
+.imageList {
+  overflow: hidden;
+
+  .uploadedImages {
+    position: relative;
+    float: left;
+    margin: 0 10px 10px 0;
+
+    img {
+      height: 100px;
+      width: auto;
+    }
+
+    .deleteImage {
+      opacity: 1;
+      background-color: rgba(0, 0, 0, .5);
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-size: 11px;
+      line-height: 9px;
+      color: #fff;
+      padding: 4px;
+      border-radius: 3px;
+      cursor: pointer;
+
+      span {
+        opacity: .7;
+        transition: opacity 100ms;
+        backface-visibility: hidden;
+      }
+
+      &:hover {
+        span {
+          opacity: 1;
+          filter: none;
+        }
+      }
+    }
+  }
 }
 
-.main-footer {
-  margin-left: 0;
+.createVeteran {
+  margin-top: 12px;
 }
+

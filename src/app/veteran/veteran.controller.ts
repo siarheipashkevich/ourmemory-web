@@ -1,16 +1,25 @@
 import { VeteranFactory } from './veteran.factory';
 
 class VeteranController {
-    private title: string;
-    private veterans: any;
-
     /** @ngInject */
-    constructor(VeteranFactory: VeteranFactory) {
-        VeteranFactory.getVeteran().then((response: any) => {
-            this.veterans = response.data;
-        });
+    constructor(
+        private VeteranFactory: VeteranFactory,
+        private $uibModal: any,
+        private veterans: any
+    ) {}
 
-        this.title = 'Ветераны ВОВ';
+    showModalCreateVeteran() {
+        this.$uibModal.open({
+            templateUrl: 'app/veteran/templates/modals/create.html',
+            controller: 'VeteranModalController',
+            controllerAs: 'vm',
+            animation: true,
+            backdrop: 'static'
+        }).result.then((veteran: any) => {
+            console.log(veteran);
+        }, () => {
+            console.log('Modal dismissed at: ' + new Date());
+        });
     }
 }
 

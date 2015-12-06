@@ -9,17 +9,6 @@ function appRun(
 
     $rootScope.$on('$stateChangeStart', stateChangeStart);
 
-    $rootScope.$on('$stateChangeSuccess', function () {
-        console.log('$stateChangeSuccess');
-        window.dispatchEvent(new Event('resize'));
-    });
-
-    $rootScope.$on('$viewContentLoaded', function () {
-        console.log('resize');
-        window.dispatchEvent(new Event('resize'));
-    });
-
-
     function stateChangeStart(
         event: ng.IAngularEvent,
         toState: ng.ui.IStateService,
