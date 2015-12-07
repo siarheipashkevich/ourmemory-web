@@ -23,6 +23,30 @@ function veteranRoute(
                     });
                 }
             }
+        })
+        .state('home.veterans.detail', {
+            url: '/{id:int}',
+            data: {
+                allow: [AUTH_ROLES.all]
+            },
+            /** @ngInject */
+            onEnter: ($uibModal: any, $stateParams: any, $state: ng.ui.IStateService) => {
+                $uibModal.open({
+                    templateUrl: 'app/veteran/templates/modals/detail.html',
+                    controller: 'VeteranDetailController',
+                    controllerAs: 'vm',
+                    resolve: {
+                        /** @ngInject */
+                        veteran: (VeteranFactory: any) => {
+                            return {id: 1, name: 'Александр Иванович СЛОБОДА'}
+                        }
+                    },
+                    animation: true,
+                    size: 'lg',
+                }).result.finally(() => {
+                    $state.go('^');
+                });
+            }
         });
 }
 

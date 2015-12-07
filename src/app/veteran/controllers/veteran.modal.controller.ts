@@ -24,8 +24,6 @@ class VeteranModalController {
     createVeteran() {
         this.uploadVeteranData = true;
 
-        console.log(this.veteran);
-
         this.VeteranFactory.saveVeteran(this.veteran).then((resp: any) => {
             this.$uibModalInstance.close(resp.data);
         }, (resp: any) => {
@@ -34,8 +32,6 @@ class VeteranModalController {
     }
 
     openDatePicker(index: string) {
-        console.log(this.datePicker.status.opened);
-
         this.datePicker.status.opened[index] = true;
     }
 

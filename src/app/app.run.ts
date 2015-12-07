@@ -3,7 +3,8 @@ import { AuthService } from './auth/auth.service';
 /** @ngInject */
 function appRun(
     $rootScope: angular.IRootScopeService,
-    AuthService: AuthService
+    AuthService: AuthService,
+    $uibModalStack: any
 ) {
     AuthService.fillAuthData();
 
@@ -16,6 +17,12 @@ function appRun(
         fromState: ng.ui.IStateService
     ) {
         AuthService.checkAccessToState(event, toState, toParams, fromState);
+
+        // discard modal
+        var top = $uibModalStack.getTop();
+        if (top) {
+            $uibModalStack.dismiss(top.key);
+        }
     }
 }
 
