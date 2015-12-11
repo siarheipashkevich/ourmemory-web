@@ -3,7 +3,6 @@
     <div class="headerUserWraper" ng-if="authenticated">
         <a href="#" class="userHandler dropdown-toggle" data-toggle="dropdown"><span class="icon-user"></span><span class="counter">5</span></a>
         <a href="#" class="headerUser dropdown-toggle" data-toggle="dropdown">
-            <img class="avatar headerAvatar pull-left" src="assets/images/avatar-1.png" alt="John Smith">
             <div class="userTop pull-left">
                 <span class="headerUserName">{{authUser.email}}</span> <span class="fa fa-angle-down"></span>
             </div>
@@ -19,7 +18,7 @@
                 <li><a ui-sref="home.profile"><span class="icon-user"></span>Профиль</a></li>
                 <li><a href="#"><span class="icon-bell"></span>Уведомления <span class="badge pull-right bg-red">5</span></a></li>
                 <li class="divider"></li>
-                <li><a href="#"><span class="icon-power"></span>Выйти</a></li>
+                <li><a ng-href="#" ng-click="vm.logout()"><span class="icon-power"></span>Выйти</a></li>
             </ul>
         </div>
     </div>
@@ -28,17 +27,11 @@
             <li ui-sref-active="active">
                 <a ui-sref="home.veterans">Ветераны</a>
             </li>
-            <li ui-sref-active="active" ng-if="authenticated">
-                <a ui-sref="home.articles">Статьи</a>
-            </li>
             <li ui-sref-active="active" ng-if="!authenticated">
                 <a ui-sref="home.login">Вход</a>
             </li>
             <li ui-sref-active="active" ng-if="!authenticated">
                 <a ui-sref="home.register">Зарегистрироваться</a>
-            </li>
-            <li ng-if="authenticated">
-                <a ng-href="#" ng-click="vm.logout()">Выйти</a>
             </li>
         </ul>
     </div>

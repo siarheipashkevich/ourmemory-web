@@ -1,3 +1,5 @@
+import { VeteranFactory } from './veteran.factory';
+
 /** @ngInject */
 function veteranRoute(
     $stateProvider: ng.ui.IStateProvider,
@@ -14,12 +16,16 @@ function veteranRoute(
             },
             resolve: {
                 /** @ngInject */
-                veterans: (VeteranFactory: any) => {
-                    return VeteranFactory.getVeteran().then((response: any) => {
-                        return response.data;
-                    }).catch((error:any) => {
-                        console.log(error);
+                veteransData: (VeteranFactory: any, CONSTANTS: any) => {
+                    var options = {
+                        page: 0,
+                        size: CONSTANTS.PAGINATION.MAX_ITEMS_TO_PAGE
+                    };
 
+                    return VeteranFactory.getVeterans(options).then((response: any) => {
+                        return response.data;
+                    }).catch((error: any) => {
+                        console.log(error);
                     });
                 }
             }
@@ -37,12 +43,19 @@ function veteranRoute(
                     controllerAs: 'vm',
                     resolve: {
                         /** @ngInject */
-                        veteran: (VeteranFactory: any) => {
-                            return {id: 1, name: 'Александр Иванович СЛОБОДА'}
+                        veteran: (VeteranFactory: VeteranFactory) => {
+                            return VeteranFactory.getVeteran($stateParams.id).then(
+                                (response: any) => {
+                                    return response.data;
+                                },
+                                (error: any) => {
+                                    console.log(error);
+                                }
+                            );
                         }
                     },
                     animation: true,
-                    size: 'lg',
+                    size: 'lg'
                 }).result.finally(() => {
                     $state.go('^');
                 });

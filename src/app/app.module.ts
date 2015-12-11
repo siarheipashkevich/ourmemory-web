@@ -1,7 +1,7 @@
 /// <reference path="../../.tmp/typings/tsd.d.ts" />
 
 import { appRun } from './app.run';
-import { CONSTANTS } from './app.constant';
+import { AppConstants } from './app.constant';
 
 import CoreModule from './core/core.module';
 import AuthModule from './auth/auth.module';
@@ -25,7 +25,7 @@ angular
         ProfileModule.name,
         ArticleModule.name
     ])
-    .constant('CONSTANTS', CONSTANTS)
+    .constant('CONSTANTS', AppConstants)
     .run(appRun);
 
 angular.element(document).ready(function () {

@@ -5,6 +5,9 @@ export default angular
         'ui.bootstrap',
         'ui.router',
         'ngFileUpload',
-        'rzModule'
+        'rzModule',
+        'uiGmapgoogle-maps',
+        'codemwnci.markdown-edit-preview',
+        'angularMoment'
     ])
     .config(coreConfig);

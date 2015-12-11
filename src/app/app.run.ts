@@ -4,9 +4,12 @@ import { AuthService } from './auth/auth.service';
 function appRun(
     $rootScope: angular.IRootScopeService,
     AuthService: AuthService,
-    $uibModalStack: any
+    $uibModalStack: any,
+    amMoment: any
 ) {
     AuthService.fillAuthData();
+
+    amMoment.changeLocale('ru');
 
     $rootScope.$on('$stateChangeStart', stateChangeStart);
 

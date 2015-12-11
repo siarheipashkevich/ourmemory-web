@@ -19,6 +19,100 @@
 @import (inline) '../css/app.css';
 @import 'rzslider';
 
+.md-editor {
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  border-radius: 2px;
+
+  &.active {
+    border-color: #999;
+    box-shadow: none;
+  }
+
+  & > .md-header {
+    border-radius: 2px 2px 0 0!important;
+  }
+
+  & > textarea {
+    padding: 10px!important;
+    border-top: none;
+    border-bottom: none;
+    border-radius: 0 0 2px 2px!important;
+  }
+}
+
+.veteranInformation {
+  .shortDescription {
+    margin-bottom: 20px;
+
+    .photo {
+      width: 200px;
+      height: 200px;
+      overflow: hidden;
+      border-radius: 50%;
+      display: inline-block;
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .table {
+      box-shadow: none;
+
+      td {
+        vertical-align: top;
+        padding: 7px 10px;
+        font-style: italic;
+
+        &:first-child {
+          width: 150px;
+          font-weight: 600;
+        }
+      }
+    }
+
+    .no-bordered td, .no-bordered th {
+      border: none;
+    }
+  }
+
+  .fullDescription {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    color: #000000;
+    font-size: 1.35em;
+    line-height: 150%;
+    margin-bottom: 20px;
+  }
+}
+
+a.card .cardAddress, div.card .cardAddress {
+  display: block;
+  display: -webkit-box;
+  height: 39px;
+  margin: 3px 10px 10px;
+  font-size: 11px;
+  line-height: 13px;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  padding: 0;
+}
+
+.infoW {
+  .paWrapper {
+    .propAddress {
+      padding-top: 5px;
+    }
+  }
+}
+
+.propImg {
+  height: 150px;
+}
+
 .input-group-btn:last-child > .btn-sm {
   padding-bottom: 7px;
 }
@@ -44,6 +138,15 @@ a.navHandler {
   padding-right: 15px;
   width: auto;
   font-weight: bold;
+}
+
+.angular-google-map-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: 100%;
 }
 
 .imageList {
@@ -90,5 +193,13 @@ a.navHandler {
 
 .createVeteran {
   margin-top: 12px;
+}
+
+.no-touch a.card:hover img, .no-touch div.card:hover img {
+  transform: scale(1);
+}
+
+.no-touch .figure img {
+  transform: scale(1);
 }
 

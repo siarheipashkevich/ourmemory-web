@@ -43,22 +43,25 @@ gulp.task('html', ['inject', 'partials'], function () {
         .pipe(assets = $.useref.assets())
         .pipe($.rev())
         .pipe(jsFilter)
-        .pipe($.sourcemaps.init())
+        //.pipe($.sourcemaps.init())
+        .pipe($.replace('assets/images/', '../images/'))
         .pipe($.uglify({preserveComments: $.uglifySaveLicense})).on('error', conf.errorHandler('Uglify'))
-        .pipe($.sourcemaps.write('maps'))
+        //.pipe($.sourcemaps.write('maps'))
         .pipe(jsFilter.restore)
         .pipe(cssFilter)
-        .pipe($.sourcemaps.init())
+        //.pipe($.sourcemaps.init())
         .pipe($.replace('../../bower_components/bootstrap/fonts/', '../fonts/'))
         .pipe($.replace('../../bower_components/font-awesome/fonts/', '../fonts/'))
         .pipe($.replace('../../bower_components/simple-line-icons/fonts/', '../fonts/'))
+        .pipe($.replace('../assets/fonts/', '../fonts/'))
         .pipe($.minifyCss({processImport: false}))
-        .pipe($.sourcemaps.write('maps'))
+        //.pipe($.sourcemaps.write('maps'))
         .pipe(cssFilter.restore)
         .pipe(assets.restore())
         .pipe($.useref())
         .pipe($.revReplace())
         .pipe(htmlFilter)
+        .pipe($.replace('assets/images/', '../images/'))
         .pipe($.minifyHtml({
             empty: true,
             spare: true,
@@ -85,7 +88,7 @@ gulp.task('other', function () {
     });
 
     return gulp.src([
-            path.join(conf.paths.src, '/**/*'),
+            path.join(conf.paths.src, '/assets/**/*'),
             path.join('!' + conf.paths.src, '/**/*.{html,css,js,less,ts}')
         ])
         .pipe(fileFilter)

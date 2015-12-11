@@ -9,7 +9,6 @@ var webpack = require('webpack-stream');
 
 var $ = require('gulp-load-plugins')();
 
-
 function webpackWrapper(watch, test, callback) {
     var webpackOptions = {
         resolve: {extensions: ['', '.ts']},

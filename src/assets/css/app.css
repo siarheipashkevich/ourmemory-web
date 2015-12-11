@@ -1377,10 +1377,11 @@ a.userHandler .counter {
 }
 .propImg {
     position: relative;
+    height: 120px;
+    overflow: hidden;
 }
 .propImg img {
     width: 200px;
-    height: 120px;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
 }

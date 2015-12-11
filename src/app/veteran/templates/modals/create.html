@@ -4,8 +4,9 @@
             ng-click="vm.closeModal()">
         <span>×</span>
     </button>
-    <h4 class="modal-title">Добавление ветерана</h4>
+    <h4 class="modal-title">{{vm.title}}</h4>
 </div>
+
 <div class="modal-body">
     <form role="form">
         <div class="row">
@@ -147,25 +148,31 @@
             <label for="description">Биография</label>
             <textarea class="form-control input-sm"
                       id="description"
-                      placeholder="Биография"
-                      rows="3"
-                      ng-model="vm.veteran.description"></textarea>
+                      rows="10"
+                      ng-model="vm.veteran.description"
+                      markdownedit
+                      markdown-hidden-buttons="cmdQuote">
+
+            </textarea>
+        </div>
+        <div class="form-group">
+            <label for="description">Просмотр</label>
         </div>
         <div class="form-group">
             <div class="btn btn-sm btn-green"
                  accept="image/*"
-                 ngf-select
-                 ng-model="vm.veteran.images"
+                 ngf-select="vm.uploadImages($files)"
                  ngf-multiple="true"
                  ngf-pattern="'image/*'">
-                <span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;Добавить фотографии
+                <i class="fa"
+                   ng-class="vm.uploadImage ? 'fa-spinner fa-spin' : 'fa-folder-open-o'"></i>&nbsp;&nbsp;Добавить фотографии
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="imageList">
                     <div class="uploadedImages" ng-repeat="image in vm.veteran.images track by $index">
-                        <img class="img-responsive" ngf-thumbnail="image">
+                        <img class="img-responsive" ng-src="{{image.imageOriginal}}">
 
                         <div class="deleteImage" ng-click="vm.removeImage($index)">
                             <span class="glyphicon glyphicon-remove"></span>
@@ -176,10 +183,14 @@
         </div>
     </form>
 </div>
+
 <div class="modal-footer">
-    <button class="btn btn-sm btn-blue"
-            type="button"
-            ng-click="vm.createVeteran()" ng-disabled="vm.uploadVeteranData">
-        <i class="fa fa-spinner fa-spin" ng-show="vm.uploadVeteranData"></i> Добавить
-    </button>
+    <div class="clearfix">
+        <span class="text-danger">{{vm.errorMessage}} &nbsp;</span>
+        <div class="btn btn-sm btn-blue"
+             ng-click="vm.saveVeteran()"
+             ng-disabled="vm.sendingData">
+            <i class="fa fa-spinner fa-spin" ng-show="vm.sendingData"></i> {{vm.btnSaveText}}
+        </div>
+    </div>
 </div>

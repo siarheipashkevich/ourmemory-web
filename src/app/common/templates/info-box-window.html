@@ -1,0 +1,21 @@
+<div class="infoW">
+    <div class="propImg">
+        <img src="" ng-src="{{::parameter.veteran.images[0].imageOriginal}}">
+        <div class="propBg"></div>
+    </div>
+    <div class="paWrapper">
+        <div class="propTitle">{{parameter.veteran.firstName + ' ' + parameter.veteran.middleName}}</div>
+        <div class="propAddress">{{parameter.veteran.birthPlace}}</div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="infoButtons clearfix">
+        <a class="btn btn-sm btn-gray btn-o closeInfo pull-left"
+           ng-click="parameter.closeInfoBoxWindow(parameter.veteran)">
+            Закрыть
+        </a>
+        <a class="btn btn-sm btn-green viewInfo btn-blue pull-right"
+           ui-sref="home.veterans.detail({id: parameter.veteran.id})">
+            Просмотр
+        </a>
+    </div>
+</div>
