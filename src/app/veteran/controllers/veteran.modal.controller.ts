@@ -63,7 +63,7 @@ class VeteranModalController {
         this.$uibModalInstance.dismiss();
     }
 
-    removeImage(index: number) {
+    deleteImage(index: number) {
         if (this.veteran.images[index]) {
             this.veteran.images.splice(index, 1);
         }

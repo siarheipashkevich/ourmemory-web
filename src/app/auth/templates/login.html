@@ -1,8 +1,8 @@
-<div class="row">
+<div class="row" id="wrapper" resize>
     <div class="login col-sm-offset-4 col-md-offset-4 col-lg-offset-4 col-sm-4 col-md-4 col-lg-4">
         <div class="panel panel-default">
             <div class="panel-heading">
-                Login
+                Вход
             </div>
             <div class="panel-body">
                 <form name="loginForm" ng-submit="loginForm.$valid && vm.login(loginForm.$valid)" novalidate>
@@ -16,13 +16,13 @@
                                required
                                ng-model="vm.credentials.email">
                         <span class="help-block" ng-show="loginForm.$submitted && loginForm.username.$error.required">
-                            Your name is required.
+                            Это поле обязательно для заполнения.
                         </span>
                     </div>
 
                     <div class="form-group"
                          ng-class="{'has-error': loginForm.$submitted && loginForm.password.$error.required}">
-                        <label for="password">Password</label>
+                        <label class="control-label" for="password">Пароль</label>
                         <input type="password"
                                id="password"
                                class="form-control input-sm"
@@ -30,14 +30,11 @@
                                required
                                ng-model="vm.credentials.password">
                         <span class="help-block" ng-show="loginForm.$submitted && loginForm.password.$error.required">
-                            Your name is required.
+                            Это поле обязательно для заполнения.
                         </span>
                     </div>
-
-                    <button type="submit"
-                            class="btn btn-sm btn-default">
-                        Login
-                    </button>
+                    <button type="submit" class="btn btn-sm btn-default pull-right">Войти</button>
+                    <div class="clearfix"></div>
                 </form>
             </div>
         </div>

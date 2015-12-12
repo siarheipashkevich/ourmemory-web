@@ -1,6 +1,6 @@
 <div class="infoW">
     <div class="propImg">
-        <img src="" ng-src="{{::parameter.veteran.images[0].imageOriginal}}">
+        <img ng-src="{{parameter.veteran.images.length && parameter.veteran.images[0].imageOriginal || parameter.defaultVeteranImage}}">
         <div class="propBg"></div>
     </div>
     <div class="paWrapper">

@@ -1,15 +1,22 @@
 import { AuthService } from './auth/auth.service';
 
+interface IAppRootScopeService extends angular.IRootScopeService {
+    defaultVeteranImage: string;
+}
+
 /** @ngInject */
 function appRun(
-    $rootScope: angular.IRootScopeService,
-    AuthService: AuthService,
+    $rootScope: IAppRootScopeService,
     $uibModalStack: any,
-    amMoment: any
+    amMoment: any,
+    AuthService: AuthService,
+    CONSTANTS: any
 ) {
     AuthService.fillAuthData();
 
     amMoment.changeLocale('ru');
+
+    $rootScope.defaultVeteranImage = CONSTANTS.DEFAULT_VETERAN_IMAGE;
 
     $rootScope.$on('$stateChangeStart', stateChangeStart);
 

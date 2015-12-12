@@ -3,7 +3,7 @@ import { AuthFactory } from './auth.factory';
 
 class AuthController {
     private credentials: any;
-    private errors: Object;
+    private errors: any;
 
     /** @ngInject */
     constructor(

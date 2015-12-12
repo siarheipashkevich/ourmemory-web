@@ -15,7 +15,7 @@
                             click="vm.infoBoxWindowOptions.showInfoBoxWindow(vm.veterans, veteran)">
                 <ui-gmap-window show="veteran.marker.visible"
                                 templateUrl="vm.infoBoxWindowOptions.template"
-                                templateParameter="{ 'veteran': veteran, 'closeInfoBoxWindow': vm.infoBoxWindowOptions.closeInfoBoxWindow }"
+                                templateParameter="{'veteran': veteran, 'closeInfoBoxWindow': vm.infoBoxWindowOptions.closeInfoBoxWindow, 'defaultVeteranImage': defaultVeteranImage}"
                                 options="vm.infoBoxWindowOptions.options"
                                 ng-cloak>
                 </ui-gmap-window>
@@ -27,7 +27,7 @@
         <div class="filter">
             <h1 class="osLight">Поиск</h1>
             <div class="btn btn-sm btn-blue createVeteran"
-                 ng-click="vm.showModalSaveVeteran()">
+                 ng-click="vm.showModalSaveVeteran()" ng-if="authUser">
                 <i class="fa fa-plus"></i>&nbsp;Добавить ветерана
             </div>
             <a href="#" class="handleFilter"><span class="icon-equalizer"></span></a>
@@ -43,8 +43,7 @@
                        ng-mouseenter="vm.showInfoBoxWindowVeteran(veteran)"
                        ng-mouseleave="vm.hideInfoBoxWindowVeteran(veteran)">
                         <div class="figure">
-                            <img ng-src="{{veteran.images[0].imageOriginal}}" alt="image">
-
+                            <img ng-src="{{veteran.images.length && veteran.images[0].imageOriginal || defaultVeteranImage}}" alt="image">
                             <div class="figCaption">
                                 <span class="glyphicon glyphicon-pencil pull-left"
                                       ng-if="authUser.role === 'Admin' || authUser.userId === veteran.userId"
@@ -69,7 +68,7 @@
                             items-per-page="vm.maxItemsToPage"
                             direction-links="false"
                             max-size="7"
-                            ng-if="vm.totalCount && ((vm.totalCount / vm.maxItemsToPage) > 0)"
+                            ng-if="vm.totalCount && ((vm.totalCount / vm.maxItemsToPage) > 1)"
                             ng-change="vm.pageChanged()"></uib-pagination>
             <p class="text-center text-muted" ng-if="!vm.totalCount">Список ветеранов пуст</p>
         </div>

@@ -156,9 +156,6 @@
             </textarea>
         </div>
         <div class="form-group">
-            <label for="description">Просмотр</label>
-        </div>
-        <div class="form-group">
             <div class="btn btn-sm btn-green"
                  accept="image/*"
                  ngf-select="vm.uploadImages($files)"
@@ -174,7 +171,7 @@
                     <div class="uploadedImages" ng-repeat="image in vm.veteran.images track by $index">
                         <img class="img-responsive" ng-src="{{image.imageOriginal}}">
 
-                        <div class="deleteImage" ng-click="vm.removeImage($index)">
+                        <div class="deleteImage" ng-click="vm.deleteImage($index)">
                             <span class="glyphicon glyphicon-remove"></span>
                         </div>
                     </div>

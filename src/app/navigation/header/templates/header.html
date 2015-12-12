@@ -14,10 +14,10 @@
                 <div class="mobAvatarName">{{authUser.email}}</div>
             </div>
             <ul>
-                <li><a href="#"><span class="icon-settings"></span>Настройки</a></li>
-                <li><a ui-sref="home.profile"><span class="icon-user"></span>Профиль</a></li>
-                <li><a href="#"><span class="icon-bell"></span>Уведомления <span class="badge pull-right bg-red">5</span></a></li>
-                <li class="divider"></li>
+                <li ng-hide="true"><a href="#"><span class="icon-settings"></span>Настройки</a></li>
+                <li ng-hide="true"><a ui-sref="home.profile"><span class="icon-user"></span>Профиль</a></li>
+                <li ng-hide="true"><a href="#"><span class="icon-bell"></span>Уведомления <span class="badge pull-right bg-red">5</span></a></li>
+                <li class="divider" ng-hide="true"></li>
                 <li><a ng-href="#" ng-click="vm.logout()"><span class="icon-power"></span>Выйти</a></li>
             </ul>
         </div>
