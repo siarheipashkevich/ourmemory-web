@@ -26,6 +26,8 @@ class VeteranController {
         private ConfirmDialog: IConfirmDialog,
         private CONSTANTS: any
     ) {
+        angular.element('body').removeClass('no-hidden');
+
         this.veterans = veteransData && angular.isArray(veteransData.items) ? veteransData.items : [];
         VeteranService.setMarkerOptionsToVeterans(this.veterans);
 

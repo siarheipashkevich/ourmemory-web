@@ -2,7 +2,7 @@ interface IConfirmDialog {
     confirm(params: any): any;
 }
 
-class ConfirmDialog implements IConfirmDialog{
+class ConfirmDialog implements IConfirmDialog {
     /** @ngInject */
     constructor(
         private $uibModal: any
