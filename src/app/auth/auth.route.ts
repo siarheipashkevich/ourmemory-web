@@ -1,7 +1,7 @@
 /** @ngInject */
 function authRoute($stateProvider: ng.ui.IStateProvider, AUTH_ROLES: any) {
     $stateProvider
-        .state('home.login', {
+        .state('root.login', {
             url: 'login',
             templateUrl: 'app/auth/templates/login.html',
             controller: 'AuthController',
@@ -10,7 +10,7 @@ function authRoute($stateProvider: ng.ui.IStateProvider, AUTH_ROLES: any) {
                 allow: [AUTH_ROLES.all]
             }
         })
-        .state('home.register', {
+        .state('root.register', {
             url: 'register',
             templateUrl: 'app/auth/templates/register.html',
             controller: 'AuthController',

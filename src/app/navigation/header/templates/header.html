@@ -1,5 +1,5 @@
 <div id="header">
-    <a href="#" class="navHandler">Our memory</a>
+    <a href="#" class="navHandler">Наша память</a>
     <div class="headerUserWraper" ng-if="authenticated">
         <a href="#" class="userHandler dropdown-toggle" data-toggle="dropdown"><span class="icon-user"></span><span class="counter">5</span></a>
         <a href="#" class="headerUser dropdown-toggle" data-toggle="dropdown">
@@ -10,7 +10,7 @@
         </a>
         <div class="dropdown-menu pull-right userMenu" role="menu">
             <div class="mobAvatar">
-                <img class="avatar mobAvatarImg" src="assets/images/avatar-1.png" alt="John Smith">
+                <img class="avatar mobAvatarImg" ng-src="" alt="John Smith">
                 <div class="mobAvatarName">{{authUser.email}}</div>
             </div>
             <ul>
@@ -25,13 +25,13 @@
     <div class="navbar-custom-menu pull-right">
         <ul class="nav navbar-nav">
             <li ui-sref-active="active">
-                <a ui-sref="home.veterans">Ветераны</a>
+                <a ui-sref="root.veterans">Ветераны</a>
             </li>
             <li ui-sref-active="active" ng-if="!authenticated">
-                <a ui-sref="home.login">Вход</a>
+                <a ui-sref="root.login">Вход</a>
             </li>
             <li ui-sref-active="active" ng-if="!authenticated">
-                <a ui-sref="home.register">Зарегистрироваться</a>
+                <a ui-sref="root.register">Регистрация</a>
             </li>
         </ul>
     </div>

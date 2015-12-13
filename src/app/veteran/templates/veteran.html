@@ -39,9 +39,9 @@
                      ng-repeat="veteran in vm.veterans track by $index">
 
                     <div class="card"
-                       ui-sref="home.veterans.detail({id: veteran.id})"
-                       ng-mouseenter="vm.showInfoBoxWindowVeteran(veteran)"
-                       ng-mouseleave="vm.hideInfoBoxWindowVeteran(veteran)">
+                         ui-sref="root.veterans.detail({id: veteran.id})"
+                         ng-mouseenter="vm.showInfoBoxWindowVeteran(veteran)"
+                         ng-mouseleave="vm.hideInfoBoxWindowVeteran(veteran)">
                         <div class="figure">
                             <img ng-src="{{veteran.images.length && veteran.images[0].imageOriginal || defaultVeteranImage}}" alt="image">
                             <div class="figCaption">

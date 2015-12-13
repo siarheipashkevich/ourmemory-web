@@ -6,7 +6,12 @@ function veteranRoute(
     AUTH_ROLES: any
 ) {
     $stateProvider
-        .state('home.veterans', {
+        .state('root', {
+            url: '/',
+            abstract: true,
+            templateUrl: 'app/common/templates/root.html'
+        })
+        .state('root.veterans', {
             url: 'veterans',
             templateUrl: 'app/veteran/templates/veteran.html',
             controller: 'VeteranController',
@@ -30,7 +35,7 @@ function veteranRoute(
                 }
             }
         })
-        .state('home.veterans.detail', {
+        .state('root.veterans.detail', {
             url: '/{id:int}',
             data: {
                 allow: [AUTH_ROLES.all]
@@ -41,6 +46,8 @@ function veteranRoute(
                     templateUrl: 'app/veteran/templates/modals/detail.html',
                     controller: 'VeteranDetailController',
                     controllerAs: 'vm',
+                    size: 'lg',
+                    animation: true,
                     resolve: {
                         /** @ngInject */
                         veteran: (VeteranFactory: VeteranFactory) => {
@@ -53,9 +60,7 @@ function veteranRoute(
                                 }
                             );
                         }
-                    },
-                    animation: true,
-                    size: 'lg'
+                    }
                 }).result.finally(() => {
                     $state.go('^');
                 });
