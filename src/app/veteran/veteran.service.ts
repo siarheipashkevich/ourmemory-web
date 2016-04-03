@@ -5,9 +5,6 @@ interface IVeteranService {
 }
 
 class VeteranService implements IVeteranService {
-    /** @ngInject */
-    constructor() {}
-
     setMarkerOptionsToVeteran(veteran: any): void {
         veteran.marker = {
             visible: false,
@@ -16,7 +13,9 @@ class VeteranService implements IVeteranService {
                 longitude: veteran.longitude
             },
             events: {
-                click: (marker: any) => {}
+                click: (marker: any) => {
+                    console.log(marker);
+                }
             }
         };
     }
