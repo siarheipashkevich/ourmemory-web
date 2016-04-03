@@ -6,10 +6,10 @@
     "test": "gulp test"
   },
   "devDependencies": {
-    "browser-sync": "~2.9.11",
+    "browser-sync": "^2.11.2",
     "browser-sync-spa": "~1.0.3",
     "chalk": "~1.1.1",
-    "del": "~2.0.2",
+    "del": "^2.2.0",
     "eslint-plugin-angular": "~0.12.0",
     "estraverse": "~4.1.0",
     "gulp": "~3.9.0",
