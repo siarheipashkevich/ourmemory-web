@@ -13,10 +13,11 @@ gulp.task('partials', function () {
             path.join(conf.paths.src, '/app/**/*.html'),
             path.join(conf.paths.tmp, '/serve/app/**/*.html')
         ])
-        .pipe($.minifyHtml({
-            empty: true,
-            spare: true,
-            quotes: true
+        .pipe($.htmlmin({
+            removeEmptyAttributes: true,
+            removeAttributeQuotes: true,
+            collapseBooleanAttributes: true,
+            collapseWhitespace: true
         }))
         .pipe($.angularTemplatecache('templateCacheHtml.js', {
             module: 'ourmemory',
@@ -40,34 +41,26 @@ gulp.task('html', ['inject', 'partials'], function () {
 
     return gulp.src(path.join(conf.paths.tmp, '/serve/*.html'))
         .pipe($.inject(partialsInjectFile, partialsInjectOptions))
-        .pipe(assets = $.useref.assets())
-        .pipe($.rev())
+        .pipe($.useref())
         .pipe(jsFilter)
-        //.pipe($.sourcemaps.init())
         .pipe($.replace('assets/images/', '../images/'))
         .pipe($.uglify({preserveComments: $.uglifySaveLicense})).on('error', conf.errorHandler('Uglify'))
-        //.pipe($.sourcemaps.write('maps'))
         .pipe(jsFilter.restore)
         .pipe(cssFilter)
-        //.pipe($.sourcemaps.init())
         .pipe($.replace('../../bower_components/bootstrap/fonts/', '../fonts/'))
         .pipe($.replace('../../bower_components/font-awesome/fonts/', '../fonts/'))
         .pipe($.replace('../../bower_components/simple-line-icons/fonts/', '../fonts/'))
         .pipe($.replace('../assets/fonts/', '../fonts/'))
         .pipe($.replace('../assets/images/', '../images/'))
         .pipe($.minifyCss({processImport: false}))
-        //.pipe($.sourcemaps.write('maps'))
         .pipe(cssFilter.restore)
-        .pipe(assets.restore())
-        .pipe($.useref())
         .pipe($.revReplace())
         .pipe(htmlFilter)
-        .pipe($.replace('assets/images/', '../images/'))
-        .pipe($.minifyHtml({
-            empty: true,
-            spare: true,
-            quotes: true,
-            conditionals: true
+        .pipe($.htmlmin({
+            removeEmptyAttributes: true,
+            removeAttributeQuotes: true,
+            collapseBooleanAttributes: true,
+            collapseWhitespace: true
         }))
         .pipe(htmlFilter.restore)
         .pipe(gulp.dest(path.join(conf.paths.dist, '/')))
@@ -78,7 +71,7 @@ gulp.task('html', ['inject', 'partials'], function () {
 // Custom fonts are handled by the "other" task
 gulp.task('fonts', function () {
     return gulp.src($.mainBowerFiles())
-        .pipe($.filter('**/*.{eot,svg,ttf,woff,woff2}'))
+        .pipe($.filter('**/*.{eot,otf,svg,ttf,woff,woff2}'))
         .pipe($.flatten())
         .pipe(gulp.dest(path.join(conf.paths.dist, '/fonts/')));
 });

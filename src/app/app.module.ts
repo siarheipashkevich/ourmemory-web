@@ -1,4 +1,4 @@
-/// <reference path="../../.tmp/typings/tsd.d.ts" />
+/// <reference path="../../typings/main.d.ts" />
 
 import { appRun } from './app.run';
 import { AppConstants } from './app.constant';

@@ -15,7 +15,7 @@ function webpackWrapper(watch, test, callback) {
         watch: watch,
         module: {
             preLoaders: [{test: /\.ts$/, exclude: /node_modules/, loader: 'tslint-loader'}],
-            loaders: [{test: /\.ts$/, exclude: /node_modules/, loaders: ['ng-annotate', 'awesome-typescript-loader']}]
+            loaders: [{test: /\.ts$/, exclude: /node_modules/, loaders: ['ng-annotate', 'ts-loader']}]
         },
         output: {filename: 'app.module.js'}
     };
@@ -57,7 +57,7 @@ function webpackWrapper(watch, test, callback) {
         .pipe(gulp.dest(path.join(conf.paths.tmp, '/serve/app')));
 }
 
-gulp.task('scripts', ['tsd:install'], function () {
+gulp.task('scripts', function () {
     return webpackWrapper(false, false);
 });
 
@@ -65,7 +65,7 @@ gulp.task('scripts:watch', ['scripts'], function (callback) {
     return webpackWrapper(true, false, callback);
 });
 
-gulp.task('scripts:test', ['tsd:install'], function () {
+gulp.task('scripts:test', function () {
     return webpackWrapper(false, true);
 });
 
