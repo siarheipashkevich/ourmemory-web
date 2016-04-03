@@ -5,6 +5,10 @@ class ProfileController {
     constructor() {
         this.title = 'Страница пользователя';
     }
+
+    getTitle() {
+        return this.title;
+    }
 }
 
 export {
