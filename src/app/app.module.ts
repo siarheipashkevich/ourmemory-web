@@ -28,6 +28,6 @@ angular
     .constant('CONSTANTS', AppConstants)
     .run(appRun);
 
-angular.element(document).ready(function () {
-    angular.bootstrap(angular.element(document), ['ourmemory']);
+angular.element(document).ready(() => {
+    angular.bootstrap(document, ['ourmemory'], { strictDi: true });
 });

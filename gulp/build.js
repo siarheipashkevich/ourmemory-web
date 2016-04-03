@@ -19,6 +19,7 @@ gulp.task('partials', function () {
             collapseBooleanAttributes: true,
             collapseWhitespace: true
         }))
+        .pipe($.replace('assets/images/', 'images/'))
         .pipe($.angularTemplatecache('templateCacheHtml.js', {
             module: 'ourmemory',
             root: 'app'
@@ -37,22 +38,17 @@ gulp.task('html', ['inject', 'partials'], function () {
     var htmlFilter = $.filter('*.html', {restore: true});
     var jsFilter = $.filter('**/*.js', {restore: true});
     var cssFilter = $.filter('**/*.css', {restore: true});
-    var assets;
 
     return gulp.src(path.join(conf.paths.tmp, '/serve/*.html'))
         .pipe($.inject(partialsInjectFile, partialsInjectOptions))
         .pipe($.useref())
         .pipe(jsFilter)
-        .pipe($.replace('assets/images/', '../images/'))
-        .pipe($.uglify({preserveComments: $.uglifySaveLicense})).on('error', conf.errorHandler('Uglify'))
+        .pipe($.uglify({ preserveComments: $.uglifySaveLicense })).on('error', conf.errorHandler('Uglify'))
+        .pipe($.rev())
         .pipe(jsFilter.restore)
         .pipe(cssFilter)
-        .pipe($.replace('../../bower_components/bootstrap/fonts/', '../fonts/'))
-        .pipe($.replace('../../bower_components/font-awesome/fonts/', '../fonts/'))
-        .pipe($.replace('../../bower_components/simple-line-icons/fonts/', '../fonts/'))
-        .pipe($.replace('../assets/fonts/', '../fonts/'))
-        .pipe($.replace('../assets/images/', '../images/'))
-        .pipe($.minifyCss({processImport: false}))
+        .pipe($.cssnano())
+        .pipe($.rev())
         .pipe(cssFilter.restore)
         .pipe($.revReplace())
         .pipe(htmlFilter)
@@ -63,6 +59,11 @@ gulp.task('html', ['inject', 'partials'], function () {
             collapseWhitespace: true
         }))
         .pipe(htmlFilter.restore)
+        .pipe($.replace('../../bower_components/bootstrap/fonts/', '../fonts/'))
+        .pipe($.replace('../../bower_components/font-awesome/fonts/', '../fonts/'))
+        .pipe($.replace('../../bower_components/simple-line-icons/fonts/', '../fonts/'))
+        .pipe($.replace('../assets/fonts/', '../fonts/'))
+        .pipe($.replace('assets/images/', 'images/'))
         .pipe(gulp.dest(path.join(conf.paths.dist, '/')))
         .pipe($.size({title: path.join(conf.paths.dist, '/'), showFiles: true}));
 });
