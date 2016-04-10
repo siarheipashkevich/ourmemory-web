@@ -1,0 +1,193 @@
+<div class="modal-header">
+    <button type="button"
+            class="close"
+            ng-click="vm.closeModal()">
+        <span>×</span>
+    </button>
+    <h4 class="modal-title">{{vm.title}}</h4>
+</div>
+
+<div class="modal-body">
+    <form role="form">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="lastName">Фамилия</label>
+                    <input type="text"
+                           class="form-control input-sm"
+                           id="lastName"
+                           placeholder="Фамилия"
+                           ng-model="vm.veteran.lastName">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="firstName">Имя</label>
+                    <input type="text"
+                           class="form-control input-sm"
+                           id="firstName"
+                           placeholder="Имя"
+                           ng-model="vm.veteran.firstName">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="middleName">Отчество</label>
+                    <input type="text"
+                           class="form-control input-sm"
+                           id="middleName"
+                           placeholder="Отчество"
+                           ng-model="vm.veteran.middleName">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Место рождения</label>
+            <label class="label label-default">{{vm.veteran.latitude}}</label>
+            <label class="label label-default">{{vm.veteran.longitude}}</label>
+            <google-place-autocomplete location="vm.veteran.birthPlace"
+                                       latitude="vm.veteran.latitude"
+                                       longitude="vm.veteran.longitude"
+                                       title="Введите место рождения"></google-place-autocomplete>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="dateBirth">Дата рождения</label>
+                    <div class="input-group">
+                        <input type="text"
+                               class="form-control input-sm"
+                               id="dateBirth"
+                               disabled
+                               uib-datepicker-popup
+                               show-weeks="false"
+                               show-button-bar="false"
+                               on-open-focus="false"
+                               ng-model="vm.veteran.dateBirth"
+                               is-open="vm.datePicker.status.opened.dateBirth">
+                        <span class="input-group-btn">
+                            <a href="javascript:void(0)"
+                               class="btn btn-sm btn-default"
+                               ng-click="vm.openDatePicker('dateBirth')">
+                                <i class="fa fa-calendar"></i>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="dateDeath">Дата смерти</label>
+                    <div class="input-group">
+                        <input type="text"
+                               class="form-control input-sm"
+                               id="dateDeath"
+                               disabled
+                               uib-datepicker-popup
+                               show-weeks="false"
+                               show-button-bar="false"
+                               on-open-focus="false"
+                               ng-model="vm.veteran.dateDeath"
+                               is-open="vm.datePicker.status.opened.dateDeath">
+                        <span class="input-group-btn">
+                            <a href="javascript:void(0)"
+                               class="btn btn-sm btn-default"
+                               ng-click="vm.openDatePicker('dateDeath')">
+                                <i class="fa fa-calendar"></i>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="called">Призван</label>
+                    <div class="input-group">
+                        <input type="text"
+                               class="form-control input-sm"
+                               id="called"
+                               disabled
+                               uib-datepicker-popup
+                               show-weeks="false"
+                               show-button-bar="false"
+                               on-open-focus="false"
+                               ng-model="vm.veteran.called"
+                               is-open="vm.datePicker.status.opened.called">
+                        <span class="input-group-btn">
+                            <a href="javascript:void(0)"
+                               class="btn btn-sm btn-default"
+                               ng-click="vm.openDatePicker('called')">
+                                <i class="fa fa-calendar"></i>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="troops">Род войск</label>
+                    <input type="text"
+                           class="form-control input-sm"
+                           id="troops"
+                           placeholder="Род войск"
+                           ng-model="vm.veteran.troops">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="awards">Награды</label>
+            <input type="text"
+                   class="form-control input-sm"
+                   id="awards"
+                   placeholder="Награды"
+                   ng-model="vm.veteran.awards">
+        </div>
+        <div class="form-group">
+            <label for="description">Биография</label>
+            <textarea class="form-control input-sm"
+                      id="description"
+                      rows="10"
+                      ng-model="vm.veteran.description"
+                      markdownedit
+                      markdown-hidden-buttons="cmdQuote">
+
+            </textarea>
+        </div>
+        <div class="form-group">
+            <div class="btn btn-sm btn-green"
+                 accept="image/*"
+                 ngf-select="vm.uploadImages($files)"
+                 ngf-multiple="true"
+                 ngf-pattern="'image/*'">
+                <i class="fa"
+                   ng-class="vm.uploadImage ? 'fa-spinner fa-spin' : 'fa-folder-open-o'"></i>&nbsp;&nbsp;Добавить фотографии
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="imageList">
+                    <div class="uploadedImages" ng-repeat="image in vm.veteran.images track by $index">
+                        <img class="img-responsive" ng-src="{{image.imageOriginal}}">
+
+                        <div class="deleteImage" ng-click="vm.deleteImage($index)">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal-footer">
+    <div class="clearfix">
+        <span class="text-danger">{{vm.errorMessage}} &nbsp;</span>
+        <div class="btn btn-sm btn-blue"
+             ng-click="vm.saveVeteran()"
+             ng-disabled="vm.sendingData">
+            <i class="fa fa-spinner fa-spin" ng-show="vm.sendingData"></i> {{vm.btnSaveText}}
+        </div>
+    </div>
+</div>

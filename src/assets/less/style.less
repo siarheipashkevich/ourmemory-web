@@ -1,0 +1,327 @@
+/**
+ *  Do not remove the comments below. It's the markers used by wiredep to inject
+ *  less dependencies when defined in the bower.json of your dependencies
+ */
+// bower:less
+// endbower
+
+/**
+ *  If you want to override some bootstrap variables, you have to change values here.
+ *  The list of variables are listed here bower_components/bootstrap/less/variables.less
+ */
+@fa-font-path: '../../bower_components/font-awesome/fonts/';
+@simple-line-font-path: '../../bower_components/simple-line-icons/fonts/';
+@my-font-path: '../assets/fonts/';
+
+@import 'fonts';
+
+// bootstrap
+@navbar-margin-bottom: 0;
+
+@import (inline) '../css/bootstrap.css';
+@import (inline) '../css/app.css';
+@import 'rzslider';
+
+.intro-header {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  text-align: center;
+  color: #f8f8f8;
+  background: url(../assets/images/15_3682_oboi_velikaja_otechestvennaja_vojna_1440x900.jpg) no-repeat center 10%;
+  background-size: cover;
+
+  .intro-message {
+    position: relative;
+    padding-top: 15%;
+    padding-bottom: 15%;
+
+    & > h1 {
+      margin: 0;
+      text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+      font-size: 5em;
+    }
+  }
+}
+
+.section-heading-spacer {
+  float: left;
+  width: 200px;
+  border-top: 3px solid #e7e7e7;
+}
+
+.section-heading {
+  margin-bottom: 30px;
+  font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-weight: 700;
+}
+
+.lead {
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.content-section-a {
+  padding: 50px 0;
+  background-color: #f8f8f8;
+}
+
+.content-section-b {
+  padding: 50px 0;
+  border-top: 1px solid #e7e7e7;
+  border-bottom: 1px solid #e7e7e7;
+}
+
+footer {
+  border-top: 1px solid #e7e7e7;
+  padding: 50px 0;
+
+  .list-inline {
+    padding-left: 0;
+    margin-left: -5px;
+    list-style: none;
+
+    & > li {
+      display: inline-block;
+      padding-right: 5px;
+      padding-left: 5px;
+    }
+  }
+}
+
+.description {
+  display: block;
+  display: -webkit-box;
+  height: 39px;
+  margin: 3px 0 10px;
+  font-size: 13px;
+  line-height: 13px;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  padding: 0;
+}
+
+button {
+  outline: none!important;
+}
+
+.home-logo {
+  font-weight: bold;
+}
+
+.propWidget-2 .fig {
+  height: 240px;
+}
+
+.propWidget-2 .fig img {
+  height: 100%;
+}
+
+.home-title {
+  text-transform: none;
+  font-size: 35px;
+  color: #fff;
+  font-weight: bold;
+}
+
+.home-caption {
+  top: 280px;
+}
+
+.md-editor {
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  border-radius: 2px;
+
+  &.active {
+    border-color: #999;
+    box-shadow: none;
+  }
+
+  & > .md-header {
+    border-radius: 2px 2px 0 0!important;
+  }
+
+  & > textarea {
+    padding: 10px!important;
+    border-top: none;
+    border-bottom: none;
+    border-radius: 0 0 2px 2px!important;
+  }
+}
+
+.veteranInformation {
+  .shortDescription {
+    margin-bottom: 20px;
+
+    .photo {
+      width: 200px;
+      height: 200px;
+      overflow: hidden;
+      border-radius: 50%;
+      display: inline-block;
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .table {
+      box-shadow: none;
+
+      td {
+        vertical-align: top;
+        padding: 7px 10px;
+        font-style: italic;
+
+        &:first-child {
+          width: 150px;
+          font-weight: 600;
+        }
+      }
+    }
+
+    .no-bordered td, .no-bordered th {
+      border: none;
+    }
+  }
+
+  .fullDescription {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    color: #000000;
+    font-size: 1.35em;
+    line-height: 150%;
+    margin-bottom: 20px;
+  }
+}
+
+a.card .cardAddress, div.card .cardAddress {
+  display: block;
+  display: -webkit-box;
+  height: 39px;
+  margin: 3px 10px 10px;
+  font-size: 11px;
+  line-height: 13px;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  padding: 0;
+}
+
+.infoW {
+  .paWrapper {
+    .propAddress {
+      padding-top: 5px;
+    }
+  }
+}
+
+.propImg {
+  height: 150px;
+}
+
+.input-group-btn:last-child > .btn-sm {
+  padding-bottom: 7px;
+}
+
+#wrapper {
+  left: 0;
+  margin-left: 0;
+}
+
+@media (min-width: 768px) {
+  .modal-dialog {
+    margin: 10px auto;
+  }
+
+  .navbar-nav > li > a {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+}
+
+a.navHandler {
+  padding-left: 15px;
+  padding-right: 15px;
+  width: auto;
+  font-weight: bold;
+}
+
+.angular-google-map-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: 100%;
+}
+
+.imageList {
+  overflow: hidden;
+
+  .uploadedImages {
+    position: relative;
+    float: left;
+    margin: 0 10px 10px 0;
+
+    img {
+      height: 100px;
+      width: auto;
+    }
+
+    .deleteImage {
+      opacity: 1;
+      background-color: rgba(0, 0, 0, .5);
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-size: 11px;
+      line-height: 9px;
+      color: #fff;
+      padding: 4px;
+      border-radius: 3px;
+      cursor: pointer;
+
+      span {
+        opacity: .7;
+        transition: opacity 100ms;
+        backface-visibility: hidden;
+      }
+
+      &:hover {
+        span {
+          opacity: 1;
+          filter: none;
+        }
+      }
+    }
+  }
+}
+
+.createVeteran {
+  margin-top: 12px;
+}
+
+.no-touch a.card:hover img, .no-touch div.card:hover img {
+  transform: scale(1);
+}
+
+.no-touch .figure img {
+  transform: scale(1);
+}
+
+#header {
+  border-bottom: 1px solid #e8e8e8;
+}
+
+#content {
+  border-top: none;
+}
+
+.login {
+  margin-top: 30px;
+}

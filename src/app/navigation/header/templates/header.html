@@ -1,0 +1,84 @@
+<div id="header">
+    <a href="#" class="navHandler">{{'navigation.header.title' | translate}}</a>
+    <div class="headerUserWraper" ng-if="authenticated">
+        <a href="#" class="userHandler dropdown-toggle" data-toggle="dropdown">
+            <span class="icon-user"></span>
+            <span class="counter">5</span>
+        </a>
+        <a href="#" class="headerUser dropdown-toggle" data-toggle="dropdown">
+            <div class="userTop pull-left">
+                <span class="headerUserName">{{authUser.email}}</span> <span class="fa fa-angle-down"></span>
+            </div>
+            <div class="clearfix"></div>
+        </a>
+        <div class="dropdown-menu pull-right userMenu" role="menu">
+            <div class="mobAvatar">
+                <img class="avatar mobAvatarImg" ng-src="" alt="John Smith">
+                <div class="mobAvatarName">{{authUser.email}}</div>
+            </div>
+            <ul>
+                <li>
+                    <a href="#">
+                        <span class="icon-settings"></span>
+                        {{'navigation.header.profile.setting' | translate}}
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="main.profile">
+                        <span class="icon-user"></span>
+                        {{'navigation.header.profile.profile' | translate}}
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon-bell"></span>
+                        {{'navigation.header.profile.notification' | translate}}&nbsp;
+                        <span class="badge pull-right bg-red">5</span>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a ng-href="#" ng-click="vm.logout()">
+                        <span class="icon-power"></span>{{'navigation.header.profile.logout' | translate}}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="navbar-custom-menu pull-right">
+        <ul class="nav navbar-nav">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle"
+                   data-toggle="dropdown"
+                   role="button"
+                   aria-haspopup="true"
+                   aria-expanded="false">{{'navigation.header.menu.language' | translate}}&nbsp;
+                    <span class="fa fa-angle-down"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a ng-href="#" ng-click="vm.changeLanguage($event, 'en')">
+                            {{'navigation.header.language.en' | translate}}
+                        </a>
+                    </li>
+                    <li>
+                        <a ng-href="#" ng-click="vm.changeLanguage($event, 'ru')">
+                            {{'navigation.header.language.ru' | translate}}
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="main.veterans">{{'navigation.header.menu.veteran' | translate}}</a>
+            </li>
+            <li ui-sref-active="active" ng-if="!authenticated">
+                <a ui-sref="main.login">{{'navigation.header.menu.login' | translate}}</a>
+            </li>
+            <li ui-sref-active="active" ng-if="!authenticated">
+                <a ui-sref="main.register">{{'navigation.header.menu.register' | translate}}</a>
+            </li>
+        </ul>
+    </div>
+    <a href="#" class="mapHandler"><span class="icon-map"></span></a>
+    <div class="clearfix"></div>
+</div>
