@@ -10,6 +10,10 @@ class VeteranController {
     gMap: any;
     showInfoBoxWindowVeteran: any;
     hideInfoBoxWindowVeteran: any;
+    showAdvancedFilter: boolean = false;
+    filterOptions: Object;
+
+    selected: any = {};
 
     totalCount: number;
     currentPage: number = 1;
@@ -38,6 +42,8 @@ class VeteranController {
         this.markerOptions = MapService.getMarkerOptions();
         this.infoBoxWindowOptions = MapService.getInfoBoxWindowOptionsToMarker();
         this.gMap = MapService.getSettingsGoogleMaps();
+
+        this.filterOptions = VeteranService.getDefaultFilterOptions();
     }
 
     async getVeteransData() {

@@ -26,12 +26,91 @@
     <div id="content" resize>
         <div class="filter">
             <h1 class="osLight">Поиск</h1>
-            <div class="btn btn-sm btn-blue createVeteran"
-                 ng-click="vm.showModalSaveVeteran()" ng-if="authUser">
+
+            <div class="btn btn-sm btn-blue createVeteran" ng-click="vm.showModalSaveVeteran()" ng-if="authUser">
                 <i class="fa fa-plus"></i>&nbsp;Добавить ветерана
             </div>
-            <a href="#" class="handleFilter"><span class="icon-equalizer"></span></a>
+
+            <a href="javascript:void(0);" class="handleFilter" ng-click="vm.showAdvancedFilter = !vm.showAdvancedFilter">
+                <span class="icon-equalizer"></span>
+            </a>
+
             <div class="clearfix"></div>
+
+            <div class="filterForm">
+                <div uib-collapse="vm.showAdvancedFilter">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 formItem">
+                            <div class="formField">
+                                <label>Bathrooms</label>
+                                <om-dropdown
+                                        placeholder="Bathrooms"
+                                        list="vm.filterOptions.dropdownn"
+                                        property="name"
+                                        selected="vm.selected"
+                                        classes="btn btn-gray dropdown-btn">
+                                </om-dropdown>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 formItem">
+                            <div class="formField">
+                                <label>Дата рождения</label>
+                                <rzslider
+                                        rz-slider-model="vm.filterOptions.slider.min"
+                                        rz-slider-high="vm.filterOptions.slider.max"
+                                        rz-slider-options="vm.filterOptions.slider.options"></rzslider>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="form-group"><label>Amenities</label>
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                        <div class="checkbox custom-checkbox">
+                                            <label><input type="checkbox" name="garage" value="1">
+                                                <span class="fa fa-check"></span> Garage</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                        <div class="checkbox custom-checkbox">
+                                            <label><input type="checkbox" name="security_system" value="1">
+                                                <span class="fa fa-check"></span> Security System</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                        <div class="checkbox custom-checkbox">
+                                            <label><input type="checkbox" name="air_conditioning" value="1">
+                                                <span class="fa fa-check"></span> Air Conditioning</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                        <div class="checkbox custom-checkbox">
+                                            <label><input type="checkbox" name="balcony" value="1">
+                                                <span class="fa fa-check"></span> Balcony</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                        <div class="checkbox custom-checkbox">
+                                            <label><input type="checkbox" name="outdoor_pool" value="1">
+                                                <span class="fa fa-check"></span> Outdoor Pool</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                        <div class="checkbox custom-checkbox">
+                                            <label><input type="checkbox" name="internet" value="1">
+                                                <span class="fa fa-check"></span> Internet</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
         <div class="resultsList">
             <div class="row">
@@ -53,7 +132,6 @@
                                       ng-click="vm.deleteVeteran($event, veteran.id)"></span>
                                 <span class="icon-eye">&nbsp;{{veteran.views}}</span>
                             </div>
-                            <div class="figView"><span class="icon-eye"></span></div>
                         </div>
                         <h2>{{veteran.fullName}}</h2>
                         <div class="cardAddress description">{{veteran.description}}</div>

@@ -1,7 +1,8 @@
 interface IVeteranService {
-    setMarkerOptionsToVeteran(veteran: any): void;
-    setMarkerOptionsToVeterans(veterans: Array<{}>): void;
+    setMarkerOptionsToVeteran(veteran: any);
+    setMarkerOptionsToVeterans(veterans: Array<{}>);
     getArrayIndexByVeteranId(veterans: Array<any>, id: number): number;
+    getDefaultFilterOptions(): Object;
 }
 
 class VeteranService implements IVeteranService {
@@ -37,6 +38,26 @@ class VeteranService implements IVeteranService {
         });
 
         return foundIndex;
+    }
+
+    getDefaultFilterOptions(): Object {
+        return {
+            slider: {
+                min: 1920,
+                max: 1944,
+                options: {
+                    floor: 1900,
+                    ceil: 2016,
+                    translate: (value: string): string => value + 'г'
+                }
+            },
+            dropdownn: [
+                {name: 'For Rent'},
+                {name: 'For Sale'},
+                {name: 'Продажа'},
+                {name: 'Аренда'}
+            ]
+        };
     }
 }
 

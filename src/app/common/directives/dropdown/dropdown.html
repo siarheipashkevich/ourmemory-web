@@ -1,0 +1,12 @@
+<div>
+    <a href="#" data-toggle="dropdown" ng-class="::classes">
+        <span class="dropdown-label" ng-if="!isPlaceholder">{{ display }}</span>
+        <span class="dropdown-label" ng-if="isPlaceholder">{{ placeholder }}</span>
+        <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu dropdown-select">
+        <li ng-repeat="item in ::list" ng-click="select(item)" ng-class="{ active: isSelected(item) }">
+            <input type="radio" name="bedno"><a href="">{{ property !== undefined ? item[property] : item }}</a>
+        </li>
+    </ul>
+</div>
