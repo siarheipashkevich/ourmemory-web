@@ -19,11 +19,9 @@ class AuthService {
                 this.setIdentity(response.data);
                 this.setAuthUser(response.data);
 
-                this.$state.go('home');
+                this.$state.go('main.home');
             },
-            (error: any) => {
-                return this.$q.reject(error);
-            }
+            (error: any) => this.$q.reject(error)
         );
     }
 
@@ -78,7 +76,7 @@ class AuthService {
 
     checkAccessToState(event: any, toState: any, toParams: any, fromState: any) {
         // deny access to the signIn page to authorized users
-        if ((toState.name === 'home.login' || toState.name === 'home.register') && this.isAuthenticated()) {
+        if ((toState.name === 'main.home.login' || toState.name === 'main.home.register') && this.isAuthenticated()) {
             event.preventDefault();
             return;
         }
@@ -91,9 +89,9 @@ class AuthService {
                     event.preventDefault();
 
                     if (!this.isAuthenticated()) {
-                        this.$state.go('home.login');
+                        this.$state.go('main.home.login');
                     } else {
-                        var state = fromState.name ? fromState.name : 'home';
+                        var state = fromState.name ? fromState.name : 'main.home';
 
                         this.$state.go(state);
                     }
@@ -103,6 +101,4 @@ class AuthService {
     }
 }
 
-export {
-    AuthService
-}
+export {AuthService}
