@@ -72,20 +72,21 @@ class VeteranModalController {
         }
     }
 
-    uploadImages(files: any) {
+    uploadImages(files: FileList) {
         if (files && files.length) {
-            angular.forEach(files, (file: any) => {
-                this.uploadImage = true;
+            let promises: Array<any> = [];
 
-                this.UploadFactory.upload(file).then((response: any) => {
-                    this.veteran.images.push(response.data.images[0]);
-                    this.uploadImage = false;
-                });
+            this.uploadImage = true;
+
+            angular.forEach(files, (file: File) => {
+                promises.push(this.UploadFactory.upload(file).then((image: any) => {
+                    this.veteran.images.push(image);
+                }));
             });
+
+            Promise.all(promises).then(() => { this.uploadImage = false; });
         }
     }
 }
 
-export {
-    VeteranModalController
-}
+export {VeteranModalController}

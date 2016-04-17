@@ -2,10 +2,17 @@ interface IVeteranService {
     setMarkerOptionsToVeteran(veteran: any);
     setMarkerOptionsToVeterans(veterans: Array<{}>);
     getArrayIndexByVeteranId(veterans: Array<any>, id: number): number;
-    getDefaultFilterOptions(): Object;
+    getDefaultSearchOptions(): Object;
+    getTroopsList(): Array<Object>;
+    prepareSearchParams(params: any): any;
 }
 
 class VeteranService implements IVeteranService {
+    /** @ngInject */
+    constructor(
+        private CONSTANTS: any
+    ) {}
+
     setMarkerOptionsToVeteran(veteran: any) {
         veteran.marker = {
             visible: false,
@@ -40,24 +47,122 @@ class VeteranService implements IVeteranService {
         return foundIndex;
     }
 
-    getDefaultFilterOptions(): Object {
+    getDefaultSearchOptions(): Object {
         return {
-            slider: {
-                min: 1920,
-                max: 1944,
+            troops: {},
+            yearBirth: {
+                start: 1920,
+                end: 1944,
                 options: {
                     floor: 1900,
                     ceil: 2016,
+                    disabled: false,
                     translate: (value: string): string => value + 'г'
                 }
             },
-            dropdownn: [
-                {name: 'For Rent'},
-                {name: 'For Sale'},
-                {name: 'Продажа'},
-                {name: 'Аренда'}
-            ]
+            yearDeath: {
+                start: 1939,
+                end: 1960,
+                options: {
+                    floor: 1900,
+                    ceil: 2016,
+                    disabled: true,
+                    translate: (value: string): string => value + 'г'
+                }
+            },
+            yearCall: {
+                start: 1920,
+                end: 1944,
+                options: {
+                    floor: 1900,
+                    ceil: 2016,
+                    disabled: true,
+                    translate: (value: string): string => value + 'г'
+                }
+            }
         };
+    }
+
+    getTroopsList(): Array<Object> {
+        return [
+            {title: 'Танкисты'},
+            {title: 'Самоходчики'},
+            {title: 'Летчики-истребители'},
+            {title: 'Летчики-штурмовики'},
+            {title: 'Летчики-бомбардировщики'},
+            {title: 'Летно-технический состав'},
+            {title: 'Разведчики'},
+            {title: 'Артиллеристы'},
+            {title: 'ГМЧ («Катюши»)'},
+            {title: 'Зенитчики'},
+            {title: 'Медики'},
+            {title: 'Минометчики'},
+            {title: 'Пехотинцы'},
+            {title: 'Пулеметчики'},
+            {title: 'Снайперы'},
+            {title: 'Связисты'},
+            {title: 'Краснофлотцы'},
+            {title: 'Десантники'},
+            {title: 'Саперы'},
+            {title: 'НКВД и СМЕРШ'},
+            {title: 'Кавалеристы'},
+            {title: 'Водители'},
+            {title: 'Партизаны'},
+            {title: 'Гражданские'},
+            {title: 'Другие войска'}
+        ];
+    }
+
+    prepareSearchParams(params: any): any {
+        let searchOptions: any = {};
+
+        if (!params.page) {
+            params.page = 1;
+        }
+
+        if (!params.size) {
+            params.size = this.CONSTANTS.PAGINATION.MAX_ITEMS_TO_PAGE;
+        }
+
+        searchOptions.page = params.page;
+        searchOptions.size = params.size;
+
+        if (params.firstName && params.firstName !== '') {
+            searchOptions.firstName = params.firstName;
+        }
+
+        if (params.lastName && params.lastName !== '') {
+            searchOptions.lastName = params.lastName;
+        }
+
+        if (params.middleName && params.middleName !== '') {
+            searchOptions.middleName = params.middleName;
+        }
+
+        if (params.birthPlace && params.birthPlace !== '') {
+            searchOptions.birthPlace = params.birthPlace;
+        }
+
+        if (params.troops && params.troops.title && params.troops.title !== '') {
+            searchOptions.troops = params.troops.title;
+        }
+
+        if (params.yearBirth && !params.yearBirth.options.disabled) {
+            searchOptions.yearBirthStart = params.yearBirth.start;
+            searchOptions.yearBirthEnd = params.yearBirth.end;
+        }
+
+        if (params.yearDeath && !params.yearDeath.options.disabled) {
+            searchOptions.yearDeathStart = params.yearDeath.start;
+            searchOptions.yearDeathEnd = params.yearDeath.end;
+        }
+
+        if (params.yearCall && !params.yearCall.options.disabled) {
+            searchOptions.yearCallStart = params.yearCall.start;
+            searchOptions.yearCallEnd = params.yearCall.end;
+        }
+
+        return searchOptions;
     }
 }
 

@@ -4,14 +4,15 @@ import {IVeteranService} from './veteran.service';
 import {VeteranFactory} from './veteran.factory';
 
 class VeteranController {
-    veterans: any;
+    veterans: Array<any> = [];
     markerOptions: any;
     infoBoxWindowOptions: any;
     gMap: any;
     showInfoBoxWindowVeteran: any;
     hideInfoBoxWindowVeteran: any;
     showAdvancedFilter: boolean = false;
-    filterOptions: Object;
+    search: Object;
+    troopsList: Array<Object>;
 
     selected: any = {};
 
@@ -32,9 +33,13 @@ class VeteranController {
         angular.element('body').addClass('no-touch');
         angular.element('body').removeClass('notransition');
 
-        this.getVeteransData();
+        this.search = VeteranService.getDefaultSearchOptions();
 
+        this.troopsList = VeteranService.getTroopsList();
         this.maxItemsToPage = CONSTANTS.PAGINATION.MAX_ITEMS_TO_PAGE;
+
+        let params = {page: 1, size: this.maxItemsToPage};
+        this.getVeteransData(params);
 
         this.showInfoBoxWindowVeteran = MapService.showInfoBoxWindowVeteran;
         this.hideInfoBoxWindowVeteran = MapService.hideInfoBoxWindowVeteran;
@@ -42,26 +47,19 @@ class VeteranController {
         this.markerOptions = MapService.getMarkerOptions();
         this.infoBoxWindowOptions = MapService.getInfoBoxWindowOptionsToMarker();
         this.gMap = MapService.getSettingsGoogleMaps();
-
-        this.filterOptions = VeteranService.getDefaultFilterOptions();
     }
 
-    async getVeteransData() {
-        var options = {
-            page: 0,
-            size: this.CONSTANTS.PAGINATION.MAX_ITEMS_TO_PAGE
-        };
+    getVeteransData(params: any) {
+        params = this.VeteranService.prepareSearchParams(params);
 
-        try {
-            let veteransData = await this.VeteranFactory.getVeterans(options);
+        this.VeteranFactory.getVeterans(params).then((response: any) => {
+            this.VeteranService.setMarkerOptionsToVeterans(response.items);
 
-            this.veterans = veteransData && angular.isArray(veteransData.data.items) ? veteransData.data.items : [];
-            this.VeteranService.setMarkerOptionsToVeterans(this.veterans);
+            this.veterans.length = 0;
+            this.totalCount = response.totalCount;
 
-            this.totalCount = veteransData && veteransData.totalCount ? veteransData.totalCount : 0;
-        } catch (error) {
-            console.log(error);
-        }
+            this.veterans.push(...response.items);
+        });
     }
 
     showModalSaveVeteran(veteran?: any) {
@@ -145,25 +143,15 @@ class VeteranController {
         this.showModalSaveVeteran(angular.copy(veteran));
     }
 
-    pageChanged(): void {
-        var params = {
-            page: this.currentPage,
-            size: this.maxItemsToPage
-        };
+    changePage() {
+        this.search = Object.assign({}, this.search, {page: this.currentPage, size: this.maxItemsToPage});
+        this.getVeteransData(this.search);
+    }
 
-        this.VeteranFactory.getVeterans(params).then((response: any) => {
-            if (response.data.items.length) {
-                this.VeteranService.setMarkerOptionsToVeterans(response.data.items);
+    applySearch() {
+        let resultParams = this.VeteranService.prepareSearchParams(this.search);
 
-                this.veterans.length = 0;
-
-                angular.forEach(response.data.items, (value: any) => {
-                    this.veterans.push(value);
-                });
-            }
-        }).catch((error: any) => {
-            this.$log.error(error);
-        });
+        console.log(resultParams);
     }
 }
 

@@ -1,14 +1,18 @@
 class UploadFactory {
+    private link: string;
+
     constructor(
         private Upload: any,
         private CONSTANTS: any
-    ) {}
+    ) {
+        this.link = CONSTANTS.API_URL + 'files';
+    }
 
-    upload(file: any): ng.IPromise<any> {
+    upload(file: File): ng.IPromise<any> {
         return this.Upload.upload({
-            url: this.CONSTANTS.API_URL + 'fileUpload',
-            data: { file: file }
-        });
+            url: this.link,
+            data: {file: file}
+        }).then((response: any) => response.data.images[0]);
     }
 }
 
@@ -20,7 +24,4 @@ function getInstanceUploadFactory(
     return new UploadFactory(Upload, CONSTANTS);
 }
 
-export {
-    UploadFactory,
-    getInstanceUploadFactory
-}
+export {UploadFactory, getInstanceUploadFactory}
