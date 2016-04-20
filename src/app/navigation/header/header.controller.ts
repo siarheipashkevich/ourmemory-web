@@ -1,12 +1,9 @@
 import {AuthService} from '../../auth/auth.service';
-import {Ii18nService} from '../../i18n/i18n.provider';
+import {ITranslationService} from '../../translation/translation.provider';
 
 class HeaderController {
     /** @ngInject */
-    constructor(
-        private AuthService: AuthService,
-        private i18nService: Ii18nService
-    ) {}
+    constructor(private AuthService: AuthService, private TranslationService: ITranslationService) {}
 
     logout(): void {
         this.AuthService.clearIdentity();
@@ -15,10 +12,8 @@ class HeaderController {
     changeLanguage(event: ng.IAngularEvent, key: string): void {
         event.preventDefault();
 
-        this.i18nService.changeLanguage(key);
+        this.TranslationService.changeLanguage(key);
     }
 }
 
-export {
-    HeaderController
-}
+export {HeaderController}

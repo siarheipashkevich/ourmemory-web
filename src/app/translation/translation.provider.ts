@@ -1,9 +1,9 @@
-interface Ii18nService {
+interface ITranslationService {
     changeLanguage(key: string): void;
     getLanguageKey(): string;
 }
 
-class i18nProvider implements ng.IServiceProvider {
+class TranslationProvider implements ng.IServiceProvider {
     private languageKey: string = 'ru';
 
     constructor() {
@@ -17,13 +17,14 @@ class i18nProvider implements ng.IServiceProvider {
     }
 
     /** @ngInject */
-    public $get($translate: ng.translate.ITranslateService, amMoment: any): Ii18nService {
+    public $get($translate: ng.translate.ITranslateService, amMoment: any): ITranslationService {
         return {
             changeLanguage: (key: string) => {
                 $translate.use(key);
                 amMoment.changeLocale(key);
 
                 this.languageKey = key;
+
                 localStorage.setItem('locale', key);
             },
             getLanguageKey: (): string => this.getLanguageKey()
@@ -31,4 +32,4 @@ class i18nProvider implements ng.IServiceProvider {
     }
 }
 
-export {Ii18nService, i18nProvider}
+export {ITranslationService, TranslationProvider}

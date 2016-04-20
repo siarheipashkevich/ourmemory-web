@@ -1,13 +1,13 @@
 import en from './languages/en';
 import ru from './languages/ru';
-import {i18nProvider} from './i18n.provider';
+import {TranslationProvider} from './translation.provider.ts';
 
 /** @ngInject */
-function i18nConfig(
+function translationConfig(
     $translateProvider: ng.translate.ITranslateProvider,
-    i18nServiceProvider: i18nProvider
+    TranslationServiceProvider: TranslationProvider
 ) {
-    let languageKey = i18nServiceProvider.getLanguageKey();
+    let languageKey = TranslationServiceProvider.getLanguageKey();
 
     $translateProvider
         .translations('ru', ru)
@@ -17,6 +17,4 @@ function i18nConfig(
         .useSanitizeValueStrategy('escape');
 }
 
-export {
-    i18nConfig
-}
+export {translationConfig}
