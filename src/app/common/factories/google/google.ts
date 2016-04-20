@@ -1,6 +1,10 @@
+interface IMyWindowService extends ng.IWindowService {
+    google: any;
+}
+
 /** @ngInject */
 function getInstanceGoogle(
-    $window: any
+    $window: IMyWindowService
 ) {
     return $window.google;
 }

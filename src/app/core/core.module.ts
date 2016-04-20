@@ -9,6 +9,7 @@ export default angular
         'uiGmapgoogle-maps',
         'codemwnci.markdown-edit-preview',
         'angularMoment',
-        'pascalprecht.translate'
+        'pascalprecht.translate',
+        'toastr'
     ])
     .config(coreConfig);

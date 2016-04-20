@@ -12,4 +12,17 @@ export default angular
     .service('VeteranService', VeteranService)
     .controller('VeteranController', VeteranController)
     .controller('VeteranModalController', VeteranModalController)
-    .controller('VeteranDetailController', VeteranDetailController);
+    .controller('VeteranDetailController', VeteranDetailController)
+    .controller('InfoController', ($scope: any) => {
+        $scope.$watch('parameter.veteran.marker.visible', (newVal, oldVal) => {
+            console.log(newVal, oldVal);
+
+            // if (!newVal && oldVal) {
+            //     $scope.$destroy();
+            // }
+        });
+
+        $scope.$on('$destroy', () => {
+            console.log('DESTROY');
+        })
+    });

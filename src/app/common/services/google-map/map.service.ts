@@ -8,9 +8,10 @@ interface IMapService {
 
 class MapService implements IMapService {
     /** @ngInject */
-    constructor(private google: any,
-                private CONSTANTS: any) {
-    }
+    constructor(
+        private google: any,
+        private CONSTANTS: any
+    ) {}
 
     getMarkerOptions(): any {
         return {
@@ -55,6 +56,7 @@ class MapService implements IMapService {
                 veteran.marker.visible = true;
             },
             closeInfoBoxWindow: (veteran: any): void => {
+                console.info(arguments);
                 veteran.marker.visible = false;
             }
         };
