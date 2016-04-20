@@ -2,11 +2,10 @@
 function coreConfig(
     $urlRouterProvider: ng.ui.IUrlRouterProvider,
     $httpProvider: ng.IHttpProvider,
-    $provide: ng.auto.IProvideService,
-    toastrConfig: ng.toastr.IToastConfig
+    $provide: ng.auto.IProvideService
 ) {
     $urlRouterProvider.otherwise('/');
-
+    
     $httpProvider.interceptors.push('AuthInterceptor');
 
     $provide.decorator('$exceptionHandler', extendExceptionHandler);

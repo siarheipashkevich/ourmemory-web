@@ -15,15 +15,9 @@ class VeteranService implements IVeteranService {
 
     setMarkerOptionsToVeteran(veteran: any) {
         veteran.marker = {
-            visible: false,
             position: {
                 latitude: veteran.latitude,
                 longitude: veteran.longitude
-            },
-            events: {
-                click: (marker: any) => {
-                    console.log(marker);
-                }
             }
         };
     }

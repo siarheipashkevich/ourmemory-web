@@ -1,9 +1,5 @@
 interface IMapService {
-    getMarkerOptions(): any;
-    getInfoBoxWindowOptionsToMarker(): any;
     getSettingsGoogleMaps(): any;
-    showInfoBoxWindowVeteran(veteran: any): void;
-    hideInfoBoxWindowVeteran(veteran: any): void;
 }
 
 class MapService implements IMapService {
@@ -13,7 +9,73 @@ class MapService implements IMapService {
         private CONSTANTS: any
     ) {}
 
-    getMarkerOptions(): any {
+    getSettingsGoogleMaps(): any {
+        let gMap = {
+            map: {
+                events: {
+                    dragend: (map: any) => {
+                        console.log(map.getBounds());
+                    }
+                },
+                center: {
+                    latitude: 53.906165,
+                    longitude: 27.555991
+                },
+                zoom: 4,
+                options: {
+                    scrollwheel: true,
+                    disableDefaultUI: true,
+                    styles: [{
+                        stylers: [{
+                            hue: '#cccccc'
+                        }, {
+                            saturation: -100
+                        }]
+                    }, {
+                        featureType: 'road',
+                        elementType: 'geometry',
+                        stylers: [{
+                            lightness: 100
+                        }, {
+                            visibility: 'simplified'
+                        }]
+                    }, {
+                        featureType: 'road',
+                        elementType: 'labels',
+                        stylers: [{
+                            visibility: 'on'
+                        }]
+                    }, {
+                        featureType: 'poi',
+                        stylers: [{
+                            visibility: 'off'
+                        }]
+                    }]
+                }
+            },
+            window: {
+                veteran: {},
+                position: {},
+                show: false,
+                style: this.getWindowOptionsToMarker()
+            },
+            marker: {
+                options: this.getMarkerOptions(),
+                events: {
+                    click: (marker: any, eventName: any, veteran: any) => {
+                        gMap.window.veteran = veteran;
+                        gMap.window.position = veteran.marker.position;
+
+                        gMap.window.show = true;
+                    }
+                }
+            }
+        };
+
+        return gMap;
+    }
+
+    private getMarkerOptions(): any {
         return {
             draggable: false,
             animation: this.google.maps.Animation.DROP,
@@ -24,9 +86,9 @@ class MapService implements IMapService {
         };
     }
 
-    getInfoBoxWindowOptionsToMarker(): any {
+    private getWindowOptionsToMarker(): any {
         return {
-            template: 'app/common/templates/info-box-window.html',
+            template: 'app/common/templates/google-map-window.html',
             options: {
                 boxClass: 'test',
                 disableAutoPan: false,
@@ -46,90 +108,8 @@ class MapService implements IMapService {
                 infoBoxClearance: new this.google.maps.Size(1, 1),
                 pane: 'floatPane',
                 enableEventPropagation: false
-            },
-            showInfoBoxWindow: (veterans: any, veteran: any): void => {
-                // hide all opened info box window on maps
-                veterans.map((veteran: any) => {
-                    veteran.marker.visible = false;
-                });
-
-                veteran.marker.visible = true;
-            },
-            closeInfoBoxWindow: (veteran: any): void => {
-                console.info(arguments);
-                veteran.marker.visible = false;
             }
         };
-    }
-
-    getSettingsGoogleMaps(): any {
-        return {
-            map: {
-                events: {
-                    dragend: (map: any) => {
-                        console.log(map.getBounds());
-                    }
-                },
-                center: {
-                    latitude: 53.906165,
-                    longitude: 27.555991
-                },
-                zoom: 12,
-                options: {
-                    scrollwheel: true,
-                    disableDefaultUI: true,
-                    styles: [
-                        {
-                            stylers: [
-                                {
-                                    hue: '#cccccc'
-                                },
-                                {
-                                    saturation: -100
-                                }
-                            ]
-                        },
-                        {
-                            featureType: 'road',
-                            elementType: 'geometry',
-                            stylers: [
-                                {
-                                    lightness: 100
-                                },
-                                {
-                                    visibility: 'simplified'
-                                }
-                            ]
-                        },
-                        {
-                            featureType: 'road',
-                            elementType: 'labels',
-                            stylers: [
-                                {
-                                    visibility: 'on'
-                                }
-                            ]
-                        },
-                        {
-                            featureType: 'poi',
-                            stylers: [
-                                {
-                                    visibility: 'off'
-                                }
-                            ]
-                        }
-                    ]
-                }
-            }
-        };
-    }
-
-    showInfoBoxWindowVeteran(veteran: any) {
-        veteran.marker.visible = true;
-    }
-
-    hideInfoBoxWindowVeteran(veteran: any) {
-        veteran.marker.visible = false;
     }
 }
 

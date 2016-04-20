@@ -5,11 +5,7 @@ import {VeteranFactory} from './veteran.factory';
 
 class VeteranController {
     veterans: Array<any> = [];
-    markerOptions: any;
-    infoBoxWindowOptions: any;
     gMap: any;
-    showInfoBoxWindowVeteran: any;
-    hideInfoBoxWindowVeteran: any;
     showAdvancedFilter: boolean = false;
     search: Object;
     troopsList: Array<Object>;
@@ -41,12 +37,18 @@ class VeteranController {
         let params = {page: 1, size: this.maxItemsToPage};
         this.getVeteransData(params);
 
-        this.showInfoBoxWindowVeteran = MapService.showInfoBoxWindowVeteran;
-        this.hideInfoBoxWindowVeteran = MapService.hideInfoBoxWindowVeteran;
-
-        this.markerOptions = MapService.getMarkerOptions();
-        this.infoBoxWindowOptions = MapService.getInfoBoxWindowOptionsToMarker();
         this.gMap = MapService.getSettingsGoogleMaps();
+    }
+
+    showWindowVeteran(veteran: any) {
+        this.gMap.window.veteran = angular.extend({}, veteran);
+        this.gMap.window.position = veteran.marker.position;
+        this.gMap.window.show = true;
+    }
+
+    hideWindowVeteran() {
+        this.gMap.window.show = false;
+        this.gMap.window.veteran = {};
     }
 
     getVeteransData(params: any) {

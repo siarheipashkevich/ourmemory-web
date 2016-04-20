@@ -1,4 +1,4 @@
-<div ng-controller="InfoController" class="infoW">
+<div ng-controller="GoogleMapWindowController as vm" class="infoW">
     <div class="propImg">
         <img ng-src="{{parameter.veteran.images.length && parameter.veteran.images[0].imageOriginal || parameter.defaultVeteranImage}}">
         <div class="propBg"></div>
@@ -9,8 +9,7 @@
     </div>
     <div class="clearfix"></div>
     <div class="infoButtons clearfix">
-        <a class="btn btn-sm btn-gray btn-o closeInfo pull-left"
-           ng-click="parameter.closeInfoBoxWindow(parameter.veteran)">
+        <a class="btn btn-sm btn-gray btn-o closeInfo pull-left" ng-click="vm.close(parameter.veteran)">
             Закрыть
         </a>
         <a class="btn btn-sm btn-green viewInfo btn-blue pull-right"
