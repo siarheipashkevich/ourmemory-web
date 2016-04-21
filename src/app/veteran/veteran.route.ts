@@ -33,7 +33,7 @@ function veteranRoute(
                         veteran: async (VeteranFactory: VeteranFactory) => {
                             try {
                                 let response = await VeteranFactory.getVeteran($stateParams.id);
-                                return response.data;
+                                return response.data.veteran;
                             } catch (error) {
                                 console.log(error);
                             }

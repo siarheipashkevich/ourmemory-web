@@ -1,11 +1,9 @@
 <div class="modal-header">
-    <button type="button"
-            class="close"
-            ng-click="vm.closeModal()">
+    <button type="button" class="close" ng-click="vm.closeModal()">
         <span>×</span>
     </button>
     <h4 class="modal-title">
-        <b>{{vm.veteran.fullName}}</b>
+        <b>{{::vm.veteran.fullName}}</b>
     </h4>
 </div>
 <div class="modal-body">
@@ -21,19 +19,19 @@
                     <tbody class="table">
                     <tr>
                         <td><span class="userName">Место рождения:</span></td>
-                        <td>{{vm.veteran.birthPlace}}</td>
+                        <td>{{::vm.veteran.birthPlace}}</td>
                     </tr>
                     <tr>
                         <td><span class="userName">Дата рождения:</span></td>
-                        <td>{{vm.veteran.dateBirth | amDateFormat:'D MMMM YYYY'}}</td>
+                        <td>{{::vm.veteran.dateBirth | amDateFormat:'D MMMM YYYY'}}</td>
                     </tr>
                     <tr>
                         <td><span class="userName">Награды:</span></td>
-                        <td>{{vm.veteran.awards}}</td>
+                        <td>{{::vm.veteran.awards}}</td>
                     </tr>
                     <tr>
                         <td><span class="userName">Дата призыва:</span></td>
-                        <td>{{vm.veteran.called | amDateFormat:'D MMMM YYYY'}}</td>
+                        <td>{{::vm.veteran.called | amDateFormat:'D MMMM YYYY'}}</td>
                     </tr>
                     <tr>
                         <td><span class="userName"></span></td>

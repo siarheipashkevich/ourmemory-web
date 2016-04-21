@@ -6,9 +6,10 @@ import {VeteranFactory} from './veteran.factory';
 class VeteranController {
     veterans: Array<any> = [];
     gMap: any;
-    showAdvancedFilter: boolean = false;
+    showAdvancedFilter: boolean = true;
     search: Object;
     troopsList: Array<Object>;
+    loading: boolean;
 
     selected: any = {};
 
@@ -40,27 +41,20 @@ class VeteranController {
         this.gMap = MapService.getSettingsGoogleMaps();
     }
 
-    showWindowVeteran(veteran: any) {
-        this.gMap.window.veteran = angular.extend({}, veteran);
-        this.gMap.window.position = veteran.marker.position;
-        this.gMap.window.show = true;
-    }
-
-    hideWindowVeteran() {
-        this.gMap.window.show = false;
-        this.gMap.window.veteran = {};
-    }
-
     getVeteransData(params: any) {
-        params = this.VeteranService.prepareSearchParams(params);
+        params = this.VeteranService.prepareSearchParams(params, this.showAdvancedFilter);
+
+        this.loading = true;
+
+        this.veterans.length = 0;
 
         this.VeteranFactory.getVeterans(params).then((response: any) => {
             this.VeteranService.setMarkerOptionsToVeterans(response.items);
 
-            this.veterans.length = 0;
             this.totalCount = response.totalCount;
-
             this.veterans.push(...response.items);
+
+            this.loading = false;
         });
     }
 
@@ -147,13 +141,12 @@ class VeteranController {
 
     changePage() {
         this.search = Object.assign({}, this.search, {page: this.currentPage, size: this.maxItemsToPage});
+
         this.getVeteransData(this.search);
     }
 
     applySearch() {
-        let resultParams = this.VeteranService.prepareSearchParams(this.search);
-
-        console.log(resultParams);
+        this.getVeteransData(this.search);
     }
 }
 

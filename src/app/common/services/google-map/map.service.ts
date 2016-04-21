@@ -5,6 +5,8 @@ interface IMapService {
 class MapService implements IMapService {
     /** @ngInject */
     constructor(
+        private $timeout: ng.ITimeoutService,
+        private $rootScope: ng.IRootScopeService,
         private google: any,
         private CONSTANTS: any
     ) {}
@@ -57,16 +59,28 @@ class MapService implements IMapService {
                 veteran: {},
                 position: {},
                 show: false,
-                style: this.getWindowOptionsToMarker()
+                style: this.getWindowOptionsToMarker(),
+                showWindow: (veteran: any) => {
+                    gMap.window.hideWindow();
+
+                    this.$timeout(() => {
+                        gMap.window.veteran = veteran;
+                        gMap.window.position = veteran.marker.position;
+
+                        gMap.window.show = true;
+                    }, 170);
+                },
+                hideWindow: () => {
+                    gMap.window.show = false;
+
+                    this.$rootScope.$broadcast('destroy');
+                }
             },
             marker: {
                 options: this.getMarkerOptions(),
                 events: {
                     click: (marker: any, eventName: any, veteran: any) => {
-                        gMap.window.veteran = veteran;
-                        gMap.window.position = veteran.marker.position;
-
-                        gMap.window.show = true;
+                        gMap.window.showWindow(veteran);
                     }
                 }
             }

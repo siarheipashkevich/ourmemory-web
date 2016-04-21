@@ -4,7 +4,7 @@ interface IVeteranService {
     getArrayIndexByVeteranId(veterans: Array<any>, id: number): number;
     getDefaultSearchOptions(): Object;
     getTroopsList(): Array<Object>;
-    prepareSearchParams(params: any): any;
+    prepareSearchParams(params: any, filterEnabled: boolean): any;
 }
 
 class VeteranService implements IVeteranService {
@@ -107,7 +107,7 @@ class VeteranService implements IVeteranService {
         ];
     }
 
-    prepareSearchParams(params: any): any {
+    prepareSearchParams(params: any, filterEnabled: boolean): any {
         let searchOptions: any = {};
 
         if (!params.page) {
@@ -121,39 +121,41 @@ class VeteranService implements IVeteranService {
         searchOptions.page = params.page;
         searchOptions.size = params.size;
 
-        if (params.firstName && params.firstName !== '') {
-            searchOptions.firstName = params.firstName;
-        }
+        if (!filterEnabled) {
+            if (params.firstName && params.firstName !== '') {
+                searchOptions.firstName = params.firstName;
+            }
 
-        if (params.lastName && params.lastName !== '') {
-            searchOptions.lastName = params.lastName;
-        }
+            if (params.lastName && params.lastName !== '') {
+                searchOptions.lastName = params.lastName;
+            }
 
-        if (params.middleName && params.middleName !== '') {
-            searchOptions.middleName = params.middleName;
-        }
+            if (params.middleName && params.middleName !== '') {
+                searchOptions.middleName = params.middleName;
+            }
 
-        if (params.birthPlace && params.birthPlace !== '') {
-            searchOptions.birthPlace = params.birthPlace;
-        }
+            if (params.birthPlace && params.birthPlace !== '') {
+                searchOptions.birthPlace = params.birthPlace;
+            }
 
-        if (params.troops && params.troops.title && params.troops.title !== '') {
-            searchOptions.troops = params.troops.title;
-        }
+            if (params.troops && params.troops.title && params.troops.title !== '') {
+                searchOptions.troops = params.troops.title;
+            }
 
-        if (params.yearBirth && !params.yearBirth.options.disabled) {
-            searchOptions.yearBirthStart = params.yearBirth.start;
-            searchOptions.yearBirthEnd = params.yearBirth.end;
-        }
+            if (params.yearBirth && !params.yearBirth.options.disabled) {
+                searchOptions.yearBirthStart = params.yearBirth.start;
+                searchOptions.yearBirthEnd = params.yearBirth.end;
+            }
 
-        if (params.yearDeath && !params.yearDeath.options.disabled) {
-            searchOptions.yearDeathStart = params.yearDeath.start;
-            searchOptions.yearDeathEnd = params.yearDeath.end;
-        }
+            if (params.yearDeath && !params.yearDeath.options.disabled) {
+                searchOptions.yearDeathStart = params.yearDeath.start;
+                searchOptions.yearDeathEnd = params.yearDeath.end;
+            }
 
-        if (params.yearCall && !params.yearCall.options.disabled) {
-            searchOptions.yearCallStart = params.yearCall.start;
-            searchOptions.yearCallEnd = params.yearCall.end;
+            if (params.yearCall && !params.yearCall.options.disabled) {
+                searchOptions.yearCallStart = params.yearCall.start;
+                searchOptions.yearCallEnd = params.yearCall.end;
+            }
         }
 
         return searchOptions;

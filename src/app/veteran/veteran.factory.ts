@@ -6,6 +6,7 @@ class VeteranFactory {
     constructor(
         private $http: ng.IHttpService,
         private $q: ng.IQService,
+        private $timeout: ng.ITimeoutService,
         private CONSTANTS: any
     ) {
         this.link = CONSTANTS.API_URL + 'veteran';
@@ -25,10 +26,11 @@ class VeteranFactory {
         if (this.CONSTANTS.SERVER_IS_ENABLED) {
             return this.$http.get(this.link, {params}).then((response: any) => response.data);
         } else {
-            return this.$q((resolve: any) => resolve({
-                items: veteransFixture,
-                totalCount: 10
-            }));
+            return this.$q((resolve: any) => {
+                this.$timeout(() => {
+                    resolve({items: veteransFixture, totalCount: 10});
+                }, 2000);
+            });
         }
     }
 
@@ -49,9 +51,10 @@ class VeteranFactory {
 function getInstanceVeteranFactory(
     $http: ng.IHttpService,
     $q: ng.IQService,
+    $timeout: ng.ITimeoutService,
     CONSTANTS: any
 ) {
-    return new VeteranFactory($http, $q, CONSTANTS);
+    return new VeteranFactory($http, $q, $timeout, CONSTANTS);
 }
 
 export {VeteranFactory, getInstanceVeteranFactory}

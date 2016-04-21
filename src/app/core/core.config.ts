@@ -5,7 +5,7 @@ function coreConfig(
     $provide: ng.auto.IProvideService
 ) {
     $urlRouterProvider.otherwise('/');
-    
+
     $httpProvider.interceptors.push('AuthInterceptor');
 
     $provide.decorator('$exceptionHandler', extendExceptionHandler);
