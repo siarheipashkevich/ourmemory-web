@@ -21,7 +21,7 @@ function veteranRoute(
                 allow: [AUTH_ROLES.all]
             },
             /** @ngInject */
-            onEnter: ($uibModal: any, $stateParams: any, $state: ng.ui.IStateService) => {
+            onEnter: ($uibModal: ng.ui.bootstrap.IModalService, $stateParams: any, $state: ng.ui.IStateService) => {
                 $uibModal.open({
                     templateUrl: 'app/veteran/templates/modals/detail.html',
                     controller: 'VeteranDetailController',
@@ -32,8 +32,7 @@ function veteranRoute(
                         /** @ngInject */
                         veteran: async (VeteranFactory: VeteranFactory) => {
                             try {
-                                let response = await VeteranFactory.getVeteran($stateParams.id);
-                                return response.data.veteran;
+                                return await VeteranFactory.getVeteran($stateParams.id);
                             } catch (error) {
                                 console.log(error);
                             }

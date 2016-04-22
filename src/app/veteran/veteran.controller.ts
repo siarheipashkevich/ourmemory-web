@@ -2,18 +2,19 @@ import {IMapService} from './../common/services/google-map/map.service';
 import {IConfirmDialog} from './../common/services/confirm-dialog/confirm-dialog.service';
 import {IVeteranService} from './veteran.service';
 import {VeteranFactory} from './veteran.factory';
+import {VeteranListModel} from './models/veteran';
 
 class VeteranController {
     veterans: Array<any> = [];
+    totalCount: number;
     gMap: any;
     showAdvancedFilter: boolean = true;
     search: Object;
     troopsList: Array<Object>;
+
     loading: boolean;
 
     selected: any = {};
-
-    totalCount: number;
     currentPage: number = 1;
     maxItemsToPage: number;
 
@@ -42,17 +43,11 @@ class VeteranController {
     }
 
     getVeteransData(params: any) {
-        params = this.VeteranService.prepareSearchParams(params, this.showAdvancedFilter);
-
         this.loading = true;
 
-        this.veterans.length = 0;
-
-        this.VeteranFactory.getVeterans(params).then((response: any) => {
-            this.VeteranService.setMarkerOptionsToVeterans(response.items);
-
-            this.totalCount = response.totalCount;
-            this.veterans.push(...response.items);
+        this.VeteranService.getVeterans(params).then((veteranList: VeteranListModel) => {
+            this.veterans = veteranList.veterans;
+            this.totalCount = veteranList.totalCount;
 
             this.loading = false;
         });

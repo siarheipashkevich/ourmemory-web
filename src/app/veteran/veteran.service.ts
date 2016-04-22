@@ -1,17 +1,30 @@
+import {VeteranFactory} from './veteran.factory';
+import {VeteranListModel} from './models/veteran';
+
 interface IVeteranService {
     setMarkerOptionsToVeteran(veteran: any);
     setMarkerOptionsToVeterans(veterans: Array<{}>);
     getArrayIndexByVeteranId(veterans: Array<any>, id: number): number;
-    getDefaultSearchOptions(): Object;
+    getDefaultSearchOptions(): any;
     getTroopsList(): Array<Object>;
-    prepareSearchParams(params: any, filterEnabled: boolean): any;
+    prepareSearchParams(params: any, filterEnabled?: boolean): any;
+    getVeterans(params: any, filterEnabled?: boolean): ng.IPromise<VeteranListModel>;
 }
 
 class VeteranService implements IVeteranService {
     /** @ngInject */
     constructor(
+        private VeteranFactory: VeteranFactory,
         private CONSTANTS: any
     ) {}
+
+    getVeterans(params: any, filterEnabled: boolean = false): ng.IPromise<VeteranListModel> {
+        params = this.prepareSearchParams(params, filterEnabled);
+
+        return this.VeteranFactory.getVeterans(params).then((response: any) => {
+            return new VeteranListModel(response.items, response.totalCount);
+        });
+    }
 
     setMarkerOptionsToVeteran(veteran: any) {
         veteran.marker = {
@@ -107,7 +120,7 @@ class VeteranService implements IVeteranService {
         ];
     }
 
-    prepareSearchParams(params: any, filterEnabled: boolean): any {
+    prepareSearchParams(params: any, filterEnabled: boolean = false): any {
         let searchOptions: any = {};
 
         if (!params.page) {
@@ -121,7 +134,7 @@ class VeteranService implements IVeteranService {
         searchOptions.page = params.page;
         searchOptions.size = params.size;
 
-        if (!filterEnabled) {
+        if (filterEnabled) {
             if (params.firstName && params.firstName !== '') {
                 searchOptions.firstName = params.firstName;
             }

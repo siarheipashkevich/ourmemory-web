@@ -1,4 +1,5 @@
 import veteransFixture from './fixtures/veterans';
+import {VeteranModel} from './models/veteran';
 
 class VeteranFactory {
     private link: string;
@@ -12,13 +13,15 @@ class VeteranFactory {
         this.link = CONSTANTS.API_URL + 'veteran';
     }
 
-    getVeteran(id: number): ng.IPromise<any> {
+    getVeteran(id: number): ng.IPromise<VeteranModel> {
         if (this.CONSTANTS.SERVER_IS_ENABLED) {
-            return this.$http.get(this.link + `/${id}`);
+            return this.$http.get(this.link + `/${id}`).then((response: any) => {
+                return new VeteranModel(response);
+            });
         } else {
-            return this.$q((resolve: any) => resolve({
-                data: veteransFixture[id - 1]
-            }));
+            return this.$q((resolve: ng.IQResolveReject<any>) => {
+                resolve(new VeteranModel(veteransFixture[id - 1]));
+            });
         }
     }
 
@@ -28,7 +31,9 @@ class VeteranFactory {
         } else {
             return this.$q((resolve: any) => {
                 this.$timeout(() => {
-                    resolve({items: veteransFixture, totalCount: 10});
+                    veteransFixture.length = params.size;
+
+                    resolve({items: veteransFixture, totalCount: params.size});
                 }, 2000);
             });
         }

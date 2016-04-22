@@ -1,5 +1,5 @@
 import {VeteranFactory} from '../veteran.factory';
-import {Veteran} from '../models/veteran';
+import {VeteranModel} from '../models/veteran';
 import {UploadFactory} from './../../common/factories/upload/upload.factory';
 
 class VeteranModalController {
@@ -16,7 +16,7 @@ class VeteranModalController {
         private $log: ng.ILogService,
         private VeteranFactory: VeteranFactory,
         private UploadFactory: UploadFactory,
-        private veteran: Veteran
+        private veteran: any
     ) {
         this.datePicker = {
             status: {
@@ -30,7 +30,7 @@ class VeteranModalController {
 
         if (!veteran) {
             // start dangers
-            this.veteran = new Veteran();
+            this.veteran = new VeteranModel({});
             this.veteran.images = [];
             // end dangers
 
