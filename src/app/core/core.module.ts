@@ -3,6 +3,7 @@ import {coreConfig} from './core.config';
 export default angular
     .module('app.core', [
         'ngAnimate',
+        'ngMessages',
         'ui.bootstrap',
         'ui.router',
         'ngFileUpload',

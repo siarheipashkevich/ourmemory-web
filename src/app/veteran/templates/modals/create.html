@@ -4,62 +4,110 @@
             ng-click="vm.closeModal()">
         <span>×</span>
     </button>
-    <h4 class="modal-title">{{vm.title}}</h4>
+    <h4 class="modal-title">{{::vm.title}}</h4>
 </div>
 
 <div class="modal-body">
-    <form role="form">
+    <form role="form" name="vm.saveVeteranForm" novalidate>
         <div class="row">
             <div class="col-md-4">
-                <div class="form-group">
-                    <label for="lastName">Фамилия</label>
+                <div class="form-group" ng-class="{'has-error': vm.submitted && vm.saveVeteranForm.lastName.$invalid}">
+                    <label for="lastName" class="control-label">
+                        {{::'veteran.modal.form.lastName.label' | translate}}
+                        <span class="text-red">*</span>
+                    </label>
                     <input type="text"
-                           class="form-control input-sm"
+                           class="form-control"
+                           name="lastName"
+                           autocomplete="off"
                            id="lastName"
-                           placeholder="Фамилия"
+                           placeholder="{{::'veteran.modal.form.lastName.placeholder' | translate}}"
+                           required
                            ng-model="vm.veteran.lastName">
+                    <div ng-messages="vm.saveVeteranForm.lastName.$error" ng-if="vm.submitted">
+                        <p ng-message="required" class="help-block">Фамилия обязательна для заполнения.</p>
+                    </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="firstName">Имя</label>
+                    <label for="firstName">
+                        {{::'veteran.modal.form.firstName.label' | translate}}
+                        <span class="text-red">*</span>
+                    </label>
                     <input type="text"
-                           class="form-control input-sm"
+                           class="form-control"
+                           autocomplete="off"
                            id="firstName"
-                           placeholder="Имя"
+                           placeholder="{{::'veteran.modal.form.firstName.placeholder' | translate}}"
                            ng-model="vm.veteran.firstName">
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="middleName">Отчество</label>
+                    <label for="middleName">{{::'veteran.modal.form.middleName.label' | translate}}</label>
                     <input type="text"
-                           class="form-control input-sm"
+                           class="form-control"
+                           autocomplete="off"
                            id="middleName"
-                           placeholder="Отчество"
+                           placeholder="{{::'veteran.modal.form.middleName.placeholder' | translate}}"
                            ng-model="vm.veteran.middleName">
                 </div>
             </div>
         </div>
-        <div class="form-group">
-            <label>Место рождения</label>
-            <label class="label label-default">{{vm.veteran.latitude}}</label>
-            <label class="label label-default">{{vm.veteran.longitude}}</label>
-            <google-place-autocomplete location="vm.veteran.birthPlace"
-                                       latitude="vm.veteran.latitude"
-                                       longitude="vm.veteran.longitude"
-                                       title="Введите место рождения"></google-place-autocomplete>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group"
+                     ng-class="{'has-warning': vm.saveVeteranForm.birthPlace.$invalid}">
+                    <label class="control-label" for="birthPlace">
+                        {{::'veteran.modal.form.birthPlace.label' | translate}}&nbsp;
+                    </label>
+                    <label class="label label-default">{{vm.veteran.latitude}}</label>
+                    <label class="label label-default">{{vm.veteran.longitude}}</label>
+                    <div class="input-group">
+                        <input type="text"
+                               name="birthPlace"
+                               autocomplete="off"
+                               class="form-control"
+                               id="birthPlace"
+                               placeholder="{{::'veteran.modal.form.birthPlace.placeholder' | translate}}"
+                               om-autocomplete
+                               ng-model="vm.veteran.birthPlace"
+                               latitude="vm.veteran.latitude"
+                               longitude="vm.veteran.longitude">
+                        <span class="input-group-btn">
+                            <a href="javascript:void(0)"
+                               class="btn btn-default"
+                               ng-click="vm.openedMarkerPosition = !vm.openedMarkerPosition;">
+                                <i class="fa fa-globe" aria-hidden="true"></i>
+                            </a>
+                        </span>
+                    </div>
+                    <div ng-messages="vm.saveVeteranForm.birthPlace.$error">
+                        <p ng-message="places" class="help-block">Неправильно введен адрес места проживания.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-if="vm.openedMarkerPosition">
+            <div class="col-md-12 marker-map-position">
+                <om-marker-position latitude="vm.veteran.latitude" longitude="vm.veteran.longitude">
+            </div>
         </div>
         <div class="row">
             <div class="col-md-6">
-                <div class="form-group">
-                    <label for="dateBirth">Дата рождения</label>
+                <div class="form-group" ng-class="{'has-error': vm.saveVeteranForm.dateBirth.$invalid}">
+                    <label class="control-label" for="dateBirth">
+                        {{::'veteran.modal.form.dateBirth.label' | translate}}
+                    </label>
                     <div class="input-group">
                         <input type="text"
-                               class="form-control input-sm"
+                               name="dateBirth"
+                               autocomplete="off"
+                               class="form-control"
                                id="dateBirth"
-                               disabled
-                               uib-datepicker-popup
+                               placeholder="{{::'veteran.modal.form.date.placeholder' | translate}}"
+                               uib-datepicker-popup="yyyy-MM-dd"
                                show-weeks="false"
                                show-button-bar="false"
                                on-open-focus="false"
@@ -67,23 +115,30 @@
                                is-open="vm.datePicker.status.opened.dateBirth">
                         <span class="input-group-btn">
                             <a href="javascript:void(0)"
-                               class="btn btn-sm btn-default"
+                               class="btn btn-default"
                                ng-click="vm.openDatePicker('dateBirth')">
                                 <i class="fa fa-calendar"></i>
                             </a>
                         </span>
                     </div>
+                    <div ng-messages="vm.saveVeteranForm.dateBirth.$error">
+                        <p ng-message="date" class="help-block">Неверный формат даты. Ожидается yyyy-MM-dd.</p>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="form-group">
-                    <label for="dateDeath">Дата смерти</label>
+                <div class="form-group" ng-class="{'has-error': vm.saveVeteranForm.dateDeath.$invalid}">
+                    <label for="dateDeath">
+                        {{::'veteran.modal.form.dateDeath.label' | translate}}
+                    </label>
                     <div class="input-group">
                         <input type="text"
-                               class="form-control input-sm"
+                               name="dateDeath"
+                               autocomplete="off"
+                               class="form-control"
                                id="dateDeath"
-                               disabled
-                               uib-datepicker-popup
+                               placeholder="{{::'veteran.modal.form.date.placeholder' | translate}}"
+                               uib-datepicker-popup="yyyy-MM-dd"
                                show-weeks="false"
                                show-button-bar="false"
                                on-open-focus="false"
@@ -91,25 +146,30 @@
                                is-open="vm.datePicker.status.opened.dateDeath">
                         <span class="input-group-btn">
                             <a href="javascript:void(0)"
-                               class="btn btn-sm btn-default"
+                               class="btn btn-default"
                                ng-click="vm.openDatePicker('dateDeath')">
                                 <i class="fa fa-calendar"></i>
                             </a>
                         </span>
+                    </div>
+                    <div ng-messages="vm.saveVeteranForm.dateDeath.$error">
+                        <p ng-message="date" class="help-block">Неверный формат даты. Ожидается yyyy-MM-dd.</p>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-6">
-                <div class="form-group">
-                    <label for="called">Призван</label>
+                <div class="form-group" ng-class="{'has-error': vm.saveVeteranForm.called.$invalid}">
+                    <label for="called">{{::'veteran.modal.form.called.label' | translate}}</label>
                     <div class="input-group">
                         <input type="text"
-                               class="form-control input-sm"
+                               name="called"
+                               autocomplete="off"
+                               class="form-control"
                                id="called"
-                               disabled
-                               uib-datepicker-popup
+                               placeholder="{{::'veteran.modal.form.date.placeholder' | translate}}"
+                               uib-datepicker-popup="yyyy-MM-dd"
                                show-weeks="false"
                                show-button-bar="false"
                                on-open-focus="false"
@@ -117,53 +177,58 @@
                                is-open="vm.datePicker.status.opened.called">
                         <span class="input-group-btn">
                             <a href="javascript:void(0)"
-                               class="btn btn-sm btn-default"
+                               class="btn btn-default"
                                ng-click="vm.openDatePicker('called')">
                                 <i class="fa fa-calendar"></i>
                             </a>
                         </span>
                     </div>
+                    <div ng-messages="vm.saveVeteranForm.called.$error">
+                        <p ng-message="date" class="help-block">Неверный формат даты. Ожидается yyyy-MM-dd.</p>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="troops">Род войск</label>
+                    <label for="troops">{{::'veteran.modal.form.troops.label' | translate}}</label>
                     <input type="text"
-                           class="form-control input-sm"
+                           class="form-control"
                            id="troops"
-                           placeholder="Род войск"
+                           autocomplete="off"
+                           placeholder="{{::'veteran.modal.form.troops.placeholder' | translate}}"
                            ng-model="vm.veteran.troops">
                 </div>
             </div>
         </div>
         <div class="form-group">
-            <label for="awards">Награды</label>
+            <label for="awards">{{::'veteran.modal.form.awards.label' | translate}}</label>
             <input type="text"
-                   class="form-control input-sm"
+                   class="form-control"
+                   autocomplete="off"
                    id="awards"
-                   placeholder="Награды"
+                   placeholder="{{::'veteran.modal.form.awards.placeholder' | translate}}"
                    ng-model="vm.veteran.awards">
         </div>
         <div class="form-group">
-            <label for="description">Биография</label>
-            <textarea class="form-control input-sm"
+            <label for="description">{{::'veteran.modal.form.description.label' | translate}}</label>
+            <textarea class="form-control"
                       id="description"
                       rows="10"
                       ng-model="vm.veteran.description"
                       markdownedit
-                      markdown-hidden-buttons="cmdQuote">
+                      markdown-hidden-buttons="">
 
             </textarea>
         </div>
         <div class="form-group">
-            <div class="btn btn-sm btn-green"
-                 accept="image/*"
-                 ngf-select="vm.uploadImages($files)"
-                 ngf-multiple="true"
-                 ngf-pattern="'image/*'">
-                <i class="fa"
-                   ng-class="vm.uploadImage ? 'fa-spinner fa-spin' : 'fa-folder-open-o'"></i>&nbsp;&nbsp;Добавить фотографии
-            </div>
+            <a class="btn btn-green"
+               accept="image/*"
+               ngf-select="vm.uploadImages($files)"
+               ngf-multiple="true"
+               ngf-pattern="'image/*'">
+                <i class="fa" ng-class="vm.uploadImage ? 'fa-spinner fa-spin' : 'fa-picture-o'"></i>&nbsp;&nbsp;
+                {{::'veteran.modal.btn.addPhotos' | translate}}
+            </a>
         </div>
         <div class="row">
             <div class="col-md-12">
@@ -183,11 +248,11 @@
 
 <div class="modal-footer">
     <div class="clearfix">
-        <span class="text-danger">{{vm.errorMessage}} &nbsp;</span>
-        <div class="btn btn-sm btn-blue"
-             ng-click="vm.saveVeteran()"
-             ng-disabled="vm.sendingData">
-            <i class="fa fa-spinner fa-spin" ng-show="vm.sendingData"></i> {{vm.btnSaveText}}
-        </div>
+        <span class="text-danger">{{vm.errorMessage}} &nbsp; {{vm.saveVeteran.$valid}}</span>
+        <a class="btn btn-blue"
+             ng-click="vm.saveVeteran(vm.saveVeteranForm.$valid)"
+             ng-disabled="vm.sendingData ">
+            <i class="fa fa-spinner fa-spin" ng-if="vm.sendingData"></i> {{::vm.btnSaveText}}
+        </a>
     </div>
 </div>

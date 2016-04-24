@@ -30,12 +30,20 @@
         <div class="filter">
             <h1 class="osLight">Поиск</h1>
 
-            <div class="btn btn-sm btn-blue createVeteran" ng-click="vm.showModalSaveVeteran()" ng-if="authUser">
-                <i class="fa fa-plus"></i>&nbsp;Добавить ветерана
-            </div>
+            <a href="javascript:void(0);" class="btn btn-blue createVeteran" ng-click="vm.showModalSaveVeteran()" ng-if="authUser">
+                <i class="fa fa-plus"></i>&nbsp;&nbsp;{{'veteran.btn.addVeteran' | translate}}
+            </a>
+
+            <a href="javascript:void(0);" class="btn btn-green createVeteran" ng-if="authUser">
+                <i class="fa fa-arrow-up"></i>&nbsp;&nbsp;{{'veteran.btn.exportVeterans' | translate}}
+            </a>
 
             <a href="javascript:void(0);" class="handleFilter" ng-click="vm.showAdvancedFilter = !vm.showAdvancedFilter">
                 <span class="icon-equalizer"></span>
+            </a>
+
+            <a href="javascript:void(0);" class="handleFilter" ng-click="vm.resetFilter()">
+                <span class="icon-reload"></span>
             </a>
 
             <div class="clearfix"></div>
@@ -75,8 +83,14 @@
                         <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
                             <div class="form-group">
                                 <label>Место рождения</label>
-                                <google-place-autocomplete location="vm.search.birthPlace"
-                                                           title="Введите место рождения"></google-place-autocomplete>
+                                <input type="text"
+                                       name="birthPlace"
+                                       autocomplete="off"
+                                       class="form-control"
+                                       id="birthPlace"
+                                       placeholder="Введите место рождения"
+                                       om-autocomplete
+                                       ng-model="vm.search.birthPlace">
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 formItem">
@@ -148,7 +162,11 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
                             <div class="form-group">
-                                <a href="javascript:void(0);" class="btn btn-sm btn-green" ng-click="vm.applySearch()">Поиск</a>
+                                <a href="javascript:void(0);"
+                                   class="btn btn-sm btn-green"
+                                   ng-click="vm.applyFilter()">
+                                    Поиск
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -167,19 +185,23 @@
                      ng-repeat="veteran in vm.veterans track by $index">
 
                     <div class="card"
-                         ui-sref="main.veterans.detail({id: veteran.id})"
-                         ng-mouseenter="vm.gMap.window.showWindow(veteran)"
-                         ng-mouseleave="vm.gMap.window.hideWindow()">
+                         ui-sref="main.veterans.detail({id: veteran.id})">
                         <div class="figure">
                             <img ng-src="{{veteran.images.length && veteran.images[0].imageOriginal || defaultVeteranImage}}" alt="image">
                             <div class="figCaption">
+                                <!--ng-if="authUser.role === 'Admin' || authUser.userId === veteran.userId"-->
+
                                 <span class="glyphicon glyphicon-pencil pull-left"
-                                      ng-if="authUser.role === 'Admin' || authUser.userId === veteran.userId"
                                       ng-click="vm.editVeteran($event, veteran)"></span>
+
+                                <!--ng-if="authUser.role === 'Admin' || authUser.userId === veteran.userId"-->
+
                                 <span class="glyphicon glyphicon-trash pull-left"
-                                      ng-if="authUser.role === 'Admin' || authUser.userId === veteran.userId"
                                       ng-click="vm.deleteVeteran($event, veteran.id)"></span>
+
                                 <span class="icon-eye">&nbsp;{{veteran.views}}</span>
+                                <span class="glyphicon glyphicon-map-marker"
+                                      ng-click="$event.stopPropagation(); vm.gMap.window.showWindow(veteran);">&nbsp;</span>
                             </div>
                         </div>
                         <h2>{{veteran.fullName}}</h2>
@@ -188,6 +210,9 @@
                     </div>
 
                 </div>
+            </div>
+            <div class="pull-right search_prop_calc">
+                {{vm.currentPage}} - {{vm.maxItemsToPage}} of {{vm.totalCount}} Properties found
             </div>
             <uib-pagination class="pagination-sm"
                             total-items="vm.totalCount"

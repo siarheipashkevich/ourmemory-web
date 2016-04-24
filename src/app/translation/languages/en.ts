@@ -19,5 +19,64 @@ export default {
                 en: 'English'
             }
         }
+    },
+    veteran: {
+        modal: {
+            title: {
+                add: 'Adding the veteran',
+                edit: 'Edit data on veteran'
+            },
+            form: {
+                lastName: {
+                    label: 'Last Name',
+                    placeholder: 'Last Name'
+                },
+                firstName: {
+                    label: 'First Name',
+                    placeholder: 'First Name'
+                },
+                middleName: {
+                    label: 'Middle Name',
+                    placeholder: 'Middle Name'
+                },
+                birthPlace: {
+                    label: 'Place of birth',
+                    placeholder: 'Enter place of birth'
+                },
+                dateBirth: {
+                    label: 'Date of birth'
+                },
+                dateDeath: {
+                    label: 'Date of death'
+                },
+                called: {
+                    label: 'Called'
+                },
+                troops: {
+                    label: 'Branch of service',
+                    placeholder: 'Branch of service'
+                },
+                awards: {
+                    label: 'Awards',
+                    placeholder: 'Awards'
+                },
+                description: {
+                    label: 'Biography',
+                    placeholder: ''
+                },
+                date: {
+                    placeholder: 'yyyy-MM-dd'
+                }
+            },
+            btn: {
+                add: 'Add',
+                edit: 'Edit',
+                addPhotos: 'Add photos'
+            }
+        },
+        btn: {
+            addVeteran: 'Add veteran',
+            exportVeterans: 'Export'
+        }
     }
 }

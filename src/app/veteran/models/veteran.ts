@@ -28,26 +28,35 @@ export class VeteranModel {
     public called: string;
     public description: string;
     public marker: VeteranMarkerModel;
-    public images: VeteranImagesModel[];
+    public latitude: number;
+    public longitude: number;
+    public views: number;
+    public images: Array<VeteranImagesModel>;
 
-    constructor(data: any) {
-        this.id = data.id;
-        this.firstName = data.firstName;
-        this.lastName = data.lastName;
-        this.middleName = data.middleName;
-        this.fullName = data.fullName;
-        this.dateBirth = data.dateBirth;
-        this.birthPlace = data.birthPlace;
-        this.awards = data.awards;
-        this.troops = data.troops;
-        this.called = data.called;
-        this.description = data.description;
+    constructor(data?: any) {
         this.images = [];
-        this.marker = new VeteranMarkerModel(data.latitude, data.longitude);
 
-        data.images.forEach((image: VeteranImagesModel) => {
-            this.images.push(new VeteranImagesModel(image.imageOriginal));
-        });
+        if (data) {
+            this.id = data.id;
+            this.firstName = data.firstName;
+            this.lastName = data.lastName;
+            this.middleName = data.middleName;
+            this.fullName = data.fullName;
+            this.dateBirth = data.dateBirth;
+            this.birthPlace = data.birthPlace;
+            this.awards = data.awards;
+            this.troops = data.troops;
+            this.called = data.called;
+            this.description = data.description;
+            this.marker = new VeteranMarkerModel(data.latitude, data.longitude);
+            this.latitude = data.latitude;
+            this.longitude = data.longitude;
+            this.views = data.views;
+
+            data.images.forEach((image: VeteranImagesModel) => {
+                this.images.push(new VeteranImagesModel(image.imageOriginal));
+            });
+        }
     }
 }
 

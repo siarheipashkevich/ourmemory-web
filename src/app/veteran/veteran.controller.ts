@@ -2,7 +2,7 @@ import {IMapService} from './../common/services/google-map/map.service';
 import {IConfirmDialog} from './../common/services/confirm-dialog/confirm-dialog.service';
 import {IVeteranService} from './veteran.service';
 import {VeteranFactory} from './veteran.factory';
-import {VeteranListModel} from './models/veteran';
+import {VeteranModel, VeteranListModel} from './models/veteran';
 
 class VeteranController {
     veterans: Array<any> = [];
@@ -45,7 +45,7 @@ class VeteranController {
     getVeteransData(params: any) {
         this.loading = true;
 
-        this.VeteranService.getVeterans(params).then((veteranList: VeteranListModel) => {
+        this.VeteranService.getVeterans(params, !this.showAdvancedFilter).then((veteranList: VeteranListModel) => {
             this.veterans = veteranList.veterans;
             this.totalCount = veteranList.totalCount;
 
@@ -53,7 +53,7 @@ class VeteranController {
         });
     }
 
-    showModalSaveVeteran(veteran?: any) {
+    showModalSaveVeteran(veteran?: VeteranModel) {
         this.$uibModal.open({
             templateUrl: 'app/veteran/templates/modals/create.html',
             controller: 'VeteranModalController',
@@ -65,18 +65,17 @@ class VeteranController {
                     return veteran;
                 }
             }
-        }).result.then((veteran: any) => {
+        }).result.then((veteran: VeteranModel) => {
             if (angular.isDefined(veteran)) {
-                var foundIndex: number = this.VeteranService.getArrayIndexByVeteranId(this.veterans, veteran.id);
+                var foundIndex = this.VeteranService.getArrayIndexByVeteranId(this.veterans, veteran.id);
 
-                this.VeteranService.setMarkerOptionsToVeteran(veteran);
-
-                if (angular.isNumber(foundIndex)) {
+                if (foundIndex !== -1) {
                     this.veterans[foundIndex] = veteran;
                 } else {
                     if (this.veterans.length >= this.CONSTANTS.PAGINATION.MAX_ITEMS_TO_PAGE) {
                         this.veterans.pop();
                     }
+
                     this.veterans.unshift(veteran);
 
                     this.totalCount++;
@@ -102,17 +101,15 @@ class VeteranController {
                 size: 1
             };
 
-            this.VeteranFactory.getVeterans(params).then((response: any) => {
-                if (response.data.items.length) {
-                    this.VeteranService.setMarkerOptionsToVeteran(response.data.items[0]);
-
-                    return response.data.items[0];
+            this.VeteranFactory.getVeterans(params).then((veteranList: VeteranListModel) => {
+                if (veteranList.veterans.length) {
+                    return veteranList.veterans[0];
                 }
-            }).then((veteran: any) => {
+            }).then((veteran: VeteranModel|void) => {
                 return this.VeteranFactory.deleteVeteran(id).then(() => {
-                    var foundIndex: number = this.VeteranService.getArrayIndexByVeteranId(this.veterans, id);
+                    let foundIndex = this.VeteranService.getArrayIndexByVeteranId(this.veterans, id);
 
-                    if (angular.isNumber(foundIndex)) {
+                    if (foundIndex !== -1) {
                         this.veterans.splice(foundIndex, 1);
                     }
 
@@ -122,7 +119,7 @@ class VeteranController {
 
                     this.totalCount--;
                 });
-            }).catch((error: any) => {
+            }).catch((error: Error) => {
                 this.$log.error(error);
             });
         });
@@ -135,12 +132,26 @@ class VeteranController {
     }
 
     changePage() {
-        this.search = Object.assign({}, this.search, {page: this.currentPage, size: this.maxItemsToPage});
+        this.search = Object.assign({}, this.search, {
+            page: this.currentPage,
+            size: this.maxItemsToPage
+        });
 
         this.getVeteransData(this.search);
     }
 
-    applySearch() {
+    applyFilter() {
+        this.getVeteransData(this.search);
+    }
+    
+    resetFilter() {
+        this.showAdvancedFilter = true;
+        this.currentPage = 1;
+
+        this.search = Object.assign({}, this.search, {
+            page: 1
+        });
+
         this.getVeteransData(this.search);
     }
 }

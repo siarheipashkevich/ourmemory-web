@@ -9,14 +9,18 @@ class VeteranModalController {
     public datePicker: any;
     public title: string;
     public btnSaveText: string;
+    public saveVeteranForm: any;
+    public submitted: boolean;
 
     /** @ngInject */
     constructor(
         private $uibModalInstance: any,
         private $log: ng.ILogService,
+        private $q: ng.IQService,
+        private $translate: ng.translate.ITranslateService,
         private VeteranFactory: VeteranFactory,
         private UploadFactory: UploadFactory,
-        private veteran: any
+        private veteran: VeteranModel
     ) {
         this.datePicker = {
             status: {
@@ -29,25 +33,28 @@ class VeteranModalController {
         };
 
         if (!veteran) {
-            // start dangers
-            this.veteran = new VeteranModel({});
-            this.veteran.images = [];
-            // end dangers
+            this.veteran = new VeteranModel();
 
-            this.title = 'Добавление ветерана';
-            this.btnSaveText = 'Добавить';
+            this.title = $translate.instant('veteran.modal.title.add');
+            this.btnSaveText = $translate.instant('veteran.modal.btn.add');
         } else {
-            this.title = 'Редактирование данных о ветеране';
-            this.btnSaveText = 'Редактировать';
+            this.title = $translate.instant('veteran.modal.title.edit');
+            this.btnSaveText = $translate.instant('veteran.modal.btn.edit');
         }
     }
 
-    saveVeteran() {
+    saveVeteran(isValidForm: boolean) {
+        this.submitted = true;
+
+        if (!isValidForm) {
+            return false;
+        }
+
         this.sendingData = true;
 
         this.VeteranFactory.saveVeteran(this.veteran).then(
-            (response: any) => {
-                this.$uibModalInstance.close(response.data);
+            (veteran: VeteranModel) => {
+                this.$uibModalInstance.close(veteran);
             },
             (response: any) => {
                 this.sendingData = false;
@@ -74,7 +81,7 @@ class VeteranModalController {
 
     uploadImages(files: FileList) {
         if (files && files.length) {
-            let promises: Array<any> = [];
+            let promises: Array<ng.IPromise<any>> = [];
 
             this.uploadImage = true;
 
@@ -84,7 +91,9 @@ class VeteranModalController {
                 }));
             });
 
-            Promise.all(promises).then(() => { this.uploadImage = false; });
+            this.$q.all(promises).finally(() => {
+                this.uploadImage = false;
+            });
         }
     }
 }

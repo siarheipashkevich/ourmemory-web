@@ -1,5 +1,5 @@
 import veteransFixture from './fixtures/veterans';
-import {VeteranModel} from './models/veteran';
+import {VeteranModel, VeteranListModel} from './models/veteran';
 
 class VeteranFactory {
     private link: string;
@@ -7,7 +7,6 @@ class VeteranFactory {
     constructor(
         private $http: ng.IHttpService,
         private $q: ng.IQService,
-        private $timeout: ng.ITimeoutService,
         private CONSTANTS: any
     ) {
         this.link = CONSTANTS.API_URL + 'veteran';
@@ -16,35 +15,42 @@ class VeteranFactory {
     getVeteran(id: number): ng.IPromise<VeteranModel> {
         if (this.CONSTANTS.SERVER_IS_ENABLED) {
             return this.$http.get(this.link + `/${id}`).then((response: any) => {
-                return new VeteranModel(response);
+                return new VeteranModel(response.data.veteran);
             });
         } else {
-            return this.$q((resolve: ng.IQResolveReject<any>) => {
+            return this.$q((resolve: ng.IQResolveReject<VeteranModel>) => {
                 resolve(new VeteranModel(veteransFixture[id - 1]));
             });
         }
     }
 
-    getVeterans(params: any): ng.IPromise<any> {
+    getVeterans(params: any): ng.IPromise<VeteranListModel> {
         if (this.CONSTANTS.SERVER_IS_ENABLED) {
-            return this.$http.get(this.link, {params}).then((response: any) => response.data);
+            return this.$http.get(this.link, {params}).then((response: any) => {
+                return new VeteranListModel(response.data.items, response.data.totalCount);
+            });
         } else {
-            return this.$q((resolve: any) => {
-                this.$timeout(() => {
-                    veteransFixture.length = params.size;
+            return this.$q((resolve: any, reject: any) => {
+                let veterans = angular.copy(veteransFixture);
+                veterans.length = params.size;
 
-                    resolve({items: veteransFixture, totalCount: params.size});
-                }, 2000);
+                resolve(new VeteranListModel(veterans, veteransFixture.length));
             });
         }
     }
 
-    saveVeteran(veteran: any) {
+    saveVeteran(veteran: VeteranModel): ng.IPromise<any> {
+        let saveVeteranPromise;
+
         if (veteran.id) {
-            return this.$http.put(this.link, veteran);
+            saveVeteranPromise = this.$http.put(this.link, veteran);
         } else {
-            return this.$http.post(this.link, veteran);
+            saveVeteranPromise = this.$http.post(this.link, veteran);
         }
+
+        return saveVeteranPromise.then((response: any) => {
+            return new VeteranModel(response.data);
+        });
     }
 
     deleteVeteran(id: number) {
@@ -56,10 +62,9 @@ class VeteranFactory {
 function getInstanceVeteranFactory(
     $http: ng.IHttpService,
     $q: ng.IQService,
-    $timeout: ng.ITimeoutService,
     CONSTANTS: any
 ) {
-    return new VeteranFactory($http, $q, $timeout, CONSTANTS);
+    return new VeteranFactory($http, $q, CONSTANTS);
 }
 
 export {VeteranFactory, getInstanceVeteranFactory}

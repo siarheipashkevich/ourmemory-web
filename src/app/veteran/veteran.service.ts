@@ -1,10 +1,10 @@
 import {VeteranFactory} from './veteran.factory';
-import {VeteranListModel} from './models/veteran';
+import {VeteranModel, VeteranListModel} from './models/veteran';
 
 interface IVeteranService {
     setMarkerOptionsToVeteran(veteran: any);
     setMarkerOptionsToVeterans(veterans: Array<{}>);
-    getArrayIndexByVeteranId(veterans: Array<any>, id: number): number;
+    getArrayIndexByVeteranId(veterans: Array<VeteranModel>, id: number): number;
     getDefaultSearchOptions(): any;
     getTroopsList(): Array<Object>;
     prepareSearchParams(params: any, filterEnabled?: boolean): any;
@@ -21,9 +21,7 @@ class VeteranService implements IVeteranService {
     getVeterans(params: any, filterEnabled: boolean = false): ng.IPromise<VeteranListModel> {
         params = this.prepareSearchParams(params, filterEnabled);
 
-        return this.VeteranFactory.getVeterans(params).then((response: any) => {
-            return new VeteranListModel(response.items, response.totalCount);
-        });
+        return this.VeteranFactory.getVeterans(params);
     }
 
     setMarkerOptionsToVeteran(veteran: any) {
@@ -41,15 +39,15 @@ class VeteranService implements IVeteranService {
         });
     }
 
-    getArrayIndexByVeteranId(veterans: Array<any>, id: number): number {
-        var foundIndex;
+    getArrayIndexByVeteranId(veterans: Array<VeteranModel>, id: number): number {
+        let foundIndex = -1;
 
-        angular.forEach(veterans, (veteran: any, key: number) => {
-            if (veteran.id === id) {
-                foundIndex = key;
-                return true;
+        for (let i = 0; i < veterans.length; i++) {
+            if (veterans[i].id === id) {
+                foundIndex = i;
+                break;
             }
-        });
+        }
 
         return foundIndex;
     }

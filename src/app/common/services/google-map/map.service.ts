@@ -23,7 +23,7 @@ class MapService implements IMapService {
                     latitude: 53.906165,
                     longitude: 27.555991
                 },
-                zoom: 4,
+                zoom: 3,
                 options: {
                     scrollwheel: true,
                     disableDefaultUI: true,
