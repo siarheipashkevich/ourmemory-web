@@ -5,7 +5,7 @@ describe('profile controller', () => {
 
     beforeEach(angular.mock.module('ourmemory'));
 
-    beforeEach(inject(($controller: angular.IControllerService) => {
+    beforeEach(inject(($controller: ng.IControllerService) => {
         mainController = $controller('ProfileController');
     }));
 

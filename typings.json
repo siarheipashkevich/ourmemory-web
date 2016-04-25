@@ -2,7 +2,7 @@
   "name": "ourmemory",
   "version": false,
   "ambientDependencies": {
-    "angular": "github:DefinitelyTyped/DefinitelyTyped/angularjs/angular.d.ts#bb051830df88f5a55dcf06b7fe85bf6b62cc97f2",
+    "angular": "registry:dt/angular#1.5.0+20160412133217",
     "angular-mocks": "github:DefinitelyTyped/DefinitelyTyped/angularjs/angular-mocks.d.ts#bb051830df88f5a55dcf06b7fe85bf6b62cc97f2",
     "angular-toastr": "registry:dt/angular-toastr#1.6.0+20160330162121",
     "angular-translate": "registry:dt/angular-translate#2.4.0+20160318095457",

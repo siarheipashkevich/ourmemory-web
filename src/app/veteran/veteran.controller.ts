@@ -143,7 +143,7 @@ class VeteranController {
     applyFilter() {
         this.getVeteransData(this.search);
     }
-    
+
     resetFilter() {
         this.showAdvancedFilter = true;
         this.currentPage = 1;

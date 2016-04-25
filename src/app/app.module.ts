@@ -8,6 +8,7 @@ import CoreModule from './core/core.module';
 import TranslationModule from './translation/translation.module';
 import AuthModule from './auth/auth.module';
 import CommonModule from './common/common.module';
+import ComponentsModule from './components/components.module';
 import MainModule from './main/main.module';
 import UserModule from './user/user.module';
 import HomeModule from './home/home.module';
@@ -23,6 +24,7 @@ angular
         MainModule.name,
         AuthModule.name,
         CommonModule.name,
+        ComponentsModule.name,
         UserModule.name,
         HomeModule.name,
         NavigationModule.name,
