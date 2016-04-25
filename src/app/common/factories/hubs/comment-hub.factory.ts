@@ -1,11 +1,7 @@
-import {CommentHubFactory} from './../../common/factories/hubs/comment-hub.factory';
-
-export class CommentBoxController {
+class CommentHubFactory {
     commentHub: any;
-    comments: Array<any>;
 
-    /** @ngInject */
-    constructor($rootScope: ng.IRootScopeService, CONSTANTS: any, Hub: ngSignalr.HubFactory) {
+    constructor(private CONSTANTS: any, private Hub: ngSignalr.HubFactory) {
         let commentHubOptions: ngSignalr.HubOptions = {
             // root path for the signalR web service
             rootPath: CONSTANTS.URL + '/signalr',
@@ -16,23 +12,7 @@ export class CommentBoxController {
             listeners: {
                 'getAllComments': (comments: any) => {
                     console.log(comments);
-
-                    this.comments = comments;
-
-                    $rootScope.$apply();
-                },
-                'getComment': (comment: any) => {
-                    console.log(comment);
-
-                    this.comments.push(comment);
-
-                    $rootScope.$apply();
                 }
-            },
-
-            //query params sent on initial connection
-            queryParams:{
-                'Bearer': localStorage.getItem('accessToken')
             },
 
             // server side methods
@@ -44,19 +24,18 @@ export class CommentBoxController {
             },
 
             stateChanged: (state) => {
+                console.log(state.newState);
+
                 switch (state.newState) {
                     case $.signalR.connectionState.connecting:
                         // your code here
                         break;
-
                     case $.signalR.connectionState.connected:
-
+                        // your code here
                         break;
-
                     case $.signalR.connectionState.reconnecting:
                         // your code here
                         break;
-
                     case $.signalR.connectionState.disconnected:
                         // your code here
                         break;
@@ -65,10 +44,16 @@ export class CommentBoxController {
         };
 
         this.commentHub = new Hub('commentHub', commentHubOptions);
+    }
 
-        this.commentHub.promise.then(() => {
-            console.log('CONNECTED');
-            this.commentHub.joinRoom(5, 'ArticleServiceComment');
-        });
+    joinRoom() {
+        this.commentHub.joinRoom(5, 'ArticleServiceComment');
     }
 }
+
+/** @ngInject */
+function getInstanceCommentHubFactory(CONSTANTS: any, Hub: ngSignalr.HubFactory) {
+    return new CommentHubFactory(CONSTANTS, Hub);
+}
+
+export {CommentHubFactory, getInstanceCommentHubFactory}

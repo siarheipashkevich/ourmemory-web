@@ -15,7 +15,7 @@ class VeteranFactory {
     getVeteran(id: number): ng.IPromise<VeteranModel> {
         if (this.CONSTANTS.SERVER_IS_ENABLED) {
             return this.$http.get(this.link + `/${id}`).then((response: any) => {
-                return new VeteranModel(response.data.veteran);
+                return new VeteranModel(response.data);
             });
         } else {
             return this.$q((resolve: ng.IQResolveReject<VeteranModel>) => {

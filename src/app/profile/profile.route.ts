@@ -15,6 +15,4 @@ function profileRoute(
         });
 }
 
-export {
-    profileRoute
-}
+export {profileRoute}

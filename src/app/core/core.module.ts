@@ -12,6 +12,7 @@ export default angular
         'codemwnci.markdown-edit-preview',
         'angularMoment',
         'pascalprecht.translate',
-        'toastr'
+        'toastr',
+        'SignalR'
     ])
     .config(coreConfig);
