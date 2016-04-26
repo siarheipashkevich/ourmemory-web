@@ -5,7 +5,9 @@ let CommentComponent: ng.IComponentOptions = {
     controllerAs: 'vm',
     templateUrl: 'app/components/comment/comment.tpl.html',
     bindings: {
-        type: '@'
+        entityId: '@',
+        entityType: '@',
+        authUser: '<'
     }
 };
 

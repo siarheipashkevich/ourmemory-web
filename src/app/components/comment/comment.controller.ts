@@ -1,72 +1,69 @@
 export class CommentController {
+    entityId: number;
+    entityType: string;
+    emptyMessage: boolean;
+
     commentHub: any;
+    message: string;
     comments: Array<any>;
 
     /** @ngInject */
-    constructor($rootScope: ng.IRootScopeService, CONSTANTS: any, Hub: ngSignalr.HubFactory) {
-        let commentHubOptions: ngSignalr.HubOptions = {
-            // root path for the signalR web service
+    constructor(
+        private $log: ng.ILogService,
+        private $rootScope: ng.IRootScopeService,
+        private Hub: ngSignalr.HubFactory,
+        private CONSTANTS: any
+    ) {
+        this.message = '';
+        this.comments = [];
+
+        this.commentHub = new Hub('commentHub', {
             rootPath: CONSTANTS.URL + '/signalr',
-
             logging: true,
-
-            // client side methods
             listeners: {
                 'getAllComments': (comments: any) => {
-                    console.log(comments);
-
                     this.comments = comments;
-
                     $rootScope.$apply();
                 },
                 'getComment': (comment: any) => {
-                    console.log(comment);
-
                     this.comments.push(comment);
-
                     $rootScope.$apply();
                 }
             },
-
-            //query params sent on initial connection
-            queryParams:{
-                'Bearer': localStorage.getItem('accessToken')
+            queryParams: {
+                'token': localStorage.getItem('accessToken')
             },
-
-            // server side methods
-            methods: ['joinRoom', 'leaveRoom', 'sendComment'],
-
-            // handle connection error
+            methods: ['joinRoom', 'sendComment', 'deleteComment'],
             errorHandler: (error: any) => {
-                console.error(error);
-            },
-
-            stateChanged: (state) => {
-                switch (state.newState) {
-                    case $.signalR.connectionState.connecting:
-                        // your code here
-                        break;
-
-                    case $.signalR.connectionState.connected:
-
-                        break;
-
-                    case $.signalR.connectionState.reconnecting:
-                        // your code here
-                        break;
-
-                    case $.signalR.connectionState.disconnected:
-                        // your code here
-                        break;
-                }
+                $log.error(error);
             }
-        };
-
-        this.commentHub = new Hub('commentHub', commentHubOptions);
+        });
 
         this.commentHub.promise.then(() => {
-            console.log('CONNECTED');
-            this.commentHub.joinRoom(5, 'ArticleServiceComment');
+            this.commentHub.joinRoom(this.entityId, this.entityType);
         });
+    }
+
+    sendComment(message: string) {
+        if (message === '') {
+            this.emptyMessage = true;
+            return;
+        }
+
+        this.commentHub.sendComment(message).then(() => {
+            this.$rootScope.$apply(() => {
+                this.message = '';
+            });
+        }, (error: Error) => {
+            this.$log.error(error);
+        });
+    }
+
+    deleteComment(id: number) {
+        this.commentHub.deleteComment(id);
+    }
+
+    $onDestroy() {
+        this.commentHub.disconnect();
     }
 }

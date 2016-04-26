@@ -1,21 +1,28 @@
-<h2 class="osLight align-left"><span>4</span> Comments</h2>
+<h2 class="osLight align-left"><span>{{vm.comments.length}}</span> Comments</h2>
 
 <div class="post-comments">
-    <div class="comment" ng-repeat="comment in vm.comments">
+    <div class="comment" ng-repeat="comment in vm.comments track by $index">
         <div class="commentAvatar">
-            <img class="avatar" src="images/avatar-3.png" alt="avatar">
+            <img class="avatar" ng-src="assets/images/avatar-1.png" alt="avatar">
             <div class="commentArrow bg-w"><span class="fa fa-caret-left"></span></div>
         </div>
         <div class="commentContent bg-w">
-            <div class="commentName">Rust Cohle</div>
+            <div class="commentName">
+                {{::comment.UserName}}
+            </div>
             <div class="commentBody">
-                {{comment.Message}}
+                {{::comment.Message}}
             </div>
             <div class="commentActions">
-                <div class="commentTime"><span class="icon-clock"></span> 1 day ago</div>
+                <div class="commentTime">
+                    <span class="icon-clock"></span> {{comment.CreatedDateTime | amDateFormat:'D MMMM YYYY'}}
+                </div>
                 <ul>
-                    <li><a href="#"><span class="icon-action-undo"></span></a></li>
-                    <li><a href="#"><span class="icon-like"></span> 13</a></li>
+                    <li ng-if="::vm.authUser.userId === comment.UserId">
+                        <a ng-href="javascript:void(0);" ng-click="vm.deleteComment(comment.Id)">
+                            <span class="fa fa-trash-o"></span>
+                        </a>
+                    </li>
                 </ul>
                 <div class="clearfix"></div>
             </div>
@@ -28,12 +35,21 @@
 <form role="form" class="pb20">
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div class="form-group">
-                <textarea placeholder="Comment" class="form-control" rows="3" ng-model="vm.message"></textarea>
+            <div class="form-group" ng-class="{'has-error': vm.emptyMessage}">
+                <textarea placeholder="Comment"
+                          class="form-control"
+                          rows="3"
+                          om-enter-submit="vm.sendComment(vm.message)"
+                          ng-keyup="vm.emptyMessage = false;"
+                          ng-model="vm.message"></textarea>
             </div>
         </div>
     </div>
     <div class="form-group">
-        <a href="javascript:void(0);" class="btn btn-green isThemeBtn" ng-click="vm.sendComment(vm.message)">Post comment</a>
+        <a href="javascript:void(0);"
+           class="btn btn-green isThemeBtn"
+           ng-click="vm.sendComment(vm.message)">
+            Post comment
+        </a>
     </div>
 </form>
