@@ -1,6 +1,4 @@
-import {CommentHubFactory} from './../../common/factories/hubs/comment-hub.factory';
-
-export class CommentBoxController {
+export class CommentController {
     commentHub: any;
     comments: Array<any>;
 
