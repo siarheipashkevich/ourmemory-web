@@ -1,15 +1,13 @@
-class ArticleController {
-    private title: string;
-
+class ArticleDetailController {
     /** @ngInject */
-    constructor() {
-        this.title = 'Статьи';
+    constructor(
+        public article: any
+    ) {
+        console.log(article);
 
         angular.element('body').addClass('no-hidden no-touch');
         angular.element('body').removeClass('notransition');
     }
 }
 
-export {
-    ArticleController
-}
+export {ArticleDetailController}

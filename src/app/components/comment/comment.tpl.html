@@ -8,18 +8,18 @@
         </div>
         <div class="commentContent bg-w">
             <div class="commentName">
-                {{::comment.UserName}}
+                {{::comment.userName}}
             </div>
             <div class="commentBody">
-                {{::comment.Message}}
+                {{::comment.message}}
             </div>
             <div class="commentActions">
                 <div class="commentTime">
-                    <span class="icon-clock"></span> {{comment.CreatedDateTime | amDateFormat:'D MMMM YYYY'}}
+                    <span class="icon-clock"></span> {{comment.createdDateTime | amDateFormat:'D MMMM YYYY'}}
                 </div>
                 <ul>
-                    <li ng-if="::vm.authUser.userId === comment.UserId">
-                        <a ng-href="javascript:void(0);" ng-click="vm.deleteComment(comment.Id)">
+                    <li ng-if="::vm.authUser.userId === comment.userId">
+                        <a href="javascript:void(0);" ng-click="vm.removeComment(comment.id)">
                             <span class="fa fa-trash-o"></span>
                         </a>
                     </li>

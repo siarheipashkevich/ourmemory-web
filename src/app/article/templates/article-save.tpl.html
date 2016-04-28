@@ -1,0 +1,24 @@
+<div class="modal-header">
+    <button type="button"
+            class="close"
+            ng-click="vm.closeModal()">
+        <span>×</span>
+    </button>
+    <h4 class="modal-title">{{::vm.title}}</h4>
+</div>
+
+<div class="modal-body">
+    <div text-angular ng-model="vm.text"></div>
+    <div>{{vm.text}}</div>
+</div>
+
+<div class="modal-footer">
+    <div class="clearfix">
+        <span class="text-danger">{{vm.errorMessage}} &nbsp; {{vm.saveVeteran.$valid}}</span>
+        <a class="btn btn-blue"
+           ng-click="vm.saveVeteran(vm.saveVeteranForm.$valid)"
+           ng-disabled="vm.sendingData ">
+            <i class="fa fa-spinner fa-spin" ng-if="vm.sendingData"></i> {{::vm.btnSaveText}}
+        </a>
+    </div>
+</div>

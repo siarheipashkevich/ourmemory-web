@@ -13,6 +13,8 @@ export default angular
         'angularMoment',
         'pascalprecht.translate',
         'toastr',
-        'SignalR'
+        'SignalR',
+        'textAngular'
+
     ])
     .config(coreConfig);

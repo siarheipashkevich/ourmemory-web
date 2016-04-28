@@ -23,17 +23,32 @@ export class CommentController {
             listeners: {
                 'getAllComments': (comments: any) => {
                     this.comments = comments;
+                    $log.warn(comments.length);
                     $rootScope.$apply();
                 },
                 'getComment': (comment: any) => {
                     this.comments.push(comment);
+                    $rootScope.$apply();
+                },
+                'getRemoveComment': (comment: any) => {
+                    let indexRemovedComment;
+
+                    for (let i = 0; i < this.comments.length; i++) {
+                        if (this.comments[i].id === comment.id) {
+                            indexRemovedComment = i;
+                            break;
+                        }
+                    }
+
+                    this.comments.splice(indexRemovedComment, 1);
+
                     $rootScope.$apply();
                 }
             },
             queryParams: {
                 'token': localStorage.getItem('accessToken')
             },
-            methods: ['joinRoom', 'sendComment', 'deleteComment'],
+            methods: ['joinRoom', 'sendComment', 'removeComment'],
             errorHandler: (error: any) => {
                 $log.error(error);
             }
@@ -59,8 +74,8 @@ export class CommentController {
         });
     }
 
-    deleteComment(id: number) {
-        this.commentHub.deleteComment(id);
+    removeComment(id: number) {
+        this.commentHub.removeComment(id);
     }
 
     $onDestroy() {

@@ -14,7 +14,7 @@ class GoogleMapsApiFactory {
             result_type: 'street_address|locality|sublocality|political|country'
         });
 
-        return this.$http.get(this.link + 'geocode/json', {params}).then((response: any) => {
+        return this.$http.get(this.link + 'geocode/json', {params, skipAuthorize: true}).then((response: any) => {
             if (response.data.status === 'OK') {
                 return response.data.results[0].formatted_address;
             } else {
