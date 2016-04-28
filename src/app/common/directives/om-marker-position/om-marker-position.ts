@@ -1,13 +1,24 @@
+import {GoogleMapsApiFactory} from './../../factories/google/google-maps-api.factory';
+import {IMapService} from './../../services/google-map/map.service';
+
 /** @ngInject */
-function omMarkerPosition(google: any, CONSTANTS: any): ng.IDirective {
+function omMarkerPosition(
+    $log: ng.ILogService,
+    GoogleMapsApiFactory: GoogleMapsApiFactory,
+    MapService: IMapService,
+    google: any,
+    CONSTANTS: any
+): ng.IDirective {
     return {
         restrict: 'EA',
         templateUrl: 'app/common/directives/om-marker-position/om-marker-position.html',
         scope: {
             latitude: '=',
-            longitude: '='
+            longitude: '=',
+            location: '=',
+            isSearchPlaces: '='
         },
-        link: (scope: any, element: ng.IRootElementService, attrs: any, model: ng.INgModelController) => {
+        link: (scope: any) => {
             if (angular.isUndefined(scope.latitude) || angular.isUndefined(scope.longitude)) {
                 scope.latitude = 53.906165;
                 scope.longitude = 27.555991;
@@ -39,32 +50,7 @@ function omMarkerPosition(google: any, CONSTANTS: any): ng.IDirective {
                     options: {
                         scrollwheel: true,
                         disableDefaultUI: true,
-                        styles: [{
-                            stylers: [{
-                                hue: '#cccccc'
-                            }, {
-                                saturation: -100
-                            }]
-                        }, {
-                            featureType: 'road',
-                            elementType: 'geometry',
-                            stylers: [{
-                                lightness: 100
-                            }, {
-                                visibility: 'simplified'
-                            }]
-                        }, {
-                            featureType: 'road',
-                            elementType: 'labels',
-                            stylers: [{
-                                visibility: 'on'
-                            }]
-                        }, {
-                            featureType: 'poi',
-                            stylers: [{
-                                visibility: 'off'
-                            }]
-                        }]
+                        styles: MapService.getGoogleMapsStyle()
                     },
                     events: {
                         click: (map: any, eventName: any, event: any) => {
@@ -98,6 +84,20 @@ function omMarkerPosition(google: any, CONSTANTS: any): ng.IDirective {
                         dragend: (marker: any) => {
                             scope.latitude = marker.getPosition().lat();
                             scope.longitude = marker.getPosition().lng();
+
+                            scope.isSearchPlaces = true;
+
+                            let params = {
+                                latlng: `${scope.latitude},${scope.longitude}`
+                            };
+
+                            GoogleMapsApiFactory.geocode(params).then((address: string) => {
+                                scope.location = address;
+                            }).catch((error: Error) => {
+                                $log.error(error);
+                            }).finally(() => {
+                                scope.isSearchPlaces = false;
+                            });
                         }
                     }
                 }

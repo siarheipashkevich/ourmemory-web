@@ -4,9 +4,9 @@ function articleRoute(
     AUTH_ROLES: any
 ) {
     $stateProvider
-        .state('root.articles', {
+        .state('main.articles', {
             url: 'articles',
-            templateUrl: 'app/article/templates/article.html',
+            templateUrl: 'app/article/templates/article.tpl.html',
             controller: 'ArticleController',
             controllerAs: 'vm',
             data: {

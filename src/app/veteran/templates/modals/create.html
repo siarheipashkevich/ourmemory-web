@@ -58,7 +58,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group"
-                     ng-class="{'has-warning': vm.saveVeteranForm.birthPlace.$invalid}">
+                     ng-class="{'has-warning': vm.saveVeteranForm.birthPlace.$error.places, 'has-error': vm.submitted && vm.saveVeteranForm.birthPlace.$error.required}">
                     <label class="control-label" for="birthPlace">
                         {{::'veteran.modal.form.birthPlace.label' | translate}}&nbsp;
                     </label>
@@ -71,6 +71,7 @@
                                class="form-control"
                                id="birthPlace"
                                placeholder="{{::'veteran.modal.form.birthPlace.placeholder' | translate}}"
+                               required
                                om-autocomplete
                                ng-model="vm.veteran.birthPlace"
                                latitude="vm.veteran.latitude"
@@ -79,19 +80,23 @@
                             <a href="javascript:void(0)"
                                class="btn btn-default"
                                ng-click="vm.openedMarkerPosition = !vm.openedMarkerPosition;">
-                                <i class="fa fa-globe" aria-hidden="true"></i>
+                                <i class="fa fa-globe" ng-class="{'fa-spin': vm.isSearchPlaces}"></i>
                             </a>
                         </span>
                     </div>
                     <div ng-messages="vm.saveVeteranForm.birthPlace.$error">
                         <p ng-message="places" class="help-block">Неправильно введен адрес места проживания.</p>
+                        <p ng-message="required" class="help-block">Место рождения обязательна для заполнения.</p>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row" ng-if="vm.openedMarkerPosition">
             <div class="col-md-12 marker-map-position">
-                <om-marker-position latitude="vm.veteran.latitude" longitude="vm.veteran.longitude">
+                <om-marker-position is-search-places="vm.isSearchPlaces"
+                                    latitude="vm.veteran.latitude"
+                                    longitude="vm.veteran.longitude"
+                                    location="vm.veteran.birthPlace">
             </div>
         </div>
         <div class="row">

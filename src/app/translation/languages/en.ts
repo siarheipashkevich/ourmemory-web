@@ -4,6 +4,7 @@ export default {
             title: 'Our memory',
             menu: {
                 veteran: 'Veterans',
+                article: 'Articles',
                 login: 'Sign in',
                 register: 'Sign up',
                 language: 'Language'

@@ -1,5 +1,6 @@
 interface IMapService {
     getSettingsGoogleMaps(): any;
+    getGoogleMapsStyle(): any;
 }
 
 class MapService implements IMapService {
@@ -27,32 +28,7 @@ class MapService implements IMapService {
                 options: {
                     scrollwheel: true,
                     disableDefaultUI: true,
-                    styles: [{
-                        stylers: [{
-                            hue: '#cccccc'
-                        }, {
-                            saturation: -100
-                        }]
-                    }, {
-                        featureType: 'road',
-                        elementType: 'geometry',
-                        stylers: [{
-                            lightness: 100
-                        }, {
-                            visibility: 'simplified'
-                        }]
-                    }, {
-                        featureType: 'road',
-                        elementType: 'labels',
-                        stylers: [{
-                            visibility: 'on'
-                        }]
-                    }, {
-                        featureType: 'poi',
-                        stylers: [{
-                            visibility: 'off'
-                        }]
-                    }]
+                    styles: this.getGoogleMapsStyle()
                 }
             },
             window: {
@@ -87,6 +63,35 @@ class MapService implements IMapService {
         };
 
         return gMap;
+    }
+
+    getGoogleMapsStyle() {
+        return [{
+            stylers: [{
+                hue: '#cccccc'
+            }, {
+                saturation: -100
+            }]
+        }, {
+            featureType: 'road',
+            elementType: 'geometry',
+            stylers: [{
+                lightness: 100
+            }, {
+                visibility: 'simplified'
+            }]
+        }, {
+            featureType: 'road',
+            elementType: 'labels',
+            stylers: [{
+                visibility: 'on'
+            }]
+        }, {
+            featureType: 'poi',
+            stylers: [{
+                visibility: 'off'
+            }]
+        }];
     }
 
     private getMarkerOptions(): any {

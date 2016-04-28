@@ -4,6 +4,7 @@ export default {
             title: 'Наша память',
             menu: {
                 veteran: 'Ветераны',
+                article: 'Статьи',
                 login: 'Вход',
                 register: 'Регистрация',
                 language: 'Язык'
