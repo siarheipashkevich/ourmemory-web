@@ -1,3 +1,5 @@
+import {ArticleFactory} from './article.factory';
+
 /** @ngInject */
 function articleRoute($stateProvider: ng.ui.IStateProvider, AUTH_ROLES: any) {
     $stateProvider
@@ -6,6 +8,12 @@ function articleRoute($stateProvider: ng.ui.IStateProvider, AUTH_ROLES: any) {
             templateUrl: 'app/article/templates/article.tpl.html',
             controller: 'ArticleController',
             controllerAs: 'vm',
+            resolve: {
+                /** @ngInject */
+                articleList: (ArticleFactory: ArticleFactory) => {
+                    return ArticleFactory.getArticles();
+                }
+            },
             data: {
                 allow: [AUTH_ROLES.all]
             }
@@ -15,20 +23,14 @@ function articleRoute($stateProvider: ng.ui.IStateProvider, AUTH_ROLES: any) {
             templateUrl: 'app/article/templates/article-detail.tpl.html',
             controller: 'ArticleDetailController',
             controllerAs: 'vm',
-            data: {
-                allow: [AUTH_ROLES.all]
-            },
             resolve: {
                 /** @ngInject */
-                article: ($stateParams: any) => {
-                    return {
-                        id: 5,
-                        title: 'Польские концлагеря для русских и немцев, или За что извинялся Обама?',
-                        image: 'assets/images/1345453844_01.jpg',
-                        shortDescription: 'В октябре этого года польский суд начнет слушания по делу немецкой газеты «Die Welt». Несколько лет назад в одной из статей ее авторы использовали словосочетание «польский концентрационный лагерь». Поэтому осенью польская сторона собирается засудить и оскандалить «обнаглевших» немцев. Столь же решительно, как этим летом американцев. За использованное президентом США Бараком Обамой словосочетание «польский лагерь смерти». МИД Польши и его глава Радек Сикорский потребовали извинений и отослали в Вашингтон ноту протеста, без обиняков обвинив президента США в «невежестве» и одновременно выразив сожаление в связи с его «некомпетентностью»! Премьер-министр Польши Дональд Туск также заявил, что поляки глубоко оскорблены, столкнувшись с «высокомерием, невежеством и дурными намерениями», которые «приводят к искажению истории».',
-                        fullDescription: 'В октябре этого года польский суд начнет слушания по делу немецкой газеты «Die Welt». Несколько лет назад в одной из статей ее авторы использовали словосочетание «польский концентрационный лагерь». Поэтому осенью польская сторона собирается засудить и оскандалить «обнаглевших» немцев. Столь же решительно, как этим летом американцев. За использованное президентом США Бараком Обамой словосочетание «польский лагерь смерти». МИД Польши и его глава Радек Сикорский потребовали извинений и отослали в Вашингтон ноту протеста, без обиняков обвинив президента США в «невежестве» и одновременно выразив сожаление в связи с его «некомпетентностью»! Премьер-министр Польши Дональд Туск также заявил, что поляки глубоко оскорблены, столкнувшись с «высокомерием, невежеством и дурными намерениями», которые «приводят к искажению истории».'
-                    };
+                article: ($stateParams: any, ArticleFactory: ArticleFactory) => {
+                    return ArticleFactory.getArticle($stateParams.id);
                 }
+            },
+            data: {
+                allow: [AUTH_ROLES.all]
             }
         });
 }

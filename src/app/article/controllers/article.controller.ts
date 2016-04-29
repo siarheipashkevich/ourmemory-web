@@ -1,13 +1,12 @@
-class ArticleController {
-    private title: string;
+import {ArticleListModel} from './../models/article.model';
 
+class ArticleController {
     /** @ngInject */
     constructor(
         private $uibModal: any,
-        private $log: ng.ILogService
+        private $log: ng.ILogService,
+        public articleList: ArticleListModel
     ) {
-        this.title = 'Статьи';
-
         angular.element('body').addClass('no-hidden no-touch');
         angular.element('body').removeClass('notransition');
     }
@@ -21,7 +20,7 @@ class ArticleController {
             backdrop: 'static',
             size: 'lg'
         }).result.then((article: any) => {
-            this.$log.info(article)
+            this.$log.info(article);
         }, () => {
             this.$log.info('Модальное окно закрыто:  ' + new Date());
         });

@@ -61,7 +61,7 @@ export class VeteranModel {
 }
 
 export class VeteranListModel {
-    veterans: VeteranModel[];
+    veterans: Array<VeteranModel>;
     totalCount: number;
 
     constructor(veterans: Array<any>, totalCount: number) {

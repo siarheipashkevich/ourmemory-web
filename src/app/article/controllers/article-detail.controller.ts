@@ -1,7 +1,9 @@
+import {ArticleModel} from './../models/article.model';
+
 class ArticleDetailController {
     /** @ngInject */
     constructor(
-        public article: any
+        public article: ArticleModel
     ) {
         console.log(article);
 
