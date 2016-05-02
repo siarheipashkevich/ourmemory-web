@@ -13,6 +13,4 @@ class AppConstants {
     static DEFAULT_VETERAN_IMAGE: string = 'http://walyou.com/wp-content/uploads//2010/12/facebook-profile-picture-no-pic-avatar.jpg';
 }
 
-export {
-    AppConstants
-}
+export {AppConstants}

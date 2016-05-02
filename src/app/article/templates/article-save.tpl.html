@@ -8,8 +8,9 @@
 </div>
 
 <div class="modal-body">
-    <text-angular ta-disabled='false' ng-model="htmlContent"></text-angular>
-    <div>{{vm.text}}</div>
+    <textarea froala="{language: 'ru'}" ng-model="vm.fullDescription"></textarea>
+
+    <div>{{vm.fullDescription}}</div>
 </div>
 
 <div class="modal-footer">

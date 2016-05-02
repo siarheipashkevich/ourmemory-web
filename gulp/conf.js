@@ -26,7 +26,13 @@ exports.paths = {
 exports.wiredep = {
   exclude: [
     /\/bootstrap\.css/,
-    /\/bootstrap\.less/
+    /\/bootstrap\.less/,
+    /\/rangy-classapplier\.js/,
+    /\/rangy-highlighter\.js/,
+    /\/rangy-textrange\.js/,
+    /\/rangy-core\.js/,
+    /\/rangy-selectionsaverestore\.js/,
+    /\/rangy-serializer\.js/
   ],
   directory: 'bower_components'
 };
