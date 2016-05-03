@@ -8,9 +8,46 @@
 </div>
 
 <div class="modal-body">
-    <textarea froala="{language: 'ru'}" ng-model="vm.fullDescription"></textarea>
-
-    <div>{{vm.fullDescription}}</div>
+    <form role="form" name="vm.saveArticleForm" novalidate>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="title" class="control-label">
+                        Title
+                        <span class="text-red">*</span>
+                    </label>
+                    <input type="text"
+                           class="form-control"
+                           name="title"
+                           autocomplete="off"
+                           id="title"
+                           placeholder="Title"
+                           required
+                           ng-model="vm.article.title">
+                    <div ng-messages="vm.saveArticleForm.lastName.$error" ng-if="vm.submitted">
+                        <p ng-message="required" class="help-block">Заголовок статьи обязателен для заполнения.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="control-label" for="fullDescription">Full description</label>
+                    <textarea id="fullDescription"
+                              name="fullDescription"
+                              rows="6"
+                              froala="{language: 'ru', heightMin: 200}"
+                              ng-model="vm.article.fullDescription"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div froala-view="vm.article.fullDescription"></div>
+            </div>
+        </div>
+    </form>
 </div>
 
 <div class="modal-footer">

@@ -14,7 +14,6 @@ export default angular
         'pascalprecht.translate',
         'toastr',
         'SignalR',
-        'textAngular',
         'froala'
 
     ])

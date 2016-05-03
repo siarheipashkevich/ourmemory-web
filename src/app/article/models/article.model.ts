@@ -1,3 +1,5 @@
+import {UserModel} from './../../user/models/user.model';
+
 export class ArticleModel {
     id: number;
     title: string;
@@ -6,21 +8,22 @@ export class ArticleModel {
     shortDescription: string;
     fullDescription: string;
     createdDateTime: string;
-    userId: number;
-    userImageUrl: string;
-    userName: string;
+    user: UserModel;
 
     constructor(data?: any) {
-        this.id = data.id;
-        this.title = data.title;
-        this.views = data.views;
-        this.articleImageUrl = data.articleImageUrl;
-        this.shortDescription = data.shortDescription;
-        this.fullDescription = data.fullDescription;
-        this.createdDateTime = data.createdDateTime;
-        this.userId = data.userId;
-        this.userImageUrl = data.userImageUrl;
-        this.userName = data.userName;
+        this.fullDescription = '';
+
+        if (data) {
+            this.id = data.id;
+            this.title = data.title;
+            this.views = data.views;
+            this.articleImageUrl = data.articleImageUrl;
+            this.shortDescription = data.shortDescription;
+            this.fullDescription = data.fullDescription;
+            this.createdDateTime = data.createdDateTime;
+
+            this.user = new UserModel(data.user);
+        }
     }
 }
 

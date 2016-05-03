@@ -1,14 +1,11 @@
+import {ArticleModel} from './../models/article.model';
+
 class ArticleSaveController {
-    fullDescription: string;
+    article: ArticleModel;
 
     /** @ngInject */
-    constructor($timeout: any) {
-        this.fullDescription = '';
-
-        $timeout(() => {
-            this.fullDescription = '<p>Hello There!</p>';
-            //textAngularManager.refreshEditor('testEditor');
-        }, 1000);
+    constructor() {
+        this.article = new ArticleModel();
 
         console.log('ArticleSaveController');
     }
