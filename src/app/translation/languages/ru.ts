@@ -79,5 +79,30 @@ export default {
             addVeteran: 'Добавить ветерана',
             exportVeterans: 'Экспортировать'
         }
+    },
+    article: {
+        modal: {
+            title: {
+                add: 'Добавление новой статьи',
+                edit: 'Редактирование данных о статье'
+            },
+            form: {
+                title: {
+                    label: 'Заголовок',
+                    placeholder: 'Заголовок'
+                },
+                fullDescription: {
+                    label: 'Полное описание',
+                    placeholder: 'Полное описание'
+                }
+            },
+            btn: {
+                add: 'Добавить',
+                edit: 'Редактировать'
+            }
+        },
+        btn: {
+            addVeteran: 'Добавить статью'
+        }
     }
 }

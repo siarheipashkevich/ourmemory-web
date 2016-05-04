@@ -79,5 +79,30 @@ export default {
             addVeteran: 'Add veteran',
             exportVeterans: 'Export'
         }
+    },
+    article: {
+        modal: {
+            title: {
+                add: 'Addition of new article',
+                edit: 'Edit data on article'
+            },
+            form: {
+                title: {
+                    label: 'Title',
+                    placeholder: 'Title'
+                },
+                fullDescription: {
+                    label: 'Full description',
+                    placeholder: 'Full description'
+                }
+            },
+            btn: {
+                add: 'Add',
+                edit: 'Edit'
+            }
+        },
+        btn: {
+            addArticle: 'Add article'
+        }
     }
 }

@@ -14,7 +14,7 @@ class VeteranModalController {
 
     /** @ngInject */
     constructor(
-        private $uibModalInstance: any,
+        private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
         private $log: ng.ILogService,
         private $q: ng.IQService,
         private $translate: ng.translate.ITranslateService,

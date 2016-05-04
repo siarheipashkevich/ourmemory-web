@@ -4,7 +4,7 @@ export class ArticleModel {
     id: number;
     title: string;
     views: number;
-    articleImageUrl: string;
+    image: string;
     shortDescription: string;
     fullDescription: string;
     createdDateTime: string;
@@ -17,7 +17,7 @@ export class ArticleModel {
             this.id = data.id;
             this.title = data.title;
             this.views = data.views;
-            this.articleImageUrl = data.articleImageUrl;
+            this.image = data.image;
             this.shortDescription = data.shortDescription;
             this.fullDescription = data.fullDescription;
             this.createdDateTime = data.createdDateTime;
