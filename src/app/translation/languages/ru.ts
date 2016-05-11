@@ -88,8 +88,12 @@ export default {
             },
             form: {
                 title: {
-                    label: 'Заголовок',
-                    placeholder: 'Заголовок'
+                    label: 'Название статьи',
+                    placeholder: 'Название статьи'
+                },
+                shortDescription: {
+                    label: 'Короткое описание',
+                    placeholder: 'Короткое описание'
                 },
                 fullDescription: {
                     label: 'Полное описание',
@@ -98,11 +102,19 @@ export default {
             },
             btn: {
                 add: 'Добавить',
-                edit: 'Редактировать'
+                edit: 'Редактировать',
+                addPhotos: 'Добавить фотографию'
             }
         },
         btn: {
             addVeteran: 'Добавить статью'
+        }
+    },
+    general: {
+        form: {
+            errors: {
+                required: 'Это поле обязательно для заполнения.'
+            }
         }
     }
 }

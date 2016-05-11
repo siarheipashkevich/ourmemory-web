@@ -58,7 +58,10 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group"
-                     ng-class="{'has-warning': vm.saveVeteranForm.birthPlace.$error.places, 'has-error': vm.submitted && vm.saveVeteranForm.birthPlace.$error.required}">
+                     ng-class="{
+                        'has-warning': vm.saveVeteranForm.birthPlace.$error.places,
+                        'has-error': vm.submitted && vm.saveVeteranForm.birthPlace.$error.required
+                     }">
                     <label class="control-label" for="birthPlace">
                         {{::'veteran.modal.form.birthPlace.label' | translate}}&nbsp;
                     </label>

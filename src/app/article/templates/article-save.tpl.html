@@ -1,31 +1,30 @@
 <div class="modal-header">
-    <button type="button"
-            class="close"
-            ng-click="vm.closeModal()">
+    <button type="button" class="close" ng-click="vm.closeModal()">
         <span>×</span>
     </button>
     <h4 class="modal-title">{{::vm.title}}</h4>
 </div>
 
 <div class="modal-body">
-    <form role="form" name="vm.saveArticleForm" novalidate>
+    <form role="form" name="vm.articleForm" novalidate>
         <div class="row">
             <div class="col-md-12">
-                <div class="form-group">
+                <div class="form-group"
+                     ng-class="{'has-error': vm.submitted && vm.articleForm.title.$invalid}">
                     <label for="title" class="control-label">
-                        Title
-                        <span class="text-red">*</span>
+                        {{::'article.modal.form.title.label' | translate}}
+                        <span class="text-red">&#42;</span>
                     </label>
                     <input type="text"
                            class="form-control"
                            name="title"
                            autocomplete="off"
                            id="title"
-                           placeholder="Title"
+                           placeholder="{{::'article.modal.form.title.placeholder' | translate}}"
                            required
                            ng-model="vm.article.title">
-                    <div ng-messages="vm.saveArticleForm.lastName.$error" ng-if="vm.submitted">
-                        <p ng-message="required" class="help-block">Заголовок статьи обязателен для заполнения.</p>
+                    <div ng-messages="vm.articleForm.title.$error" ng-if="vm.submitted">
+                        <p class="help-block" ng-message="required">{{::'general.form.errors.required' | translate}}</p>
                     </div>
                 </div>
             </div>
@@ -38,7 +37,7 @@
                        ngf-select="vm.uploadImage($file)"
                        ngf-pattern="'image/*'">
                         <i class="fa fa-picture-o"></i>&nbsp;&nbsp;
-                        {{::'veteran.modal.btn.addPhotos' | translate}}
+                        {{::'article.modal.btn.addPhotos' | translate}}
                     </a>
                 </div>
             </div>
@@ -48,26 +47,42 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div class="form-group">
-                    <label class="control-label" for="shortDescription">Short description</label>
+                <div class="form-group"
+                     ng-class="{'has-error': vm.submitted && vm.articleForm.shortDescription.$invalid}">
+                    <label class="control-label" for="shortDescription">
+                        {{::'article.modal.form.shortDescription.label' | translate}}
+                        <span class="text-red">&#42;</span>
+                    </label>
                     <textarea id="shortDescription"
                               class="form-control"
-                              placeholder="Short description"
                               name="shortDescription"
+                              placeholder="{{::'article.modal.form.shortDescription.placeholder' | translate}}"
                               rows="6"
+                              required
                               ng-model="vm.article.shortDescription"></textarea>
+                    <div ng-messages="vm.articleForm.shortDescription.$error" ng-if="vm.submitted">
+                        <p class="help-block" ng-message="required">{{::'general.form.errors.required' | translate}}</p>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div class="form-group">
-                    <label class="control-label" for="fullDescription">Full description</label>
+                <div class="form-group"
+                     ng-class="{'has-error': vm.submitted && vm.articleForm.fullDescription.$invalid}">
+                    <label class="control-label" for="fullDescription">
+                        {{::'article.modal.form.fullDescription.label' | translate}}
+                        <span class="text-red">&#42;</span>
+                    </label>
                     <textarea id="fullDescription"
                               name="fullDescription"
                               rows="6"
-                              froala="{language: 'ru', heightMin: 200}"
+                              froala="vm.froalaOptions"
+                              required
                               ng-model="vm.article.fullDescription"></textarea>
+                    <div ng-messages="vm.articleForm.fullDescription.$error" ng-if="vm.submitted">
+                        <p class="help-block" ng-message="required">{{::'general.form.errors.required' | translate}}</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -77,7 +92,7 @@
 <div class="modal-footer">
     <div class="clearfix">
         <a class="btn btn-blue"
-           ng-click="vm.saveArticle(vm.saveArticleForm.$valid)"
+           ng-click="vm.saveArticle(vm.articleForm.$valid)"
            ng-disabled="vm.sendingData">
             <i class="fa fa-spinner fa-spin" ng-if="vm.sendingData"></i> {{::vm.btnSaveText}}
         </a>

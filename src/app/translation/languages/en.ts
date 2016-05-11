@@ -91,6 +91,10 @@ export default {
                     label: 'Title',
                     placeholder: 'Title'
                 },
+                shortDescription: {
+                    label: 'Short description',
+                    placeholder: 'Short description'
+                },
                 fullDescription: {
                     label: 'Full description',
                     placeholder: 'Full description'
@@ -98,11 +102,19 @@ export default {
             },
             btn: {
                 add: 'Add',
-                edit: 'Edit'
+                edit: 'Edit',
+                addPhotos: 'Add photo'
             }
         },
         btn: {
             addArticle: 'Add article'
+        }
+    },
+    general: {
+        form: {
+            errors: {
+                required: 'This field is required.'
+            }
         }
     }
 }

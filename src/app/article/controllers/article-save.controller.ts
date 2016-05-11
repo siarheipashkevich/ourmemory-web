@@ -3,13 +3,14 @@ import {ArticleFactory} from './../article.factory';
 import {UploadFactory} from './../../common/factories/upload/upload.factory';
 
 class ArticleSaveController {
-    public article: ArticleModel;
-    public title: string;
-    public btnSaveText: string;
-    public saveArticleForm: any;
-    public submitted: boolean;
-    public sendingData: boolean = false;
-    public errorMessage: string;
+    article: ArticleModel;
+    title: string;
+    btnSaveText: string;
+    articleForm: any;
+    submitted: boolean;
+    sendingData: boolean = false;
+    errorMessage: string;
+    froalaOptions: any;
 
     /** @ngInject */
     constructor(
@@ -23,6 +24,12 @@ class ArticleSaveController {
 
         this.title = $translate.instant('article.modal.title.add');
         this.btnSaveText = $translate.instant('article.modal.btn.add');
+
+        this.froalaOptions = {
+            language: 'ru',
+            heightMin: 200,
+            placeholderText: $translate.instant('article.modal.form.fullDescription.placeholder')
+        };
     }
 
     closeModal() {
@@ -55,7 +62,7 @@ class ArticleSaveController {
         if (file) {
             this.UploadFactory.upload(file).then((image: any) => {
                 this.article.image = image.imageOriginal;
-            })
+            });
         }
     }
 }
