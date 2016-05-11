@@ -1,20 +1,21 @@
 <div class="article-content" ui-view style="margin-top: 60px;">
     <div class="blog-content">
-        <div class="home-wrapper">
+        <div class="home-wrapper container-fluid">
             <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="row">
-                        <div class="col-lg-9">
-                            <h2 class="osLight">Latest articles</h2>
+                        <div class="col-xs-6 col-sm-9 col-md-9 col-lg-9">
+                            <h2 class="osLight">{{'article.title' | translate}}</h2>
                         </div>
-                        <div class="col-lg-3">
+                        <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
                             <a href="javascript:void(0);" class="btn btn-default pull-right" ng-click="vm.addArticle()">
-                                Add article
+                                {{'article.btn.addArticle' | translate}}
+
                             </a>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-repeat="article in vm.articleList.articles">
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4" ng-repeat="article in vm.articleList.articles">
                             <div class="article">
                                 <a ui-sref="main.articles.detail({id: article.id})" class="image">
                                     <img ng-src="{{article.image}}" alt="image">
@@ -35,25 +36,6 @@
                         <a href="#" class="btn btn-o btn-round btn-green isThemeBtn"><span class="fa fa-angle-left"></span> Older Articles</a>
                         <a href="#" class="btn btn-o btn-round btn-green pull-right isThemeBtn">Newer Articles <span class="fa fa-angle-right"></span></a>
                         <div class="clearfix"></div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-6 col-md-12 col-lg-12">
-                            <h2 class="osLight h-r">Archive</h2>
-                            <ul class="blog-r-nav">
-                                <li><a href="#">October 2014</a></li>
-                                <li><a href="#">September 2014</a></li>
-                                <li><a href="#">August 2014</a></li>
-                                <li><a href="#">July 2014</a></li>
-                                <li><a href="#">June 2014</a></li>
-                                <li><a href="#">May 2014</a></li>
-                                <li><a href="#">April 2014</a></li>
-                                <li><a href="#">March 2014</a></li>
-                                <li><a href="#">February 2014</a></li>
-                                <li><a href="#">January 2014</a></li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
             </div>

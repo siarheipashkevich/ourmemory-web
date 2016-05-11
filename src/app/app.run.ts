@@ -8,7 +8,6 @@ interface IAppRootScopeService extends angular.IRootScopeService {
 function appRun(
     $rootScope: IAppRootScopeService,
     $uibModalStack: any,
-    amMoment: any,
     AuthService: AuthService,
     CONSTANTS: any
 ) {

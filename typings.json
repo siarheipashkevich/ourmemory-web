@@ -13,6 +13,7 @@
     "karma-jasmine": "github:DefinitelyTyped/DefinitelyTyped/karma-jasmine/karma-jasmine.d.ts#bb051830df88f5a55dcf06b7fe85bf6b62cc97f2",
     "moment": "registry:dt/moment#2.8.0+20160316155526",
     "moment-node": "github:DefinitelyTyped/DefinitelyTyped/moment/moment-node.d.ts#bb051830df88f5a55dcf06b7fe85bf6b62cc97f2",
+    "ng-file-upload": "registry:dt/ng-file-upload#0.0.0+20160317120654",
     "signalr": "registry:dt/signalr#2.2.0+20160406111324",
     "ui-bootstrap": "github:DefinitelyTyped/DefinitelyTyped/angular-ui-bootstrap/angular-ui-bootstrap.d.ts#bb051830df88f5a55dcf06b7fe85bf6b62cc97f2"
   }

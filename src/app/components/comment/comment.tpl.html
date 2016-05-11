@@ -1,4 +1,8 @@
-<h2 class="osLight align-left"><span>{{vm.comments.length}}</span> Comments</h2>
+<div class="osLight align-left">
+    <p translate="components.comment.numberComments"
+          translate-values="{comments: vm.comments.length || 3}"
+          translate-interpolation="messageformat"></p>
+</div>
 
 <div class="post-comments">
     <div class="comment" ng-repeat="comment in vm.comments track by $index">
@@ -31,12 +35,11 @@
     </div>
 </div>
 
-<h2 class="osLight align-left">Leave a Comment</h2>
 <form role="form" class="pb20">
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="form-group" ng-class="{'has-error': vm.emptyMessage}">
-                <textarea placeholder="Comment"
+                <textarea placeholder="{{'components.comment.placeholder' | translate}}"
                           class="form-control"
                           rows="3"
                           om-enter-submit="vm.sendComment(vm.message)"
@@ -46,10 +49,8 @@
         </div>
     </div>
     <div class="form-group">
-        <a href="javascript:void(0);"
-           class="btn btn-green isThemeBtn"
-           ng-click="vm.sendComment(vm.message)">
-            Post comment
+        <a href="javascript:void(0);" class="btn btn-green isThemeBtn" ng-click="vm.sendComment(vm.message)">
+            {{'components.comment.btn.send' | translate}}
         </a>
     </div>
 </form>

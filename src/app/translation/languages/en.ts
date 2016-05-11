@@ -10,9 +10,7 @@ export default {
                 language: 'Language'
             },
             profile: {
-                setting: 'Settings',
                 profile: 'Profile',
-                notification: 'Notifications',
                 logout: 'Sign out'
             },
             language: {
@@ -106,14 +104,47 @@ export default {
                 addPhotos: 'Add photo'
             }
         },
+        title: 'Latest articles',
         btn: {
             addArticle: 'Add article'
+        }
+    },
+    profile: {
+        modal: {
+            title: 'User page',
+            form: {
+                firstName: {
+                    label: 'First Name',
+                    placeholder: 'First Name'
+                },
+                lastName: {
+                    label: 'Last Name',
+                    placeholder: 'Last Name'
+                },
+                middleName: {
+                    label: 'Middle Name',
+                    placeholder: 'Middle Name'
+                }
+            },
+            btn: {
+                save: 'Save',
+                crop: 'Crop'
+            }
         }
     },
     general: {
         form: {
             errors: {
                 required: 'This field is required.'
+            }
+        }
+    },
+    components: {
+        comment: {
+            numberComments: '{comments, plural, one{# comment} other{# comments}}',
+            placeholder: 'Your comment..',
+            btn: {
+                send: 'Post'
             }
         }
     }

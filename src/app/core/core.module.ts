@@ -14,7 +14,8 @@ export default angular
         'pascalprecht.translate',
         'toastr',
         'SignalR',
-        'froala'
+        'froala',
+        'ngImgCrop'
 
     ])
     .config(coreConfig);

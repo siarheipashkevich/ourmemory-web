@@ -13,8 +13,10 @@ function translationConfig(
         .translations('ru', ru)
         .translations('en', en)
         .preferredLanguage(languageKey)
-        .fallbackLanguage(languageKey)
+        .fallbackLanguage('en')
         .useSanitizeValueStrategy('escape');
+
+    $translateProvider.addInterpolation('$translateMessageFormatInterpolation');
 }
 
 export {translationConfig}

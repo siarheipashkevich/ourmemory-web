@@ -1,13 +1,26 @@
+import {UploadFactory} from './../common/factories/upload/upload.factory';
+
 class ProfileController {
-    private title: string;
+    user: any;
 
     /** @ngInject */
-    constructor() {
-        this.title = 'Страница пользователя';
+    constructor(
+        private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
+        private UploadFactory: UploadFactory
+    ) {
+
     }
 
-    getTitle() {
-        return this.title;
+    closeModal() {
+        this.$uibModalInstance.dismiss();
+    }
+
+    uploadImage(file: File) {
+        if (file) {
+            this.UploadFactory.upload(file).then((image: any) => {
+                this.user.image = image.imageOriginal;
+            });
+        }
     }
 }
 

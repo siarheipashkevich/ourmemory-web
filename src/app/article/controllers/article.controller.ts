@@ -21,8 +21,6 @@ class ArticleController {
             size: 'lg'
         }).result.then((article: any) => {
             this.$log.info(article);
-        }, () => {
-            this.$log.info('Модальное окно закрыто:  ' + new Date());
         });
     }
 }

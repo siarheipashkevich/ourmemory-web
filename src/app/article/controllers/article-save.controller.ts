@@ -1,6 +1,7 @@
 import {ArticleModel} from './../models/article.model';
 import {ArticleFactory} from './../article.factory';
 import {UploadFactory} from './../../common/factories/upload/upload.factory';
+import {ITranslationService} from './../../translation/translation.provider';
 
 class ArticleSaveController {
     article: ArticleModel;
@@ -18,7 +19,8 @@ class ArticleSaveController {
         private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
         private $log: ng.ILogService,
         private UploadFactory: UploadFactory,
-        private ArticleFactory: ArticleFactory
+        private ArticleFactory: ArticleFactory,
+        private TranslationService: ITranslationService
     ) {
         this.article = new ArticleModel();
 
@@ -26,7 +28,7 @@ class ArticleSaveController {
         this.btnSaveText = $translate.instant('article.modal.btn.add');
 
         this.froalaOptions = {
-            language: 'ru',
+            language: TranslationService.getLanguageKey(),
             heightMin: 200,
             placeholderText: $translate.instant('article.modal.form.fullDescription.placeholder')
         };

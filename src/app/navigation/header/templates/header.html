@@ -18,22 +18,9 @@
             </div>
             <ul>
                 <li>
-                    <a href="#">
-                        <span class="icon-settings"></span>
-                        {{'navigation.header.profile.setting' | translate}}
-                    </a>
-                </li>
-                <li>
-                    <a ui-sref="main.profile">
+                    <a href="" ng-click="vm.showProfile()">
                         <span class="icon-user"></span>
                         {{'navigation.header.profile.profile' | translate}}
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span class="icon-bell"></span>
-                        {{'navigation.header.profile.notification' | translate}}&nbsp;
-                        <span class="badge pull-right bg-red">5</span>
                     </a>
                 </li>
                 <li class="divider"></li>

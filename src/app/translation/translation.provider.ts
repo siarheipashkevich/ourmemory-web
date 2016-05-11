@@ -17,9 +17,14 @@ class TranslationProvider implements ng.IServiceProvider {
     }
 
     /** @ngInject */
-    public $get($translate: ng.translate.ITranslateService, amMoment: any): ITranslationService {
+    public $get(
+        $translate: ng.translate.ITranslateService,
+        amMoment: any,
+        $translateMessageFormatInterpolation: any
+    ): ITranslationService {
         return {
             changeLanguage: (key: string) => {
+                $translateMessageFormatInterpolation.setLocale(key);
                 $translate.use(key);
                 amMoment.changeLocale(key);
 

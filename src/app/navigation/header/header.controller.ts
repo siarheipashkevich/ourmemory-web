@@ -3,7 +3,11 @@ import {ITranslationService} from '../../translation/translation.provider';
 
 class HeaderController {
     /** @ngInject */
-    constructor(private AuthService: AuthService, private TranslationService: ITranslationService) {}
+    constructor(
+        private $uibModal: ng.ui.bootstrap.IModalService,
+        private AuthService: AuthService,
+        private TranslationService: ITranslationService
+    ) {}
 
     logout(): void {
         this.AuthService.clearIdentity();
@@ -13,6 +17,16 @@ class HeaderController {
         event.preventDefault();
 
         this.TranslationService.changeLanguage(key);
+    }
+    
+    showProfile() {
+        this.$uibModal.open({
+            templateUrl: 'app/profile/templates/profile.tpl.html',
+            controller: 'ProfileController',
+            controllerAs: 'vm',
+            animation: true,
+            backdrop: 'static'
+        });
     }
 }
 

@@ -10,9 +10,7 @@ export default {
                 language: 'Язык'
             },
             profile: {
-                setting: 'Настройки',
                 profile: 'Профиль',
-                notification: 'Уведомления',
                 logout: 'Выйти'
             },
             language: {
@@ -92,8 +90,8 @@ export default {
                     placeholder: 'Название статьи'
                 },
                 shortDescription: {
-                    label: 'Короткое описание',
-                    placeholder: 'Короткое описание'
+                    label: 'Краткое описание',
+                    placeholder: 'Краткое описание'
                 },
                 fullDescription: {
                     label: 'Полное описание',
@@ -106,14 +104,47 @@ export default {
                 addPhotos: 'Добавить фотографию'
             }
         },
+        title: 'Последние статьи',
         btn: {
-            addVeteran: 'Добавить статью'
+            addArticle: 'Добавить статью'
         }
     },
     general: {
         form: {
             errors: {
                 required: 'Это поле обязательно для заполнения.'
+            }
+        }
+    },
+    profile: {
+        modal: {
+            title: 'Страница пользователя',
+            form: {
+                firstName: {
+                    label: 'Имя',
+                    placeholder: 'Имя'
+                },
+                lastName: {
+                    label: 'Фамилия',
+                    placeholder: 'Фамилия'
+                },
+                middleName: {
+                    label: 'Отчество',
+                    placeholder: 'Отчество'
+                }
+            },
+            btn: {
+                save: 'Сохранить',
+                crop: 'Вырезать'
+            }
+        }
+    },
+    components: {
+        comment: {
+            numberComments: '{comments, plural, zero{# комментариев} one{# комментарий} few{# комментария} other{# комментариев}}',
+            placeholder: 'Комментировать..',
+            btn: {
+                send: 'Отправить'
             }
         }
     }
