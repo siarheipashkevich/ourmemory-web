@@ -6,113 +6,153 @@
 </div>
 
 <div class="modal-body">
-    <form role="form" name="vm.profileForm" novalidate>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group"
-                     ng-class="{'has-error': vm.submitted && vm.profileForm.firstName.$invalid}">
-                    <label for="firstName" class="control-label">
-                        {{::'profile.modal.form.firstName.label' | translate}}
-                        <span class="text-red">&#42;</span>
-                    </label>
-                    <input type="text"
-                           class="form-control"
-                           name="firstName"
-                           autocomplete="off"
-                           id="firstName"
-                           placeholder="{{::'profile.modal.form.firstName.placeholder' | translate}}"
-                           required
-                           ng-model="vm.user.title">
-                    <div ng-messages="vm.profileForm.firstName.$error" ng-if="vm.submitted">
-                        <p class="help-block" ng-message="required">{{::'general.form.errors.required' | translate}}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group"
-                     ng-class="{'has-error': vm.submitted && vm.profileForm.lastName.$invalid}">
-                    <label for="lastName" class="control-label">
-                        {{::'profile.modal.form.lastName.label' | translate}}
-                        <span class="text-red">&#42;</span>
-                    </label>
-                    <input type="text"
-                           class="form-control"
-                           name="lastName"
-                           autocomplete="off"
-                           id="lastName"
-                           placeholder="{{::'profile.modal.form.lastName.placeholder' | translate}}"
-                           required
-                           ng-model="vm.user.title">
-                    <div ng-messages="vm.profileForm.lastName.$error" ng-if="vm.submitted">
-                        <p class="help-block" ng-message="required">{{::'general.form.errors.required' | translate}}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group"
-                     ng-class="{'has-error': vm.submitted && vm.profileForm.middleName.$invalid}">
-                    <label for="middleName" class="control-label">
-                        {{::'profile.modal.form.middleName.label' | translate}}
-                        <span class="text-red">&#42;</span>
-                    </label>
-                    <input type="text"
-                           class="form-control"
-                           name="middleName"
-                           autocomplete="off"
-                           id="middleName"
-                           placeholder="{{::'profile.modal.form.middleName.placeholder' | translate}}"
-                           required
-                           ng-model="vm.user.title">
-                    <div ng-messages="vm.profileForm.middleName.$error" ng-if="vm.submitted">
-                        <p class="help-block" ng-message="required">{{::'general.form.errors.required' | translate}}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3">
-                <div class="form-group">
+    <div class="profile-content" ng-hide="vm.uploadNewPhotoActive">
+        <form role="form" name="vm.changePassword" novalidate>
+            <div class="row">
+                <div class="col-lg-5 profile-photo">
+                    <img ng-src="{{ vm.user.image || 'http://walyou.com/wp-content/uploads//2010/12/facebook-profile-picture-no-pic-avatar.jpg'}}">
+                    <br>
                     <a class="btn btn-block btn-green"
                        accept="image/*"
-                       ng-model="vm.user.image"
-                       ngf-select
+                       ngf-select="vm.selectImage($file)"
                        ngf-pattern="'image/*'">
                         <i class="fa fa-picture-o"></i>&nbsp;&nbsp;
-                        {{::'article.modal.btn.addPhotos' | translate}}
+                        {{::'profile.modal.btn.changePhoto' | translate}}
                     </a>
                 </div>
-                <div class="form-group">
-                    <a class="btn btn-block btn-blue">
+                <div class="col-lg-7">
+                    <div class="form-group"
+                         ng-class="{'has-error': vm.submitted && vm.changePassword.currentPassword.$invalid}">
+                        <label for="currentPassword" class="control-label">
+                            {{::'profile.modal.form.currentPassword.label' | translate}}
+                        </label>
+                        <input type="text"
+                               class="form-control"
+                               name="currentPassword"
+                               autocomplete="off"
+                               id="currentPassword"
+                               placeholder="{{::'profile.modal.form.currentPassword.placeholder' | translate}}"
+                               required
+                               ng-model="vm.password.currentPassword">
+                        <div ng-messages="vm.changePassword.currentPassword.$error" ng-if="vm.submitted">
+                            <p class="help-block" ng-message="required">{{::'general.form.errors.required' | translate}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group"
+                         ng-class="{'has-error': vm.submitted && vm.changePassword.newPassword.$invalid}">
+                        <label for="newPassword" class="control-label">
+                            {{::'profile.modal.form.newPassword.label' | translate}}
+                        </label>
+                        <input type="text"
+                               class="form-control"
+                               name="newPassword"
+                               autocomplete="off"
+                               id="newPassword"
+                               placeholder="{{::'profile.modal.form.newPassword.placeholder' | translate}}"
+                               required
+                               ng-model="vm.password.newPassword">
+                        <div ng-messages="vm.changePassword.newPassword.$error" ng-if="vm.submitted">
+                            <p class="help-block" ng-message="required">{{::'general.form.errors.required' | translate}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group"
+                         ng-class="{'has-error': vm.submitted && vm.changePassword.confirmPassword.$invalid}">
+                        <label for="confirmPassword" class="control-label">
+                            {{::'profile.modal.form.confirmPassword.label' | translate}}
+                        </label>
+                        <input type="text"
+                               class="form-control"
+                               name="confirmPassword"
+                               autocomplete="off"
+                               id="confirmPassword"
+                               placeholder="{{::'profile.modal.form.confirmPassword.placeholder' | translate}}"
+                               required
+                               ng-model="vm.password.confirmPassword">
+                        <div ng-messages="vm.changePassword.confirmPassword.$error" ng-if="vm.submitted">
+                            <p class="help-block" ng-message="required">{{::'general.form.errors.required' | translate}}</p>
+                        </div>
+                    </div>
+                    <a class="btn btn-default">{{::'profile.modal.btn.changePassword' | translate}}</a>
+                </div>
+            </div>
+        </form>
+        <form role="form" name="vm.profileForm" novalidate>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group"
+                         ng-class="{'has-error': vm.submitted && vm.profileForm.firstName.$invalid}">
+                        <label for="firstName" class="control-label">
+                            {{::'profile.modal.form.firstName.label' | translate}}
+                            <span class="text-red">&#42;</span>
+                        </label>
+                        <input type="text"
+                               class="form-control"
+                               name="firstName"
+                               autocomplete="off"
+                               id="firstName"
+                               placeholder="{{::'profile.modal.form.firstName.placeholder' | translate}}"
+                               required
+                               ng-model="vm.user.firstName">
+                        <div ng-messages="vm.profileForm.firstName.$error" ng-if="vm.submitted">
+                            <p class="help-block" ng-message="required">{{::'general.form.errors.required' | translate}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group"
+                         ng-class="{'has-error': vm.submitted && vm.profileForm.lastName.$invalid}">
+                        <label for="lastName" class="control-label">
+                            {{::'profile.modal.form.lastName.label' | translate}}
+                            <span class="text-red">&#42;</span>
+                        </label>
+                        <input type="text"
+                               class="form-control"
+                               name="lastName"
+                               autocomplete="off"
+                               id="lastName"
+                               placeholder="{{::'profile.modal.form.lastName.placeholder' | translate}}"
+                               required
+                               ng-model="vm.user.lastName">
+                        <div ng-messages="vm.profileForm.lastName.$error" ng-if="vm.submitted">
+                            <p class="help-block" ng-message="required">{{::'general.form.errors.required' | translate}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="upload-new-photo" ng-show="vm.uploadNewPhotoActive">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="crop-area">
+                    <img-crop image="vm.tempPhoto | ngfDataUrl"
+                              area-type="square"
+                              result-image="croppedDataUrl"
+                              area-min-size="200"
+                              ng-init="croppedDataUrl=''">
+                    </img-crop>
+                </div>
+                <div class="text-center">
+                    <a class="btn btn-default" ng-click="vm.backPhoto()">
+                        Back
+                    </a>
+                    <a class="btn btn-green" ng-click="vm.uploadImage(croppedDataUrl, vm.tempPhoto.name)">
                         <i class="fa fa-crop" ></i>&nbsp;&nbsp;
                         {{::'profile.modal.btn.crop' | translate}}
                     </a>
                 </div>
             </div>
-            <div class="col-md-9">
-                <div class="cropArea"
-                     ng-show="croppedUserImage"
-                     ng-model="vm.user.image"
-                     ngf-pattern="image/*">
-
-                    <img-crop image="vm.user.image  | ngfDataUrl"
-                              result-image="croppedUserImage"
-                              area-type="square"
-                              ng-init="croppedUserImage=''">
-                    </img-crop>
-                </div>
-            </div>
         </div>
-    </form>
+    </div>
 </div>
 
 <div class="modal-footer">
     <div class="clearfix">
         <a class="btn btn-blue"
-           ng-click="vm.saveArticle(vm.articleForm.$valid)"
+           ng-click="vm.updateProfile(vm.profileForm.$valid)"
            ng-disabled="vm.sendingData">
             <i class="fa fa-spinner fa-spin" ng-if="vm.sendingData"></i> {{::'profile.modal.btn.save' | translate}}
         </a>

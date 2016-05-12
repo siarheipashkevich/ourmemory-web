@@ -18,7 +18,7 @@ class HeaderController {
 
         this.TranslationService.changeLanguage(key);
     }
-    
+
     showProfile() {
         this.$uibModal.open({
             templateUrl: 'app/profile/templates/profile.tpl.html',

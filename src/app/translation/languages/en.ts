@@ -121,14 +121,24 @@ export default {
                     label: 'Last Name',
                     placeholder: 'Last Name'
                 },
-                middleName: {
-                    label: 'Middle Name',
-                    placeholder: 'Middle Name'
+                currentPassword: {
+                    label: 'Current password',
+                    placeholder: 'Current password'
+                },
+                newPassword: {
+                    label: 'New password',
+                    placeholder: 'New password'
+                },
+                confirmPassword: {
+                    label: 'Repeat new password',
+                    placeholder: 'Repeat new password'
                 }
             },
             btn: {
                 save: 'Save',
-                crop: 'Crop'
+                crop: 'Crop',
+                changePassword: 'Change password',
+                changePhoto: 'Upload a new photo'
             }
         }
     },
