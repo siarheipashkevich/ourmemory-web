@@ -7,22 +7,22 @@
 <div class="post-comments">
     <div class="comment" ng-repeat="comment in vm.comments track by $index">
         <div class="commentAvatar">
-            <img class="avatar" ng-src="assets/images/avatar-1.png" alt="avatar">
+            <img class="avatar" ng-src="{{comment.user.image}}" alt="avatar">
             <div class="commentArrow bg-w"><span class="fa fa-caret-left"></span></div>
         </div>
         <div class="commentContent bg-w">
             <div class="commentName">
-                {{::comment.userName}}
+                {{comment.user.firstName && comment.user.lastName ? comment.user.firstName + ' ' + comment.user.lastName : comment.user.username}}
             </div>
             <div class="commentBody">
-                {{::comment.message}}
+                {{comment.message}}
             </div>
             <div class="commentActions">
                 <div class="commentTime">
-                    <span class="icon-clock"></span> {{comment.createdDateTime | amDateFormat:'D MMMM YYYY'}}
+                    <span class="icon-clock"></span> {{comment.createdDateTime | amDateFormat:'D MMMM YYYY h:mm'}}
                 </div>
                 <ul>
-                    <li ng-if="::vm.authUser.userId === comment.userId">
+                    <li ng-if="vm.authUser.id === comment.user.id">
                         <a href="javascript:void(0);" ng-click="vm.removeComment(comment.id)">
                             <span class="fa fa-trash-o"></span>
                         </a>
@@ -35,7 +35,7 @@
     </div>
 </div>
 
-<form role="form" class="pb20">
+<form role="form" class="pb20" ng-if="vm.authUser">
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="form-group" ng-class="{'has-error': vm.emptyMessage}">

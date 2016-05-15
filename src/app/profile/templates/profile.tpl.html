@@ -7,75 +7,92 @@
 
 <div class="modal-body">
     <div class="profile-content" ng-hide="vm.uploadNewPhotoActive">
-        <form role="form" name="vm.changePassword" novalidate>
-            <div class="row">
-                <div class="col-lg-5 profile-photo">
-                    <img ng-src="{{ vm.user.image || 'http://walyou.com/wp-content/uploads//2010/12/facebook-profile-picture-no-pic-avatar.jpg'}}">
-                    <br>
-                    <a class="btn btn-block btn-green"
-                       accept="image/*"
-                       ngf-select="vm.selectImage($file)"
-                       ngf-pattern="'image/*'">
-                        <i class="fa fa-picture-o"></i>&nbsp;&nbsp;
-                        {{::'profile.modal.btn.changePhoto' | translate}}
-                    </a>
-                </div>
-                <div class="col-lg-7">
+        <div class="row">
+            <div class="col-lg-5 profile-photo">
+                <img ng-src="{{ vm.user.image || 'http://walyou.com/wp-content/uploads//2010/12/facebook-profile-picture-no-pic-avatar.jpg'}}">
+                <br>
+                <a class="btn btn-block btn-green"
+                   accept="image/*"
+                   ngf-select="vm.selectImage($file)"
+                   ngf-pattern="'image/*'">
+                    <i class="fa fa-picture-o"></i>&nbsp;
+                    {{::'profile.modal.btn.changePhoto' | translate}}
+                </a>
+            </div>
+            <div class="col-lg-7">
+                <form role="form" name="passwordForm" ng-submit="vm.changePassword(passwordForm)" novalidate>
                     <div class="form-group"
-                         ng-class="{'has-error': vm.submitted && vm.changePassword.currentPassword.$invalid}">
+                         ng-class="{'has-error': (passwordForm.$submitted && passwordForm.currentPassword.$invalid) || vm.errors.currentPassword.length}">
                         <label for="currentPassword" class="control-label">
                             {{::'profile.modal.form.currentPassword.label' | translate}}
                         </label>
                         <input type="text"
-                               class="form-control"
                                name="currentPassword"
-                               autocomplete="off"
-                               id="currentPassword"
                                placeholder="{{::'profile.modal.form.currentPassword.placeholder' | translate}}"
+                               id="currentPassword"
+                               class="form-control input-sm"
+                               autocomplete="off"
                                required
-                               ng-model="vm.password.currentPassword">
-                        <div ng-messages="vm.changePassword.currentPassword.$error" ng-if="vm.submitted">
-                            <p class="help-block" ng-message="required">{{::'general.form.errors.required' | translate}}</p>
+                               ng-model="vm.password.oldPassword">
+                        <div ng-messages="passwordForm.currentPassword.$error" ng-show="passwordForm.$submitted">
+                            <p class="help-block" ng-message="required">
+                                {{::'general.form.errors.required' | translate}}
+                            </p>
                         </div>
+                        <p class="help-block" ng-repeat="error in vm.errors.oldPassword">
+                            {{error}}
+                        </p>
                     </div>
                     <div class="form-group"
-                         ng-class="{'has-error': vm.submitted && vm.changePassword.newPassword.$invalid}">
+                         ng-class="{'has-error': (passwordForm.$submitted && passwordForm.newPassword.$invalid) || vm.errors.newPassword.length}">
                         <label for="newPassword" class="control-label">
                             {{::'profile.modal.form.newPassword.label' | translate}}
                         </label>
                         <input type="text"
-                               class="form-control"
                                name="newPassword"
-                               autocomplete="off"
-                               id="newPassword"
                                placeholder="{{::'profile.modal.form.newPassword.placeholder' | translate}}"
+                               id="newPassword"
+                               class="form-control input-sm"
+                               autocomplete="off"
                                required
                                ng-model="vm.password.newPassword">
-                        <div ng-messages="vm.changePassword.newPassword.$error" ng-if="vm.submitted">
-                            <p class="help-block" ng-message="required">{{::'general.form.errors.required' | translate}}</p>
+                        <div ng-messages="passwordForm.newPassword.$error" ng-show="passwordForm.$submitted">
+                            <p class="help-block" ng-message="required">
+                                {{::'general.form.errors.required' | translate}}
+                            </p>
                         </div>
+                        <p class="help-block" ng-repeat="error in vm.errors.newPassword">
+                            {{error}}
+                        </p>
                     </div>
                     <div class="form-group"
-                         ng-class="{'has-error': vm.submitted && vm.changePassword.confirmPassword.$invalid}">
+                         ng-class="{'has-error': (passwordForm.$submitted && passwordForm.confirmPassword.$invalid) || vm.errors.confirmPassword.length}">
                         <label for="confirmPassword" class="control-label">
                             {{::'profile.modal.form.confirmPassword.label' | translate}}
                         </label>
                         <input type="text"
-                               class="form-control"
                                name="confirmPassword"
-                               autocomplete="off"
-                               id="confirmPassword"
                                placeholder="{{::'profile.modal.form.confirmPassword.placeholder' | translate}}"
+                               id="confirmPassword"
+                               class="form-control input-sm"
+                               autocomplete="off"
                                required
                                ng-model="vm.password.confirmPassword">
-                        <div ng-messages="vm.changePassword.confirmPassword.$error" ng-if="vm.submitted">
-                            <p class="help-block" ng-message="required">{{::'general.form.errors.required' | translate}}</p>
+                        <div ng-messages="passwordForm.confirmPassword.$error" ng-show="passwordForm.$submitted">
+                            <p class="help-block" ng-message="required">
+                                {{::'general.form.errors.required' | translate}}
+                            </p>
                         </div>
+                        <p class="help-block" ng-repeat="error in vm.errors.confirmPassword">
+                            {{error}}
+                        </p>
                     </div>
-                    <a class="btn btn-default">{{::'profile.modal.btn.changePassword' | translate}}</a>
-                </div>
+                    <button type="submit" class="btn btn-default">
+                        {{::'profile.modal.btn.changePassword' | translate}}
+                    </button>
+                </form>
             </div>
-        </form>
+        </div>
         <form role="form" name="vm.profileForm" novalidate>
             <div class="row">
                 <div class="col-md-12">
@@ -91,10 +108,11 @@
                                autocomplete="off"
                                id="firstName"
                                placeholder="{{::'profile.modal.form.firstName.placeholder' | translate}}"
-                               required
                                ng-model="vm.user.firstName">
                         <div ng-messages="vm.profileForm.firstName.$error" ng-if="vm.submitted">
-                            <p class="help-block" ng-message="required">{{::'general.form.errors.required' | translate}}</p>
+                            <p class="help-block" ng-message="required">
+                                {{::'general.form.errors.required' | translate}}
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -113,10 +131,11 @@
                                autocomplete="off"
                                id="lastName"
                                placeholder="{{::'profile.modal.form.lastName.placeholder' | translate}}"
-                               required
                                ng-model="vm.user.lastName">
                         <div ng-messages="vm.profileForm.lastName.$error" ng-if="vm.submitted">
-                            <p class="help-block" ng-message="required">{{::'general.form.errors.required' | translate}}</p>
+                            <p class="help-block" ng-message="required">
+                                {{::'general.form.errors.required' | translate}}
+                            </p>
                         </div>
                     </div>
                 </div>

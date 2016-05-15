@@ -5,8 +5,6 @@ class ArticleDetailController {
     constructor(
         public article: ArticleModel
     ) {
-        console.log(article);
-
         angular.element('body').addClass('no-hidden no-touch');
         angular.element('body').removeClass('notransition');
     }

@@ -381,8 +381,11 @@ a.navHandler {
     position: relative;
 
     .image {
-        max-height: 230px;
-        height: 230px;
+        height: auto;
+
+        img {
+            margin-top: 0;
+        }
     }
 
     .article-category {
@@ -394,8 +397,22 @@ a.navHandler {
         padding-bottom: 0;
     }
 
+    a {
+        -webkit-transition: all .01s ease-in-out;
+        transition: all .01s ease-in-out;
+    }
+
     .footer {
         position: inherit;
+    }
+
+    &:hover {
+        .image {
+            img {
+                -webkit-transform: scale(1.1);
+                transform: scale(1.1);
+            }
+        }
     }
 }
 
@@ -433,10 +450,45 @@ a.navHandler {
 
 .profile-photo {
     text-align: center;
+    margin-bottom: 10px;
 
     img {
         margin-bottom: 15px;
         display: inline-block;
         max-width: 100%;
+    }
+}
+
+.propWidget-1 {
+    .fig {
+        height: 230px;
+
+        img {
+            height: 230px;
+        }
+
+        .priceCap {
+            font-size: 13px;
+        }
+
+        .figCap {
+            .address {
+                height: 35px;
+                overflow: hidden;
+            }
+        }
+    }
+}
+
+
+.album-container {
+    .page-header {
+        margin-top: 20px;
+
+        .pull-right {
+            .btn {
+                margin-top: 14px;
+            }
+        }
     }
 }

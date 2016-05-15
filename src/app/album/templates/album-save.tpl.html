@@ -1,0 +1,62 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="vm.closeModal()">
+        <span>×</span>
+    </button>
+    <h4 class="modal-title">{{::vm.title}}</h4>
+</div>
+
+<div class="modal-body">
+    <form role="form" name="vm.albumForm" novalidate>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group"
+                     ng-class="{'has-error': vm.submitted && vm.albumForm.title.$invalid}">
+                    <label for="title" class="control-label">
+                        {{::'album.modal.form.title.label' | translate}}
+                        <span class="text-red">&#42;</span>
+                    </label>
+                    <input type="text"
+                           class="form-control"
+                           name="title"
+                           autocomplete="off"
+                           id="title"
+                           placeholder="{{::'album.modal.form.title.placeholder' | translate}}"
+                           required
+                           ng-model="vm.album.title">
+                    <div ng-messages="vm.albumForm.title.$error" ng-if="vm.submitted">
+                        <p class="help-block" ng-message="required">{{::'general.form.errors.required' | translate}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group"
+                     ng-class="{'has-error': vm.submitted && vm.albumForm.description.$invalid}">
+                    <label class="control-label" for="description">
+                        {{::'album.modal.form.description.label' | translate}}
+                        <span class="text-red">&#42;</span>
+                    </label>
+                    <textarea id="description"
+                              class="form-control"
+                              name="description"
+                              placeholder="{{::'album.modal.form.description.placeholder' | translate}}"
+                              rows="3"
+                              required
+                              ng-model="vm.album.description"></textarea>
+                    <div ng-messages="vm.albumForm.description.$error" ng-if="vm.submitted">
+                        <p class="help-block" ng-message="required">{{::'general.form.errors.required' | translate}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal-footer">
+    <div class="clearfix">
+        <a class="btn btn-blue"
+           ng-click="vm.saveAlbum(vm.albumForm.$valid)"
+           ng-disabled="vm.sendingData">
+            <i class="fa fa-spinner fa-spin" ng-if="vm.sendingData"></i> {{::vm.btnSaveText}}
+        </a>
+    </div>
+</div>

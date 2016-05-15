@@ -7,7 +7,6 @@ class ArticleSaveController {
     article: ArticleModel;
     title: string;
     btnSaveText: string;
-    articleForm: any;
     submitted: boolean;
     sendingData: boolean = false;
     errorMessage: string;

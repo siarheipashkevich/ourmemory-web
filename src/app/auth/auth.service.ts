@@ -76,7 +76,7 @@ class AuthService {
 
     checkAccessToState(event: any, toState: any, toParams: any, fromState: any) {
         // deny access to the signIn page to authorized users
-        if ((toState.name === 'main.home.login' || toState.name === 'main.home.register') && this.isAuthenticated()) {
+        if ((toState.name === 'main.login' || toState.name === 'main.register') && this.isAuthenticated()) {
             event.preventDefault();
             return;
         }
@@ -89,7 +89,7 @@ class AuthService {
                     event.preventDefault();
 
                     if (!this.isAuthenticated()) {
-                        this.$state.go('main.home.login');
+                        this.$state.go('main.login');
                     } else {
                         var state = fromState.name ? fromState.name : 'main.home';
 

@@ -4,6 +4,8 @@ import {AuthService} from './../auth/auth.service';
 
 class ProfileController {
     user: any;
+    password: any;
+    errors: any;
     tempPhoto: any;
     uploadNewPhotoActive: boolean;
     submitted: boolean;
@@ -13,13 +15,18 @@ class ProfileController {
     constructor(
         private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
         private $rootScope: any,
+        private $timeout: ng.ITimeoutService,
+        private $translate: ng.translate.ITranslateService,
+        private toastr: ng.toastr.IToastrService,
         private Upload: any,
         private UploadFactory: UploadFactory,
         private ProfileFactory: ProfileFactory,
         private AuthService: AuthService
     ) {
         this.user = {};
-        this.user.image = $rootScope.authUser.imageUrl;
+        this.user.image = $rootScope.authUser.image;
+        this.user.firstName = $rootScope.authUser.firstName;
+        this.user.lastName = $rootScope.authUser.lastName;
     }
 
     closeModal() {
@@ -40,9 +47,6 @@ class ProfileController {
             this.UploadFactory.upload(file).then((image: any) => {
                 this.user.image = image.imageOriginal;
 
-                this.$rootScope.authUser.imageUrl = image.imageOriginal;
-                this.AuthService.setAuthUser(this.$rootScope.authUser);
-
                 this.uploadNewPhotoActive = false;
                 this.tempPhoto = null;
             });
@@ -58,7 +62,6 @@ class ProfileController {
         this.tempPhoto = null;
     }
 
-
     updateProfile(isValidForm: boolean) {
         this.submitted = true;
 
@@ -70,12 +73,48 @@ class ProfileController {
 
         this.ProfileFactory.updateProfile(this.user).then(
             () => {
+                this.$rootScope.authUser.firstName = this.user.firstName;
+                this.$rootScope.authUser.lastName = this.user.lastName;
+                this.$rootScope.authUser.image = this.user.image;
+
+                this.AuthService.setAuthUser(this.$rootScope.authUser);
+
                 this.$uibModalInstance.close();
             },
             () => {
                 this.sendingData = false;
             }
         );
+    }
+
+    changePassword(passwordForm: ng.IFormController) {
+        if (passwordForm.$valid) {
+            this.ProfileFactory.changePassword(this.password).then(() => {
+                passwordForm.$setPristine();
+                passwordForm.$setUntouched();
+
+                this.$timeout(() => { this.password = {}; });
+
+                this.toastr.success(this.$translate.instant('profile.messages.passwordSuccessfullyChanged'));
+            }, (response: any) => {
+                this.toastr.error(response.data.message);
+
+                this.validateErrorResponse(response.data);
+            });
+        }
+    }
+
+    validateErrorResponse(error: any) {
+        this.errors = {};
+
+        if (error.modelState) {
+            angular.forEach(error.modelState, (value: string, key: string) => {
+                key = key.replace('model.', '');
+                key = key.charAt(0).toLowerCase() + key.slice(1);
+
+                this.errors[key] = value;
+            }, this);
+        }
     }
 }
 

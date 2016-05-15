@@ -3,7 +3,6 @@ class GoogleMapsApiFactory {
 
     constructor(
         private $http: ng.IHttpService,
-        private $log: ng.ILogService,
         private $q: ng.IQService,
         private CONSTANTS: any
     ) {}
@@ -27,11 +26,10 @@ class GoogleMapsApiFactory {
 /** @ngInject */
 function getInstanceGoogleMapsApiFactory(
     $http: ng.IHttpService,
-    $log: ng.ILogService,
     $q: ng.IQService,
     CONSTANTS: any
 ) {
-    return new GoogleMapsApiFactory($http, $log, $q, CONSTANTS);
+    return new GoogleMapsApiFactory($http, $q, CONSTANTS);
 }
 
 export {GoogleMapsApiFactory, getInstanceGoogleMapsApiFactory}

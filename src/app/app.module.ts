@@ -16,6 +16,7 @@ import NavigationModule from './navigation/navigation.module';
 import VeteranModule from './veteran/veteran.module';
 import ProfileModule from './profile/profile.module';
 import ArticleModule from './article/article.module';
+import AlbumModule from './album/album.module';
 
 angular
     .module('ourmemory', [
@@ -30,7 +31,8 @@ angular
         NavigationModule.name,
         VeteranModule.name,
         ProfileModule.name,
-        ArticleModule.name
+        ArticleModule.name,
+        AlbumModule.name
     ])
     .constant('CONSTANTS', AppConstants)
     .run(appRun);

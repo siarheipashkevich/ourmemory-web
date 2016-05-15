@@ -5,6 +5,7 @@ export default {
             menu: {
                 veteran: 'Ветераны',
                 article: 'Статьи',
+                album: 'Фотоальбомы',
                 login: 'Вход',
                 register: 'Регистрация',
                 language: 'Язык'
@@ -106,7 +107,35 @@ export default {
         },
         title: 'Последние статьи',
         btn: {
-            addArticle: 'Добавить статью'
+            addArticle: 'Добавить статью',
+            readMore: 'Читать далее'
+        }
+    },
+    album: {
+        modal: {
+            title: {
+                add: 'Добавление нового альбома',
+                edit: 'Редактирование данных о альбоме'
+            },
+            form: {
+                title: {
+                    label: 'Название альбома',
+                    placeholder: 'Название альбома'
+                },
+                description: {
+                    label: 'Краткое описание',
+                    placeholder: 'Краткое описание'
+                }
+            },
+            btn: {
+                add: 'Добавить',
+                edit: 'Редактировать',
+                addPhotos: 'Добавить фотографии'
+            }
+        },
+        title: 'Фотоальбомы',
+        btn: {
+            addAlbum: 'Добавить альбом'
         }
     },
     general: {
@@ -128,15 +157,28 @@ export default {
                     label: 'Фамилия',
                     placeholder: 'Фамилия'
                 },
-                middleName: {
-                    label: 'Отчество',
-                    placeholder: 'Отчество'
+                currentPassword: {
+                    label: 'Старый пароль',
+                    placeholder: 'Старый пароль'
+                },
+                newPassword: {
+                    label: 'Новый пароль',
+                    placeholder: 'Новый пароль'
+                },
+                confirmPassword: {
+                    label: 'Повторите пароль',
+                    placeholder: 'Повторите пароль'
                 }
             },
             btn: {
                 save: 'Сохранить',
-                crop: 'Вырезать'
+                crop: 'Вырезать',
+                changePassword: 'Изменить пароль',
+                changePhoto: 'Загрузить новую фотографию'
             }
+        },
+        messages: {
+            passwordSuccessfullyChanged: 'Ваш пароль успешно изменён.'
         }
     },
     components: {

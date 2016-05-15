@@ -17,9 +17,13 @@ class ProfileFactory {
     }
 
     updateProfile(profile: any): ng.IPromise<any> {
-        return this.$http.post(this.link + '/updateprofile', profile).then((response: any) => {
+        return this.$http.post(this.link + '/updateProfile', profile).then((response: any) => {
             return response.data;
         });
+    }
+
+    changePassword(password: any): ng.IPromise<any> {
+        return this.$http.post(this.link + '/changePassword', password);
     }
 }
 

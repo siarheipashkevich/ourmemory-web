@@ -7,6 +7,8 @@ export class CommentController {
     message: string;
     comments: Array<any>;
 
+    options: any;
+
     /** @ngInject */
     constructor(
         private $log: ng.ILogService,
@@ -17,13 +19,12 @@ export class CommentController {
         this.message = '';
         this.comments = [];
 
-        this.commentHub = new Hub('commentHub', {
+        let hubOptions: ngSignalr.HubOptions = {
             rootPath: CONSTANTS.URL + '/signalr',
-            logging: true,
+            logging: false,
             listeners: {
                 'getAllComments': (comments: any) => {
                     this.comments = comments;
-                    $log.warn(comments.length);
                     $rootScope.$apply();
                 },
                 'getComment': (comment: any) => {
@@ -45,6 +46,19 @@ export class CommentController {
                     $rootScope.$apply();
                 }
             },
+            stateChanged: (state: any) => {
+                let stateNames = {0: 'connecting', 1: 'connected', 2: 'reconnecting', 4: 'disconnected'};
+
+                if (stateNames[state.newState] === 'disconnected') {
+                    Object.getOwnPropertyNames(hubOptions.listeners)
+                        .filter((propName: string) => {
+                            return typeof hubOptions.listeners[propName] === 'function';
+                        })
+                        .forEach((propName: string) => {
+                            this.commentHub.proxy.off(propName, hubOptions.listeners[propName]);
+                        });
+                }
+            },
             queryParams: {
                 'token': localStorage.getItem('accessToken')
             },
@@ -52,9 +66,11 @@ export class CommentController {
             errorHandler: (error: any) => {
                 $log.error(error);
             }
-        });
+        };
 
-        this.commentHub.promise.then(() => {
+        this.commentHub = new Hub('commentHub', hubOptions);
+
+        this.commentHub.promise.done(() => {
             this.commentHub.joinRoom(this.entityId, this.entityType);
         });
     }

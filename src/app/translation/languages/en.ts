@@ -5,6 +5,7 @@ export default {
             menu: {
                 veteran: 'Veterans',
                 article: 'Articles',
+                album: 'Albums',
                 login: 'Sign in',
                 register: 'Sign up',
                 language: 'Language'
@@ -106,7 +107,35 @@ export default {
         },
         title: 'Latest articles',
         btn: {
-            addArticle: 'Add article'
+            addArticle: 'Add article',
+            readMore: 'Read more'
+        }
+    },
+    album: {
+        modal: {
+            title: {
+                add: 'Add a new album',
+                edit: 'Edit data on album'
+            },
+            form: {
+                title: {
+                    label: 'Title',
+                    placeholder: 'Title'
+                },
+                description: {
+                    label: 'Short description',
+                    placeholder: 'Short description'
+                }
+            },
+            btn: {
+                add: 'Add',
+                edit: 'Edit',
+                addPhotos: 'Add photos'
+            }
+        },
+        title: 'Albums',
+        btn: {
+            addAlbum: 'Add album'
         }
     },
     profile: {
@@ -140,6 +169,9 @@ export default {
                 changePassword: 'Change password',
                 changePhoto: 'Upload a new photo'
             }
+        },
+        messages: {
+            passwordSuccessfullyChanged: 'Your password has been changed successfully'
         }
     },
     general: {

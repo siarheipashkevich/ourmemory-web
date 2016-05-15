@@ -1,0 +1,42 @@
+<div class="album-container container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="page-header clearfix">
+                <div class="pull-left">
+                    <h3>
+                        {{'album.title' | translate}}
+                    </h3>
+                </div>
+                <div class="pull-right">
+                    <a href="javascript:void(0);" class="btn btn-gray" ng-click="vm.addAlbum()">
+                        {{'album.btn.addAlbum' | translate}}
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-4 col-xs-6" ng-repeat="item in [1,2,3,4,5,6,7,8,9]">
+            <a ui-sref="main.albums.detail({id: 1})" class="propWidget-1">
+                <div class="fig">
+                    <img ng-src="{{$even ? 'assets/images/1013738603.jpg' : 'assets/images/1345453844_01.jpg'}}" alt="image">
+                    <div class="priceCap">
+                            <span>
+                                <i class="fa fa-user"></i>&nbsp;Siarhei Pashkevich
+                                &nbsp;&nbsp;
+                                <i class="fa fa-picture-o"></i>&nbsp;47
+                                &nbsp;&nbsp;
+                                <i class="fa fa-eye"></i>&nbsp;12
+                            </span>
+                    </div>
+                    <div class="figCap">
+                        <h3>Modern Residence in New York Modern Residence in New York</h3>
+                        <div class="address">
+                            39 Remsen St, Brooklyn, NY 11201,39 Remsen St, Brooklyn, NY 11201,39 Remsen St, Brooklyn, NY 11201,39 Remsen St, Brooklyn, NY 11201,
+                            39 Remsen St, Brooklyn, NY 11201,39 Remsen St, Brooklyn, NY 11201,39 Remsen St, Brooklyn, NY 11201,39 Remsen St, Brooklyn, NY 11201
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

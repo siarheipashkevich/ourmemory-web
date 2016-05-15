@@ -5,10 +5,16 @@ class ArticleController {
     constructor(
         private $uibModal: any,
         private $log: ng.ILogService,
+        private $rootScope: ng.IRootScopeService,
+        private $document: any,
         public articleList: ArticleListModel
     ) {
         angular.element('body').addClass('no-hidden no-touch');
         angular.element('body').removeClass('notransition');
+
+        $rootScope.$on('$stateChangeSuccess', () => {
+            $document[0].body.scrollTop = $document[0].documentElement.scrollTop = 0;
+        });
     }
 
     addArticle() {

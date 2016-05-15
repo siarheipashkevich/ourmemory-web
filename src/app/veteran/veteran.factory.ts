@@ -30,7 +30,7 @@ class VeteranFactory {
                 return new VeteranListModel(response.data.items, response.data.totalCount);
             });
         } else {
-            return this.$q((resolve: any, reject: any) => {
+            return this.$q((resolve: any) => {
                 let veterans = angular.copy(veteransFixture);
                 veterans.length = params.size;
 
