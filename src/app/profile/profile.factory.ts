@@ -1,14 +1,6 @@
 class ProfileFactory {
     private link: string;
 
-    /** @ngInject */
-    static getInstance(
-        $http: ng.IHttpService,
-        CONSTANTS: any
-    ) {
-        return new ProfileFactory($http, CONSTANTS);
-    }
-
     constructor(
         private $http: ng.IHttpService,
         private CONSTANTS: any
@@ -27,4 +19,12 @@ class ProfileFactory {
     }
 }
 
-export {ProfileFactory}
+/** @ngInject */
+function getInstanceProfileFactory(
+    $http: ng.IHttpService,
+    CONSTANTS: any
+) {
+    return new ProfileFactory($http, CONSTANTS);
+}
+
+export {ProfileFactory, getInstanceProfileFactory}

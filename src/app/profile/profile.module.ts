@@ -1,7 +1,7 @@
 import {ProfileController} from './profile.controller';
-import {ProfileFactory} from './profile.factory';
+import {getInstanceProfileFactory} from './profile.factory';
 
 export default angular
     .module('app.profile', [])
-    .controller('ProfileController', ProfileController)
-    .factory('ProfileFactory', ProfileFactory.getInstance);
+    .factory('ProfileFactory', getInstanceProfileFactory)
+    .controller('ProfileController', ProfileController);

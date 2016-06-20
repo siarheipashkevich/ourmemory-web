@@ -15,8 +15,8 @@ gulp.task('partials', function () {
   ])
     .pipe($.replace('assets/images/', 'images/'))
     .pipe($.htmlmin({
-      // removeEmptyAttributes: true,
-      // removeAttributeQuotes: true,
+      removeEmptyAttributes: true,
+      removeAttributeQuotes: true,
       collapseBooleanAttributes: true,
       collapseWhitespace: true
     }))
@@ -64,8 +64,8 @@ gulp.task('html', ['inject', 'partials'], function () {
     .pipe(htmlFilter)
     .pipe($.replace('assets/images/', 'images/'))
     .pipe($.htmlmin({
-      // removeEmptyAttributes: true,
-      // removeAttributeQuotes: true,
+      removeEmptyAttributes: true,
+      removeAttributeQuotes: true,
       collapseBooleanAttributes: true,
       collapseWhitespace: true
     }))

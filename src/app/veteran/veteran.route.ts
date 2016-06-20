@@ -1,10 +1,7 @@
 import {VeteranFactory} from './veteran.factory';
 
 /** @ngInject */
-function veteranRoute(
-    $stateProvider: ng.ui.IStateProvider,
-    AUTH_ROLES: any
-) {
+function veteranRoute($stateProvider: ng.ui.IStateProvider, AUTH_ROLES: any) {
     $stateProvider
         .state('main.veterans', {
             url: 'veterans',
@@ -45,6 +42,4 @@ function veteranRoute(
         });
 }
 
-export {
-    veteranRoute
-}
+export {veteranRoute}

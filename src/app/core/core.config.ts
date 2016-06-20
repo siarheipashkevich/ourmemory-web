@@ -2,8 +2,11 @@
 function coreConfig(
     $urlRouterProvider: ng.ui.IUrlRouterProvider,
     $httpProvider: ng.IHttpProvider,
-    $provide: ng.auto.IProvideService
+    $provide: ng.auto.IProvideService,
+    $compileProvider: ng.ICompileProvider
 ) {
+    $compileProvider.debugInfoEnabled(false);
+
     $urlRouterProvider.otherwise('/');
 
     $httpProvider.interceptors.push('AuthInterceptor');

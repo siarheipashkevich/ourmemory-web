@@ -3,14 +3,6 @@ import {AlbumModel, AlbumListModel} from './models/album.model';
 class AlbumFactory {
     private link: string;
 
-    /** @ngInject */
-    static getInstance(
-        $http: ng.IHttpService,
-        CONSTANTS: any
-    ) {
-        return new AlbumFactory($http, CONSTANTS);
-    }
-
     constructor(
         private $http: ng.IHttpService,
         private CONSTANTS: any
@@ -49,4 +41,12 @@ class AlbumFactory {
     }
 }
 
-export {AlbumFactory}
+/** @ngInject */
+function getInstanceAlbumFactory(
+    $http: ng.IHttpService,
+    CONSTANTS: any
+) {
+    return new AlbumFactory($http, CONSTANTS);
+}
+
+export {AlbumFactory, getInstanceAlbumFactory}

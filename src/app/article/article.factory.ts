@@ -4,15 +4,6 @@ import {ArticleModel, ArticleListModel} from './models/article.model';
 class ArticleFactory {
     private link: string;
 
-    /** @ngInject */
-    static getInstance(
-        $http: ng.IHttpService,
-        $q: ng.IQService,
-        CONSTANTS: any
-    ) {
-        return new ArticleFactory($http, $q, CONSTANTS);
-    }
-
     constructor(
         private $http: ng.IHttpService,
         private $q: ng.IQService,
@@ -64,4 +55,13 @@ class ArticleFactory {
     }
 }
 
-export {ArticleFactory}
+/** @ngInject */
+function getInstanceArticleFactory(
+    $http: ng.IHttpService,
+    $q: ng.IQService,
+    CONSTANTS: any
+) {
+    return new ArticleFactory($http, $q, CONSTANTS);
+}
+
+export {ArticleFactory, getInstanceArticleFactory}

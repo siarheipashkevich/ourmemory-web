@@ -22,7 +22,7 @@
                     <span class="icon-clock"></span> {{comment.createdDateTime | amDateFormat:'D MMMM YYYY h:mm'}}
                 </div>
                 <ul>
-                    <li ng-if="vm.authUser.id === comment.user.id">
+                    <li ng-if="vm.authUser.id === comment.user.id || vm.authUser.role === 'Admin'">
                         <a href="javascript:void(0);" ng-click="vm.removeComment(comment.id)">
                             <span class="fa fa-trash-o"></span>
                         </a>

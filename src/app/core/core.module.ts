@@ -16,6 +16,5 @@ export default angular
         'SignalR',
         'froala',
         'ngImgCrop'
-
     ])
     .config(coreConfig);

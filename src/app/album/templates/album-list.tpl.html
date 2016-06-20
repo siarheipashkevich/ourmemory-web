@@ -8,7 +8,7 @@
                     </h3>
                 </div>
                 <div class="pull-right">
-                    <a href="javascript:void(0);" class="btn btn-gray" ng-click="vm.saveAlbum()">
+                    <a href="javascript:void(0);" class="btn btn-gray" ng-click="vm.saveAlbum()" ng-if="authUser">
                         {{'album.btn.addAlbum' | translate}}
                     </a>
                 </div>
