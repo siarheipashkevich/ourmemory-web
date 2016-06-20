@@ -34,7 +34,7 @@
                 <i class="fa fa-plus"></i>&nbsp;&nbsp;{{'veteran.btn.addVeteran' | translate}}
             </a>
 
-            <a href="javascript:void(0);" class="btn btn-green createVeteran" ng-if="authUser">
+            <a href="javascript:void(0);" class="btn btn-green createVeteran" ng-if="authUser" ng-click="vm.exportVeterans()">
                 <i class="fa fa-arrow-up"></i>&nbsp;&nbsp;{{'veteran.btn.exportVeterans' | translate}}
             </a>
 
@@ -189,16 +189,12 @@
                         <div class="figure">
                             <img ng-src="{{veteran.images.length && veteran.images[0].imageOriginal || defaultVeteranImage}}" alt="image">
                             <div class="figCaption">
-                                <!--ng-if="authUser.role === 'Admin' || authUser.userId === veteran.userId"-->
-
                                 <span class="glyphicon glyphicon-pencil pull-left"
-                                      ng-click="vm.editVeteran($event, veteran)"></span>
-
-                                <!--ng-if="authUser.role === 'Admin' || authUser.userId === veteran.userId"-->
-
+                                      ng-click="vm.editVeteran($event, veteran)"
+                                      ng-if="authUser.id === veteran.userId || authUser.role === 'Admin'"></span>
                                 <span class="glyphicon glyphicon-trash pull-left"
-                                      ng-click="vm.deleteVeteran($event, veteran.id)"></span>
-
+                                      ng-click="vm.deleteVeteran($event, veteran.id)"
+                                      ng-if="authUser.id === veteran.userId || authUser.role === 'Admin'"></span>
                                 <span class="icon-eye">&nbsp;{{veteran.views}}</span>
                                 <span class="glyphicon glyphicon-map-marker"
                                       ng-click="$event.stopPropagation(); vm.gMap.window.showWindow(veteran);">&nbsp;</span>
@@ -210,9 +206,6 @@
                     </div>
 
                 </div>
-            </div>
-            <div class="pull-right search_prop_calc">
-                {{vm.currentPage}} - {{vm.maxItemsToPage}} of {{vm.totalCount}} Properties found
             </div>
             <uib-pagination class="pagination-sm"
                             total-items="vm.totalCount"

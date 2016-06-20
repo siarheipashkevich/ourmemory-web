@@ -56,6 +56,12 @@ class VeteranFactory {
     deleteVeteran(id: number) {
         return this.$http.delete(this.link + `/${id}`);
     }
+
+    exportVeterans(params: any) {
+        return this.$http.get(this.CONSTANTS.API_URL + 'files', {params}).then((response: any) => {
+            return response.data;
+        });
+    }
 }
 
 /** @ngInject */

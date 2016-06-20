@@ -61,7 +61,7 @@ class VeteranService implements IVeteranService {
                 options: {
                     floor: 1900,
                     ceil: 2016,
-                    disabled: false,
+                    disabled: true,
                     translate: (value: string): string => value + 'г'
                 }
             },

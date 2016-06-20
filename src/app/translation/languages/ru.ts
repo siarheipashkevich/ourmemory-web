@@ -108,7 +108,9 @@ export default {
         title: 'Последние статьи',
         btn: {
             addArticle: 'Добавить статью',
-            readMore: 'Читать далее'
+            readMore: 'Читать далее',
+            edit: 'Редактировать',
+            remove: 'Удалить'
         }
     },
     album: {
@@ -188,6 +190,13 @@ export default {
             btn: {
                 send: 'Отправить'
             }
+        }
+    },
+    confirm: {
+        message: 'Вы действительно хотите удалить запись?',
+        btn: {
+            ok: 'Да',
+            cancel: 'Нет'
         }
     }
 }

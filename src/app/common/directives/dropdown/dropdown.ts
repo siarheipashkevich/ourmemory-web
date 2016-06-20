@@ -21,11 +21,13 @@ function dropdown(): ng.IDirective {
                 }
             };
 
-            scope.isSelected = (item: any) => item[scope.property] === scope.selected[scope.property];
+            scope.isSelected = (item: any) => {
+                return scope.selected && item[scope.property] === scope.selected[scope.property];
+            };
 
             scope.$watch('selected', () => {
-                scope.isPlaceholder = scope.selected[scope.property] === undefined;
-                scope.display = scope.selected[scope.property];
+                scope.isPlaceholder = scope.selected && scope.selected[scope.property] === undefined;
+                scope.display = scope.selected && scope.selected[scope.property];
             });
         }
     };

@@ -22,7 +22,8 @@
     "angular-froala": "^2.2.4",
     "angular-translate-interpolation-messageformat": "^2.11.0",
     "ng-img-crop": "ngImgCrop#^0.3.2",
-    "angular-masonry": "^0.16.0"
+    "angular-masonry": "^0.16.0",
+    "ngGallery": "*"
   },
   "devDependencies": {
     "angular-mocks": "~1.5.3"

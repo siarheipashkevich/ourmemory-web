@@ -1,8 +1,8 @@
 <div class="modal-body text-center">
-    <h5 class="text-muted">{{params.message}}</h5>
+    <h5 class="text-muted">{{params.message | translate}}</h5>
 </div>
 
 <div class="modal-footer">
-    <div class="btn btn-sm btn-blue" ng-click="$close()">{{params.btn.ok}}</div>
-    <div class="btn btn-sm btn-danger" ng-click="$dismiss()">{{params.btn.cancel}}</div>
+    <div class="btn btn-sm btn-blue" ng-click="$close()">{{params.btn.ok | translate}}</div>
+    <div class="btn btn-sm btn-danger" ng-click="$dismiss()">{{params.btn.cancel | translate}}</div>
 </div>

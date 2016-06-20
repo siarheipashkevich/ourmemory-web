@@ -28,6 +28,12 @@ function albumRoute($stateProvider: ng.ui.IStateProvider, AUTH_ROLES: any) {
             templateUrl: 'app/album/templates/album-detail.tpl.html',
             controller: 'AlbumDetailController',
             controllerAs: 'vm',
+            resolve: {
+                /** @ngInject */
+                album: ($stateParams: any, AlbumFactory: AlbumFactory) => {
+                    return AlbumFactory.getAlbum($stateParams.id);
+                }
+            },
             data: {
                 allow: [AUTH_ROLES.all]
             }

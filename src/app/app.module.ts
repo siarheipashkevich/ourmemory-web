@@ -28,9 +28,9 @@ angular
         ComponentsModule.name,
         UserModule.name,
         HomeModule.name,
+        ProfileModule.name,
         NavigationModule.name,
         VeteranModule.name,
-        ProfileModule.name,
         ArticleModule.name,
         AlbumModule.name
     ])

@@ -90,10 +90,10 @@ class VeteranController {
         $event.stopPropagation();
 
         this.ConfirmDialog.confirm({
-            message: 'Вы действительно хотите удалить ветерана?',
+            message: 'confirm.message',
             btn: {
-                ok: 'Да',
-                cancel: 'Нет'
+                ok: 'confirm.btn.ok',
+                cancel: 'confirm.btn.cancel'
             }
         }).then(() => {
             var params = {
@@ -140,6 +140,14 @@ class VeteranController {
         this.getVeteransData(this.search);
     }
 
+    exportVeterans() {
+        let params = this.VeteranService.prepareSearchParams(this.search, true);
+
+        this.VeteranFactory.exportVeterans(params).then((response: any) => {
+            window.open(response.pathToFile);
+        });
+    }
+
     applyFilter() {
         this.getVeteransData(this.search);
     }
@@ -149,7 +157,10 @@ class VeteranController {
         this.currentPage = 1;
 
         this.search = Object.assign({}, this.search, {
-            page: 1
+            page: 1,
+            firstName: '',
+            lastName: '',
+            middleName: ''
         });
 
         this.getVeteransData(this.search);

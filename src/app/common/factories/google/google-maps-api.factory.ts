@@ -10,7 +10,8 @@ class GoogleMapsApiFactory {
     geocode(params: any) {
         angular.extend(params, {
             key: this.CONSTANTS.GOOGLE_API_KEY,
-            result_type: 'street_address|locality|sublocality|political|country'
+            result_type: 'street_address|locality|sublocality|political|country',
+            map: true
         });
 
         return this.$http.get(this.link + 'geocode/json', {params}).then((response: any) => {

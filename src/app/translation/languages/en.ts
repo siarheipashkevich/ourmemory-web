@@ -108,7 +108,9 @@ export default {
         title: 'Latest articles',
         btn: {
             addArticle: 'Add article',
-            readMore: 'Read more'
+            readMore: 'Read more',
+            edit: 'Edit',
+            remove: 'Delete'
         }
     },
     album: {
@@ -188,6 +190,13 @@ export default {
             btn: {
                 send: 'Post'
             }
+        }
+    },
+    confirm: {
+        message: 'Are you sure you want to delete the entry?',
+        btn: {
+            ok: 'Yes',
+            cancel: 'No'
         }
     }
 }

@@ -4,7 +4,6 @@ import {UploadFactory} from './../../common/factories/upload/upload.factory';
 import {ITranslationService} from './../../translation/translation.provider';
 
 class ArticleSaveController {
-    article: ArticleModel;
     title: string;
     btnSaveText: string;
     submitted: boolean;
@@ -19,12 +18,20 @@ class ArticleSaveController {
         private $log: ng.ILogService,
         private UploadFactory: UploadFactory,
         private ArticleFactory: ArticleFactory,
-        private TranslationService: ITranslationService
+        private TranslationService: ITranslationService,
+        private article: ArticleModel
     ) {
-        this.article = new ArticleModel();
+        console.log(article);
 
-        this.title = $translate.instant('article.modal.title.add');
-        this.btnSaveText = $translate.instant('article.modal.btn.add');
+        if (!article) {
+            this.article = new ArticleModel();
+
+            this.title = $translate.instant('article.modal.title.add');
+            this.btnSaveText = $translate.instant('article.modal.btn.add');
+        } else {
+            this.title = $translate.instant('article.modal.title.edit');
+            this.btnSaveText = $translate.instant('article.modal.btn.edit');
+        }
 
         this.froalaOptions = {
             language: TranslationService.getLanguageKey(),

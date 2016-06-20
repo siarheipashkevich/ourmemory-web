@@ -8,31 +8,37 @@
                     </h3>
                 </div>
                 <div class="pull-right">
-                    <a href="javascript:void(0);" class="btn btn-gray" ng-click="vm.addAlbum()">
+                    <a href="javascript:void(0);" class="btn btn-gray" ng-click="vm.saveAlbum()">
                         {{'album.btn.addAlbum' | translate}}
                     </a>
                 </div>
             </div>
         </div>
 
-        <div class="col-lg-4 col-md-4 col-xs-6" ng-repeat="item in [1,2,3,4,5,6,7,8,9]">
-            <a ui-sref="main.albums.detail({id: 1})" class="propWidget-1">
+        <div class="col-lg-4 col-md-4 col-xs-6" ng-repeat="album in vm.albumList.albums">
+            <a ui-sref="main.albums.detail({id: album.id})" class="propWidget-1">
                 <div class="fig">
-                    <img ng-src="{{$even ? 'assets/images/1013738603.jpg' : 'assets/images/1345453844_01.jpg'}}" alt="image">
+                    <img ng-src="{{::album.image}}" alt="image">
                     <div class="priceCap">
                             <span>
-                                <i class="fa fa-user"></i>&nbsp;Siarhei Pashkevich
+                                <i class="fa fa-user"></i>&nbsp;
+                                {{album.user.firstName && album.user.lastName ? album.user.firstName + ' ' + album.user.lastName : album.user.username}}
                                 &nbsp;&nbsp;
-                                <i class="fa fa-picture-o"></i>&nbsp;47
+                                <i class="fa fa-picture-o"></i>&nbsp;{{::album.countPhoto}}
                                 &nbsp;&nbsp;
-                                <i class="fa fa-eye"></i>&nbsp;12
+                                <i class="fa fa-eye"></i>&nbsp;{{::album.views}}
+                                <i class="fa fa-trash pull-right"
+                                   ng-click="vm.deleteAlbum($event, album.id, $index)"
+                                   ng-if="authUser.id === album.user.id || authUser.role === 'Admin'"></i>
+                                <i class="fa fa-pencil pull-right"
+                                   ng-click="vm.editAlbum($event, album)"
+                                   ng-if="authUser.id === album.user.id || authUser.role === 'Admin'"></i>
                             </span>
                     </div>
                     <div class="figCap">
-                        <h3>Modern Residence in New York Modern Residence in New York</h3>
+                        <h3>{{::album.title}}</h3>
                         <div class="address">
-                            39 Remsen St, Brooklyn, NY 11201,39 Remsen St, Brooklyn, NY 11201,39 Remsen St, Brooklyn, NY 11201,39 Remsen St, Brooklyn, NY 11201,
-                            39 Remsen St, Brooklyn, NY 11201,39 Remsen St, Brooklyn, NY 11201,39 Remsen St, Brooklyn, NY 11201,39 Remsen St, Brooklyn, NY 11201
+                            {{::album.description}}
                         </div>
                     </div>
                 </div>

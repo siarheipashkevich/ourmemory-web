@@ -1,5 +1,5 @@
 class AppConstants {
-    static URL: string = 'http://192.168.1.4:8080';
+    static URL: string = 'http://192.168.1.3:8080';
     static API_URL: string = AppConstants.URL + '/api/';
     static GOOGLE_API_KEY = 'AIzaSyBj_8irNCw58V9JCHQTanfWZUVCU0r2flY';
 

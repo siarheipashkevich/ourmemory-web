@@ -5,7 +5,7 @@ import {AlbumSaveController} from './controllers/album-save.controller';
 import {AlbumFactory} from './album.factory';
 
 export default angular
-    .module('app.album', [])
+    .module('app.album', ['jkuri.gallery'])
     .config(albumRoute)
     .controller('AlbumListController', AlbumListController)
     .controller('AlbumDetailController', AlbumDetailController)

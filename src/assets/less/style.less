@@ -314,6 +314,18 @@ a.navHandler {
             }
         }
     }
+
+    &.album {
+        img {
+            &.image {
+                cursor: pointer;
+            }
+
+            &.selected {
+                opacity: .5;
+            }
+        }
+    }
 }
 
 .createVeteran {
@@ -480,7 +492,6 @@ a.navHandler {
     }
 }
 
-
 .album-container {
     .page-header {
         margin-top: 20px;
@@ -491,4 +502,8 @@ a.navHandler {
             }
         }
     }
+}
+
+.ng-gallery-content > img {
+    top: 44%;
 }

@@ -21,7 +21,7 @@ export class CommentController {
 
         let hubOptions: ngSignalr.HubOptions = {
             rootPath: CONSTANTS.URL + '/signalr',
-            logging: false,
+            logging: true,
             listeners: {
                 'getAllComments': (comments: any) => {
                     this.comments = comments;

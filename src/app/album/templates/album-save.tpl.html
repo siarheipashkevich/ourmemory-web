@@ -24,7 +24,9 @@
                            required
                            ng-model="vm.album.title">
                     <div ng-messages="vm.albumForm.title.$error" ng-if="vm.submitted">
-                        <p class="help-block" ng-message="required">{{::'general.form.errors.required' | translate}}</p>
+                        <p class="help-block" ng-message="required">
+                            {{::'general.form.errors.required' | translate}}
+                        </p>
                     </div>
                 </div>
             </div>
@@ -43,7 +45,39 @@
                               required
                               ng-model="vm.album.description"></textarea>
                     <div ng-messages="vm.albumForm.description.$error" ng-if="vm.submitted">
-                        <p class="help-block" ng-message="required">{{::'general.form.errors.required' | translate}}</p>
+                        <p class="help-block" ng-message="required">
+                            {{::'general.form.errors.required' | translate}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <a class="btn btn-green"
+                       accept="image/*"
+                       ngf-select="vm.uploadImages($files)"
+                       ngf-multiple="true"
+                       ngf-pattern="'image/*'">
+                        <i class="fa" ng-class="vm.uploadImage ? 'fa-spinner fa-spin' : 'fa-picture-o'"></i>&nbsp;&nbsp;
+                        {{::'veteran.modal.btn.addPhotos' | translate}}
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="imageList album">
+                            <div class="uploadedImages" ng-repeat="image in vm.album.images track by $index">
+                                <img class="img-responsive image"
+                                     ng-click="vm.markMainImage($index)"
+                                     ng-class="{'selected': image.selected}"
+                                     ng-src="{{image.thumbnailImage}}">
+
+                                <div class="deleteImage" ng-click="vm.deleteImage($index)">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
